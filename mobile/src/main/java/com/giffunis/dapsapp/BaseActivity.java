@@ -47,12 +47,12 @@ public class BaseActivity extends AppCompatActivity {
                         if (drawerItem != null) {
                             Intent intent = null;
                             switch ((int) drawerItem.getIdentifier()) {
-                                case 1:
-                                    Toast.makeText(getApplicationContext(), "Inicio", Toast.LENGTH_SHORT).show();
-                                    break;
                                 case 2:
-                                    Toast.makeText(getApplicationContext(), "Tests", Toast.LENGTH_SHORT).show();
+                                    intent = new Intent(BaseActivity.this, QuizesActivity.class);
                                     break;
+                            }
+                            if (intent != null) {
+                                BaseActivity.this.startActivity(intent);
                             }
                         }
                         return false;
