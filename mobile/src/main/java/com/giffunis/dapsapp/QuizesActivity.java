@@ -1,6 +1,7 @@
 package com.giffunis.dapsapp;
 
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -46,27 +47,29 @@ public class QuizesActivity extends AppCompatActivity {
         quizesList = SugarRecord.listAll(Quizes.class);
     }
 
-    private void loadListFragment(){
+    private void changeFragment(Fragment fragment){
         //Paso 1: Obtener la instancia del administrador de fragmentos
         FragmentManager fragmentManager = getSupportFragmentManager();
         //Paso 2: Crear una nueva transacción
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.content_frame,fragment);
+        //Paso 4: Confirmar el cambio
+        transaction.commit();
+    }
+
+    private void loadListFragment(){
+
         //Paso 3: Crear un nuevo fragmento y añadirlo
         QuizesListFragment fragment = new QuizesListFragment();
-
-
         //Asignar datos
         Bundle bundle = new Bundle();
         ArrayList<String> lista = new ArrayList<>();
         for(int i = 0; i < quizesList.size(); i++){
             lista.add(quizesList.get(i).getTestName());
         }
-        bundle.putStringArrayList("lista",lista);
+        bundle.putStringArrayList("lista", lista);
         fragment.setArguments(bundle);
-
-        transaction.add(R.id.content_frame,fragment);
-        //Paso 4: Confirmar el cambio
-        transaction.commit();
+        changeFragment(fragment);
     }
 
     /*public void listLoad(){
