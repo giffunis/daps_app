@@ -1,0 +1,47 @@
+[
+  {
+    "questionId": 1,
+    "questionType": "Memoria",
+    "phrase": "¿Qué sonido hace el perro?",
+    "answerType": "singleChoise",
+    "nAnswer": 4,
+    "correctAnswersId": [1],
+    "answers": [
+      {
+        "answerId": 1,
+        "type": "String",
+        "body": "Ladrido"
+      },
+      {
+        "answerId": 2,
+        "type": "String",
+        "body": "Zumbido"
+      },
+      {
+        "answerId": 3,
+        "type": "String",
+        "body": "Roznido"
+      },
+      {
+        "answerId": 4,
+        "type": "String",
+        "body": "Rugido"
+      }
+    ]
+  },
+  {
+    "questionId": 2,
+    "questionType": "Memoria",
+    "phrase": "¿Cuántas patas tiene una araña?",
+    "answerType": "number",
+    "nAnswer": 1,
+    "correctAnswersId": [1],
+    "answers": [
+      {
+        "answerId": 1,
+        "type": "number",
+        "body": "8"
+      }
+    ]
+  }
+]
