@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import java.io.IOException;
+
+import MemoryTest.Quiz;
+
 public class QuizesActivity extends AppCompatActivity {
 
     Toolbar toolbar;
@@ -15,14 +19,22 @@ public class QuizesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quizes);
         initToolbar();
 
-        //set the back arrow in the toolbar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(false);
+        try {
+            Quiz quiz = new Quiz(getResources().openRawResource(R.raw.prueba));
+            System.out.println(quiz);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void initToolbar(){
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(this.toolbar);
+
+        //set the back arrow in the toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(false);
     }
 
     @Override
