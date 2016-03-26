@@ -8,14 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import com.orm.SugarRecord;
-
-import java.util.ArrayList;
-import java.util.List;
-import MemoryTest.QuizArrayAdapter;
 import MemoryTest.Quizes;
 import MemoryTest.QuizesListFragment;
 
@@ -84,7 +77,10 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
     }
 
     @Override
-    public void startQuizSelected(String id) {
-        System.out.println(id);
+    public void startQuizSelected(String testName) {
+        System.out.println(testName);
+
+        /*Aquí va el código para arrancar el test seleccionado
+        * Después ya veremos*/
     }
 }

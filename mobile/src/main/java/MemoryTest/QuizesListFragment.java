@@ -47,15 +47,12 @@ public class QuizesListFragment extends Fragment {
                 mCallback.startQuizSelected(quizesList.get(position).getTestName());
             }
         });
-
-
         return view;
-
     }
 
 
     public interface OnQuizesListSelectedListener{
-        public void startQuizSelected(String id);
+        public void startQuizSelected(String testName);
     }
 
 
