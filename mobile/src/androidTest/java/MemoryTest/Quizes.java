@@ -1,6 +1,8 @@
 package MemoryTest;
 
 import com.orm.SugarRecord;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -99,13 +101,13 @@ public class Quizes extends SugarRecord {
         * Else: openFileInput(name.file);
         */
 
-       /* try{
+        try{
             Quiz quiz = new Quiz(inputStream);
             System.out.println(quiz);
-            *//*quiz.initQuiz();*//*
+            quiz.initQuiz();
         } catch (IOException e){
             e.printStackTrace();
-        }*/
+        }
     }
 
     @Override
