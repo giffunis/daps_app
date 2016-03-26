@@ -19,7 +19,7 @@ import MemoryTest.QuizArrayAdapter;
 import MemoryTest.Quizes;
 import MemoryTest.QuizesListFragment;
 
-public class QuizesActivity extends AppCompatActivity {
+public class QuizesActivity extends AppCompatActivity implements QuizesListFragment.OnQuizesListSelectedListener{
 
     Toolbar toolbar;
     List<Quizes> quizesList;
@@ -116,5 +116,10 @@ public class QuizesActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void startQuizSelected(String id) {
+        System.out.println(id);
     }
 }
