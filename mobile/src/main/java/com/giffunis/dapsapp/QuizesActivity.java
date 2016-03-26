@@ -81,6 +81,8 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
         System.out.println(testName);
 
         /*Aquí va el código para arrancar el test seleccionado
-        * Después ya veremos*/
+        * Hay que mirar como cerrar ese fragment y arrancar la función que controla
+        * el test.
+        * */
     }
 }
