@@ -1,5 +1,8 @@
 package com.giffunis.dapsapp;
 
+
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,19 +10,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.orm.SugarRecord;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-
-import MemoryTest.Quiz;
 import MemoryTest.QuizArrayAdapter;
 import MemoryTest.Quizes;
+import MemoryTest.QuizesListFragment;
 
 public class QuizesActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+    List<Quizes> quizesList;
     ListView listView;
     List<String> quizes;
     QuizArrayAdapter quizAdapter;
@@ -29,16 +31,45 @@ public class QuizesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizes);
         initToolbar();
-        listLoad();
+        updateBD();
+        loadListFragment();
 
     }
 
-    public void listLoad(){
+    private void updateBD(){
         SugarRecord.deleteAll(Quizes.class);
         Quizes quiz = new Quizes("Ruta", "Test 1");
         quiz.save();
         Quizes quiz2 = new Quizes("Ruta2", "Test 2");
         quiz2.save();
+
+        quizesList = SugarRecord.listAll(Quizes.class);
+    }
+
+    private void loadListFragment(){
+        //Paso 1: Obtener la instancia del administrador de fragmentos
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        //Paso 2: Crear una nueva transacción
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        //Paso 3: Crear un nuevo fragmento y añadirlo
+        QuizesListFragment fragment = new QuizesListFragment();
+
+
+        //Asignar datos
+        Bundle bundle = new Bundle();
+        ArrayList<String> lista = new ArrayList<>();
+        for(int i = 0; i < quizesList.size(); i++){
+            lista.add(quizesList.get(i).getTestName());
+        }
+        bundle.putStringArrayList("lista",lista);
+        fragment.setArguments(bundle);
+
+        transaction.add(R.id.content_frame,fragment);
+        //Paso 4: Confirmar el cambio
+        transaction.commit();
+    }
+
+    /*public void listLoad(){
         List<Quizes> quizesList = SugarRecord.listAll(Quizes.class);
         this.listView = (ListView) findViewById(R.id.list_view);
         this.quizAdapter = new QuizArrayAdapter(getApplicationContext(),quizesList);
@@ -47,15 +78,15 @@ public class QuizesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Quizes selectedQuiz = (Quizes) quizAdapter.getItem(position);
-                /*try {
+                *//*try {
                     selectedQuiz.iniQuiz(getActivity().openFileInput(selectedQuiz.getTestName()));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                }*/
+                }*//*
                 selectedQuiz.iniQuiz(getResources().openRawResource(R.raw.prueba));
             }
         });
-    }
+    }*/
 
     private void initToolbar(){
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
