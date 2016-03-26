@@ -3,6 +3,7 @@
     package="com.giffunis.dapsapp">
 
     <application
+        android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,6 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".QuizesActivity"></activity>
+
+        <meta-data android:name="DATABASE" android:value="quizes.db" />
+        <meta-data android:name="VERSION" android:value="1" />
+
     </application>
 
 </manifest>
