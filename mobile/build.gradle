@@ -23,13 +23,14 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     wearApp project(':wear')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.google.android.gms:play-services:8.4.0'
 
     /* Other Libs */
 
     compile('com.mikepenz:materialdrawer:5.1.6@aar') {
         transitive = true
     }
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.google.android.gms:play-services:8.4.0'
     compile 'com.github.satyan:sugar:1.5'
+    compile 'com.android.support:support-v4:23.2.1'
 }
