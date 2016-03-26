@@ -22,7 +22,7 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
         setContentView(R.layout.activity_quizes);
         initToolbar();
         updateBD();
-        loadListFragment();
+        loadQuizesListFragment();
 
     }
 
@@ -44,7 +44,7 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
         transaction.commit();
     }
 
-    private void loadListFragment(){
+    private void loadQuizesListFragment(){
         QuizesListFragment fragment = new QuizesListFragment();
         changeFragment(fragment);
     }
