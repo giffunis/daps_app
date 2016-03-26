@@ -22,10 +22,6 @@ import MemoryTest.QuizesListFragment;
 public class QuizesActivity extends AppCompatActivity implements QuizesListFragment.OnQuizesListSelectedListener{
 
     Toolbar toolbar;
-    List<Quizes> quizesList;
-    ListView listView;
-    List<String> quizes;
-    QuizArrayAdapter quizAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +39,6 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
         quiz.save();
         Quizes quiz2 = new Quizes("Ruta2", "Test 2");
         quiz2.save();
-
-        quizesList = SugarRecord.listAll(Quizes.class);
     }
 
     private void changeFragment(Fragment fragment){
@@ -58,38 +52,9 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
     }
 
     private void loadListFragment(){
-
-        //Paso 3: Crear un nuevo fragmento y añadirlo
         QuizesListFragment fragment = new QuizesListFragment();
-        //Asignar datos
-        Bundle bundle = new Bundle();
-        ArrayList<String> lista = new ArrayList<>();
-        for(int i = 0; i < quizesList.size(); i++){
-            lista.add(quizesList.get(i).getTestName());
-        }
-        bundle.putStringArrayList("lista", lista);
-        fragment.setArguments(bundle);
         changeFragment(fragment);
     }
-
-    /*public void listLoad(){
-        List<Quizes> quizesList = SugarRecord.listAll(Quizes.class);
-        this.listView = (ListView) findViewById(R.id.list_view);
-        this.quizAdapter = new QuizArrayAdapter(getApplicationContext(),quizesList);
-        this.listView.setAdapter(this.quizAdapter);
-        this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Quizes selectedQuiz = (Quizes) quizAdapter.getItem(position);
-                *//*try {
-                    selectedQuiz.iniQuiz(getActivity().openFileInput(selectedQuiz.getTestName()));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }*//*
-                selectedQuiz.iniQuiz(getResources().openRawResource(R.raw.prueba));
-            }
-        });
-    }*/
 
     private void initToolbar(){
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);

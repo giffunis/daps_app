@@ -11,15 +11,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.giffunis.dapsapp.R;
+import com.orm.SugarRecord;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class QuizesListFragment extends Fragment {
 
     private ListView listView;
     private QuizArrayAdapter adapter;
-    private ArrayList<String> list;
+    List<Quizes> quizesList;
     OnQuizesListSelectedListener mCallback;
 
     public QuizesListFragment() {
@@ -32,15 +34,17 @@ public class QuizesListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.listview_layout, container, false);
 
-        list = getArguments().getStringArrayList("lista");
+        //Obtener los quizes
+        quizesList = SugarRecord.listAll(Quizes.class);
 
-        adapter = new QuizArrayAdapter(getContext(), list);
+
+        adapter = new QuizArrayAdapter(getContext(), quizesList);
         listView = (ListView) view.findViewById(R.id.list_view);
         listView.setAdapter(this.adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mCallback.startQuizSelected(list.get(position));
+                mCallback.startQuizSelected(quizesList.get(position).getTestName());
             }
         });
 

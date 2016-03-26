@@ -17,9 +17,9 @@ import java.util.List;
  * Created by drcaspa on 23/3/16.
  * email: giffunis@gmail.com
  */
-public class QuizArrayAdapter extends ArrayAdapter<String>{
+public class QuizArrayAdapter extends ArrayAdapter<Quizes>{
 
-    public QuizArrayAdapter(Context context, List<String> objects) {
+    public QuizArrayAdapter(Context context, List<Quizes> objects) {
         super(context, 0, objects);
     }
 
@@ -43,9 +43,9 @@ public class QuizArrayAdapter extends ArrayAdapter<String>{
         ImageView categoria = (ImageView)listItemView.findViewById(R.id.category);
 
         //Obteniendo instancia de la Tarea en la posición actual
-        String object = getItem(position);
+        Quizes object = getItem(position);
 
-        titulo.setText(object);
+        titulo.setText(object.getTestName());
         categoria.setImageResource(R.drawable.ic_tests);
 
         return listItemView;
