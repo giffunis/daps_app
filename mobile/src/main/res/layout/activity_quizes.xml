@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_layout"/>
+    <include layout="@layout/listview_layout" android:id="@+id/list_view"/>
 
 
 </LinearLayout>
