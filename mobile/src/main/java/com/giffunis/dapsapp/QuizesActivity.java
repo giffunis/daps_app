@@ -18,6 +18,7 @@ import MemoryTest.Question;
 import MemoryTest.Quiz;
 import MemoryTest.Quizes;
 import MemoryTest.QuizesListFragment;
+import MemoryTest.SingleChoiseFragment;
 
 public class QuizesActivity extends AppCompatActivity implements QuizesListFragment.OnQuizesListSelectedListener{
 
