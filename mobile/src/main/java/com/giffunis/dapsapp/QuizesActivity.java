@@ -50,7 +50,7 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
         //Paso 2: Crear una nueva transacción
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         // Paso 3: Reemplazar el fragment
-        transaction.replace(R.id.contentFragment, fragment);
+        transaction.replace(R.id.content_frame, fragment);
         //Paso 4: Confirmar el cambio
         transaction.commit();
     }
