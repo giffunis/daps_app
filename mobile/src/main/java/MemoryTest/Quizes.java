@@ -94,22 +94,6 @@ public class Quizes extends SugarRecord {
         return quizesList.get(quizesList.size() - 1).getQuizId() + 1;
     }
 
-    public void iniQuiz(InputStream inputStream) {
-
-        /*
-        * If is a local file that you pass when compile, you can pass inputStream with this: resources.openRawResource(R.raw.prueba)
-        * Else: openFileInput(name.file);
-        */
-
-        try{
-            Quiz quiz = new Quiz(inputStream);
-            System.out.println(quiz);
-            quiz.initQuiz();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public String toString() {
         return "\n{quizId: " + this.quizId + ", quizPath: " + this.quizPath + ", solvedQuizPath: " + this.solvedQuizPath + ", time: " + this.time + ", date: " + this.date + "}";
