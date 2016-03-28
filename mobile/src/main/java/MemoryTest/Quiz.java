@@ -158,10 +158,6 @@ public class Quiz {
         return new Answer(answerId,type,body);
     }
 
-    public void initQuiz(){
-
-    }
-
     @Override
     public String toString() {
         String part1 = "nQuestions: " + nQuestions;
