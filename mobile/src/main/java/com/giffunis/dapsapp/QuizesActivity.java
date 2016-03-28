@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import com.orm.SugarRecord;
+
+import java.io.IOException;
+
+import MemoryTest.Quiz;
 import MemoryTest.Quizes;
 import MemoryTest.QuizesListFragment;
 
@@ -39,7 +43,7 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
         FragmentManager fragmentManager = getSupportFragmentManager();
         //Paso 2: Crear una nueva transacción
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.content_frame,fragment);
+        transaction.add(R.id.content_frame, fragment);
         //Paso 4: Confirmar el cambio
         transaction.commit();
     }
@@ -107,7 +111,11 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
          * Se creará el objeto del siguiente modo:
          * Quiz quiz = new  Quiz(openFileInput(testName));
          */
-        Quiz quiz = new  Quiz(getResources().openRawResource(R.raw.prueba));
-        
+        try {
+            Quiz quiz = new  Quiz(getResources().openRawResource(R.raw.prueba));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
