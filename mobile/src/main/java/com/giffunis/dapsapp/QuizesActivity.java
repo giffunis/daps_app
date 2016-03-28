@@ -34,7 +34,7 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
         quiz2.save();
     }
 
-    private void changeFragment(Fragment fragment){
+    private void loadInitialFragment(Fragment fragment){
         //Paso 1: Obtener la instancia del administrador de fragmentos
         FragmentManager fragmentManager = getSupportFragmentManager();
         //Paso 2: Crear una nueva transacción
@@ -43,10 +43,32 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
         //Paso 4: Confirmar el cambio
         transaction.commit();
     }
+    
+    private void switchFragment(Fragment fragment){
+        //Paso 1: Obtener la instancia del administrador de fragmentos
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        //Paso 2: Crear una nueva transacción
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // Paso 3: Reemplazar el fragment
+        transaction.replace(R.id.contentFragment, fragment);
+        //Paso 4: Confirmar el cambio
+        transaction.commit();
+    }
+    
+    private void deleteFragment(){
+        //Paso 1: Obtener la instancia del administrador de fragmentos
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        //Paso 2: Crear una nueva transacción
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // Paso 3: Eliminar Fragment actual
+        transaction.remove(getSupportFragmentManager().findFragmentById(R.id.content_frame));
+        //Paso 4: Confirmar el cambio
+        transaction.commit();
+    }
 
     private void loadQuizesListFragment(){
         QuizesListFragment fragment = new QuizesListFragment();
-        changeFragment(fragment);
+        loadInitialFragment(fragment);
     }
 
     private void initToolbar(){
@@ -79,6 +101,9 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
     @Override
     public void startQuizSelected(String testName) {
         System.out.println(testName);
+        
+        
+        
 
         /*Aquí va el código para arrancar el test seleccionado
         * Hay que mirar como cerrar ese fragment y arrancar la función que controla
