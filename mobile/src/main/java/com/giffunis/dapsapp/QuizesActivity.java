@@ -11,7 +11,10 @@ import android.view.MenuItem;
 import com.orm.SugarRecord;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import MemoryTest.Answer;
+import MemoryTest.Question;
 import MemoryTest.Quiz;
 import MemoryTest.Quizes;
 import MemoryTest.QuizesListFragment;
@@ -113,7 +116,29 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
          */
         try {
             Quiz quiz = new  Quiz(getResources().openRawResource(R.raw.prueba));
-            System.out.println(quiz);
+            int nQuestions = quiz.getnQuestions();
+            ArrayList<Question> questions = quiz.getQuestions();
+            Question question;
+            Fragment fragment;
+            for (int i = 0; i < nQuestions; i++){
+                question = questions.get(i);
+                switch (question.getAnswerType()){
+                    case "singleChoise":
+                        Bundle bundle = new Bundle();
+                        ArrayList<String> answers = new ArrayList<>();
+                        ArrayList<Answer> answersList = question.getAnswers();
+                        for (int j = 0; j < answersList.size(); j++){
+                            answers.add(answersList.get(j).getBody());
+                        }
+                        bundle.putStringArrayList("answers",answers);
+                        fragment = new SingleChoiseFragment();
+                        fragment.setArguments(bundle);
+                        replaceFragment(fragment);
+                        break;
+                }
+            }
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
