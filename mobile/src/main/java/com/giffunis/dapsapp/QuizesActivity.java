@@ -48,7 +48,7 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
         transaction.commit();
     }
     
-    private void switchFragment(Fragment fragment){
+    private void replaceFragment(Fragment fragment){
         //Paso 1: Obtener la instancia del administrador de fragmentos
         FragmentManager fragmentManager = getSupportFragmentManager();
         //Paso 2: Crear una nueva transacción
@@ -113,6 +113,7 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
          */
         try {
             Quiz quiz = new  Quiz(getResources().openRawResource(R.raw.prueba));
+            System.out.println(quiz);
         } catch (IOException e) {
             e.printStackTrace();
         }
