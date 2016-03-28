@@ -102,12 +102,12 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
     public void startQuizSelected(String testName) {
         System.out.println(testName);
         
+        /*
+         * Cuando esté listo el servidor y podamos descargar los test y almacenarlos
+         * Se creará el objeto del siguiente modo:
+         * Quiz quiz = new  Quiz(openFileInput(testName));
+         */
+        Quiz quiz = new  Quiz(getResources().openRawResource(R.raw.prueba));
         
-        
-
-        /*Aquí va el código para arrancar el test seleccionado
-        * Hay que mirar como cerrar ese fragment y arrancar la función que controla
-        * el test.
-        * */
     }
 }
