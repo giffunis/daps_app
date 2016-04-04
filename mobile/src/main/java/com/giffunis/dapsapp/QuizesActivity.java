@@ -22,6 +22,10 @@ import MemoryTest.SingleChoiseFragment;
 
 public class QuizesActivity extends AppCompatActivity implements QuizesListFragment.OnQuizesListSelectedListener{
 
+    private static final String CURRENT_QUESTION_ID = "qId";
+    private static final String BODY_QUESTION = "question";
+    private static final String ANSWERS_LIST = "answers";
+    private static final String USER_ANSWER = "userAnswer";
     Toolbar toolbar;
     Quiz quiz; // Is the current test, don't forget to update it whe the user select a new quiz from the list.
 
