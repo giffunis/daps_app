@@ -20,12 +20,13 @@ import MemoryTest.Quizes;
 import MemoryTest.QuizesListFragment;
 import MemoryTest.SingleChoiseFragment;
 
-public class QuizesActivity extends AppCompatActivity implements QuizesListFragment.OnQuizesListSelectedListener{
+public class QuizesActivity extends AppCompatActivity implements
+        QuizesListFragment.OnQuizesListSelectedListener,
+        SingleChoiseFragment.OnSingleChoiseSelectListener{
 
     private static final String CURRENT_QUESTION_ID = "qId";
     private static final String BODY_QUESTION = "question";
     private static final String ANSWERS_LIST = "answers";
-    private static final String USER_ANSWER = "userAnswer";
     Toolbar toolbar;
     Quiz quiz; // Is the current test, don't forget to update it whe the user select a new quiz from the list.
 
@@ -143,7 +144,9 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
                         for (int j = 0; j < answersList.size(); j++){
                             answers.add(answersList.get(j).getBody());
                         }
-                        bundle.putStringArrayList("answers",answers);
+                        bundle.putStringArrayList(ANSWERS_LIST,answers);
+                        bundle.putString(BODY_QUESTION, question.getPhrase());
+                        bundle.putInt(CURRENT_QUESTION_ID, question.getQuestionId());
                         fragment = new SingleChoiseFragment();
                         fragment.setArguments(bundle);
                         replaceFragment(fragment);
@@ -156,5 +159,10 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void singleChoiseResult(int qId, String userAnswer, int aId) {
+        System.out.println("Quiz ID: " + Integer.toString(qId) + " Respuesta usuario: " + userAnswer + " Answer id: " + aId);
     }
 }
