@@ -23,6 +23,7 @@ import MemoryTest.SingleChoiseFragment;
 public class QuizesActivity extends AppCompatActivity implements QuizesListFragment.OnQuizesListSelectedListener{
 
     Toolbar toolbar;
+    Quiz quiz; // Is the current test, don't forget to update it whe the user select a new quiz from the list.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +117,7 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
          * Quiz quiz = new  Quiz(openFileInput(testName));
          */
         try {
-            Quiz quiz = new  Quiz(getResources().openRawResource(R.raw.prueba));
+            quiz = new  Quiz(getResources().openRawResource(R.raw.prueba));
             int nQuestions = quiz.getnQuestions();
             ArrayList<Question> questions = quiz.getQuestions();
             Question question;
