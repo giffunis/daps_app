@@ -89,6 +89,13 @@ public class QuizesActivity extends AppCompatActivity implements QuizesListFragm
         getSupportActionBar().setHomeButtonEnabled(false);
     }
 
+    private boolean lastQuestion(int n){
+        boolean aux = false;
+        if(n == quiz.getnQuestions() - 1)
+            aux = true;
+        return aux;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //handle the click on the back arrow click
