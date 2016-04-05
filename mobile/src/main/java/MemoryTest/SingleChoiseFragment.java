@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.giffunis.dapsapp.R;
 
 import java.util.ArrayList;
@@ -35,8 +37,11 @@ public class SingleChoiseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.listview_layout, container, false);
+        View view = inflater.inflate(R.layout.single_choise_layout, container, false);
         SingleChoiseArrayAdapter adapter = new SingleChoiseArrayAdapter(getContext(), answersList_);
+
+        TextView bodyQuestion = (TextView) view.findViewById(R.id.body_question);
+        bodyQuestion.setText(bodyQuestion_);
         ListView listView = (ListView) view.findViewById(R.id.list_view);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
