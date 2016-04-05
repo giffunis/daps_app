@@ -20,6 +20,12 @@ import at.markushi.ui.CircleButton;
  * A simple {@link Fragment} subclass.
  */
 public class NumberFragment extends Fragment {
+    ImageButton btn_minus;
+    ImageButton btn_plus;
+    TextView bodyQuestion;
+    TextView answer;
+    CircleButton btn_accept;
+
     private static final String BODY_QUESTION = "question";
     private String bodyQuestion_;
     OnNumberListener mCallback_;
@@ -35,11 +41,11 @@ public class NumberFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_number, container, false);
 
-        TextView bodyQuestion = (TextView) view.findViewById(R.id.body_question);
-        final TextView answer = (TextView) view.findViewById(R.id.answer);
-        ImageButton btn_minus  = (ImageButton) view.findViewById(R.id.btn_minus);
-        ImageButton btn_plus = (ImageButton) view.findViewById(R.id.btn_plus);
-        CircleButton btn_accept = (CircleButton) view.findViewById(R.id.btn_accept);
+        bodyQuestion = (TextView) view.findViewById(R.id.body_question);
+        answer = (TextView) view.findViewById(R.id.answer);
+        btn_minus  = (ImageButton) view.findViewById(R.id.btn_minus);
+        btn_plus = (ImageButton) view.findViewById(R.id.btn_plus);
+        btn_accept = (CircleButton) view.findViewById(R.id.btn_accept);
 
         bodyQuestion.setText(bodyQuestion_);
         answer.setText("0");
@@ -80,7 +86,7 @@ public class NumberFragment extends Fragment {
         btn_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCallback_.numberResult(bodyQuestion_,Integer.valueOf(answer.getText().toString()));
+                mCallback_.numberResult(bodyQuestion_,answer.getText().toString());
             }
         });
 
@@ -101,6 +107,6 @@ public class NumberFragment extends Fragment {
     }
 
     public interface OnNumberListener{
-        public void numberResult(String bodyQuestion, int userAnswer);
+        public void numberResult(String bodyQuestion, String userAnswer);
     }
 }

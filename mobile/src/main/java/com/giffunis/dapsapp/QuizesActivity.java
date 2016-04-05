@@ -24,7 +24,8 @@ import MemoryTest.SingleChoiseFragment;
 
 public class QuizesActivity extends AppCompatActivity implements
         QuizesListFragment.OnQuizesListSelectedListener,
-        SingleChoiseFragment.OnSingleChoiseSelectListener{
+        SingleChoiseFragment.OnSingleChoiseSelectListener,
+        NumberFragment.OnNumberListener{
 
     private static final String BODY_QUESTION = "question";
     private static final String ANSWERS_LIST = "answers";
@@ -151,7 +152,13 @@ public class QuizesActivity extends AppCompatActivity implements
         System.out.println("Question: " + bodyQuestion + "User answer: " + userAnswer);
         quizEngine(bodyQuestion,userAnswer);
     }
-    
+
+    @Override
+    public void numberResult(String bodyQuestion, String userAnswer) {
+        System.out.println("Question: " + bodyQuestion + "User answer: " + userAnswer);
+        quizEngine(bodyQuestion,userAnswer);
+    }
+
     private void quizEngine(String bodyQuestion, String answerPhrase){
         currentUserAnswers_.addLine(bodyQuestion,answerPhrase);
 

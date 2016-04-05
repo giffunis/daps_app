@@ -6,43 +6,51 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/body_question"
         android:textSize="@dimen/material_drawer_account_header_secondary"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
         <ImageButton
             android:id="@+id/btn_minus"
             android:src="@drawable/ic_remove_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|center_vertical" />
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_centerVertical="true"
+            android:layout_alignTop="@+id/btn_plus"
+            android:layout_alignParentStart="true" />
 
         <ImageButton
             android:id="@+id/btn_plus"
             android:src="@drawable/ic_add_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical" />
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:id="@+id/answer"
-            android:textSize="34dp"
+            android:textSize="@dimen/material_drawer_account_header_secondary"
             android:layout_gravity="center_vertical|center_horizontal"
             android:text="0"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btn_plus"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
 
         <at.markushi.ui.CircleButton
-            android:layout_gravity="bottom|center_horizontal"
             android:id="@+id/btn_accept"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/ic_done_24dp"
             app:cb_color="#99CC00"
-            app:cb_pressedRingWidth="8dip" />
+            app:cb_pressedRingWidth="8dip"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
 </LinearLayout>
