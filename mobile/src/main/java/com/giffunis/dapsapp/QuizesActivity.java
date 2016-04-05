@@ -29,7 +29,8 @@ public class QuizesActivity extends AppCompatActivity implements
     private static final String ANSWERS_LIST = "answers";
     Toolbar toolbar;
     Quiz quiz; // Is the current test, don't forget to update it whe the user select a new quiz from the list.
-    List<String> currentUserAnswers;
+    CurrentUserAnswers currentUserAnswers;
+    int currentQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,12 +132,45 @@ public class QuizesActivity extends AppCompatActivity implements
          */
         try {
             quiz = new  Quiz(getResources().openRawResource(R.raw.prueba));
-            int nQuestions = quiz.getnQuestions();
+            currentUserAnswers = new currentUserAnswers(); // Init the list for each quiz, no for the questions
+            currentQuestion = 0;
+            loadQuestion();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void singleChoiseResult(int qId, String userAnswer, int aId) {
+        System.out.println("Question ID: " + Integer.toString(qId) + " Respuesta usuario: " + userAnswer + " Answer id: " + aId);
+        
+    }
+    
+    private void quizEngine(int qId, int aId, String answerPhrase){
+        currentUserAnswers.addLine(qId,aId,userAnswer);
+        
+        
+        ArrayList<Question> questions = quiz.getQuestions();
+            int numberQuestion = 0;
+            while (i < questions.getnQuestions() && questions.get(numberQuestion).getQuestionId() != qId) do{
+                numberQuestion++;
+            }
+        if(lastQuestion(numberQuestion)){
+            // Aquí toca llamar la función para mostrar los resultados
+            System.out.println("that was the las question");
+        } else {
+            this.currentQuestion++;
+            loadQuestion();
+        }
+    }
+    
+    private void loadQuestion(){
+         int nQuestions = quiz.getnQuestions();
             ArrayList<Question> questions = quiz.getQuestions();
             Question question;
             Fragment fragment;
             question = questions.get(0);
-            currentUserAnswers = new ArrayList<String>(); // Init the list for each quiz, no for the questions
             switch (question.getAnswerType()){
                 case "singleChoise":
                     Bundle bundle = new Bundle();
@@ -153,32 +187,5 @@ public class QuizesActivity extends AppCompatActivity implements
                     replaceFragment(fragment);
                     break;
             }
-            
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void singleChoiseResult(int qId, String userAnswer, int aId) {
-        System.out.println("Question ID: " + Integer.toString(qId) + " Respuesta usuario: " + userAnswer + " Answer id: " + aId);
-        
-        // Almacenar el id de la pregunta, el id de la respuesta y la frase de la respuesta del usuario. Es necesario guardar el string de la respuesta debido a que en algunos tipos de pregunta, la respuesta se transcribe)
-        
-        
-        
-        ArrayList<Question> questions = quiz.getQuestions();
-            int numberQuestion = 0;
-            while (i < questions.size() && questions.get(numberQuestion).getQuestionId() != qId) do{
-                numberQuestion++;
-            }
-        if(lastQuestion(numberQuestion)){
-            // Aquí toca llamar la función para mostrar los resultados
-        } else {
-            // Llamar a la siguiente pregunta
-        }
     }
 }
