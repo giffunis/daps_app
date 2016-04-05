@@ -14,12 +14,15 @@ import android.widget.Toast;
 
 import com.giffunis.dapsapp.R;
 
+import at.markushi.ui.CircleButton;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NumberFragment extends Fragment {
     private static final String BODY_QUESTION = "question";
     private String bodyQuestion_;
+    OnNumberListener mCallback_;
 
     public NumberFragment() {
         // Required empty public constructor
@@ -36,6 +39,7 @@ public class NumberFragment extends Fragment {
         final TextView answer = (TextView) view.findViewById(R.id.answer);
         ImageButton btn_minus  = (ImageButton) view.findViewById(R.id.btn_minus);
         ImageButton btn_plus = (ImageButton) view.findViewById(R.id.btn_plus);
+        CircleButton btn_accept = (CircleButton) view.findViewById(R.id.btn_accept);
 
         bodyQuestion.setText(bodyQuestion_);
         answer.setText("0");
@@ -73,7 +77,12 @@ public class NumberFragment extends Fragment {
             }
         });
 
-
+        btn_accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCallback_.numberResult(bodyQuestion_,Integer.valueOf(answer.getText().toString()));
+            }
+        });
 
         return view;
     }
@@ -82,5 +91,16 @@ public class NumberFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         bodyQuestion_ = getArguments().getString(BODY_QUESTION);
+
+        try{
+            mCallback_ = (OnNumberListener) context;
+        }catch (ClassCastException e){
+            throw new ClassCastException(context.toString()
+                    + " must implement OnNumberListener");
+        }
+    }
+
+    public interface OnNumberListener{
+        public void numberResult(String bodyQuestion, int userAnswer);
     }
 }
