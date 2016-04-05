@@ -30,9 +30,9 @@ public class QuizesActivity extends AppCompatActivity implements
     private static final String ANSWERS_LIST = "answers";
     Toolbar toolbar;
     // -----------------------------------don't forget to update this when the user select a new quiz from the list.---------------------------------------------------------------------
-    Quiz quiz;
-    CurrentUserAnswers currentUserAnswers;
-    int currentQuestion;
+    Quiz quiz_;
+    CurrentUserAnswers currentUserAnswers_;
+    int currentQuestion_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +100,7 @@ public class QuizesActivity extends AppCompatActivity implements
 
     private boolean lastQuestion(int n){
         boolean aux = false;
-        if(n == quiz.getnQuestions() - 1)
+        if(n == quiz_.getnQuestions() - 1)
             aux = true;
         return aux;
     }
@@ -133,9 +133,12 @@ public class QuizesActivity extends AppCompatActivity implements
          * Quiz quiz = new  Quiz(openFileInput(testName));
          */
         try {
-            quiz = new  Quiz(getResources().openRawResource(R.raw.prueba));
-            currentUserAnswers = new CurrentUserAnswers(); // Init the list for each quiz, no for the questions
-            currentQuestion = 0;
+            /*
+            * Init the params
+            */
+            quiz_ = new  Quiz(getResources().openRawResource(R.raw.prueba));
+            currentUserAnswers_ = new CurrentUserAnswers();
+            currentQuestion_ = 0;
             loadQuestion();
         } catch (IOException e) {
             e.printStackTrace();
@@ -150,27 +153,26 @@ public class QuizesActivity extends AppCompatActivity implements
     }
     
     private void quizEngine(int qId, int aId, String answerPhrase){
-        currentUserAnswers.addLine(qId,aId,answerPhrase);
+        currentUserAnswers_.addLine(qId,aId,answerPhrase);
 
-        if(lastQuestion(currentQuestion)){
+        if(lastQuestion(currentQuestion_)){
             // Aquí toca llamar la función para mostrar los resultados
             System.out.println("that was the las question");
         } else {
-            this.currentQuestion++;
+            this.currentQuestion_++;
             loadQuestion();
         }
     }
     
     private void loadQuestion(){
-        System.out.println(currentQuestion);
-        int nQuestions = quiz.getnQuestions();
-        ArrayList<Question> questions = quiz.getQuestions();
-        Question question;
+        System.out.println("Current Question(number of the Array, no Id): " + currentQuestion_);
+        ArrayList<Question> questions = quiz_.getQuestions();
+        Question question = questions.get(currentQuestion_);
         Fragment fragment;
         Bundle bundle;
-        question = questions.get(currentQuestion);
         ArrayList<String> answers = new ArrayList<>();
         ArrayList<Answer> answersList = question.getAnswers();
+
         switch (question.getAnswerType()){
             case "singleChoise":
                 bundle = new Bundle();
