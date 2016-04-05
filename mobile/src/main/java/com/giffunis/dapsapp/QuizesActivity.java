@@ -172,6 +172,7 @@ public class QuizesActivity extends AppCompatActivity implements
 
         switch (question.getAnswerType()){
             case "singleChoise":
+                System.out.println("Case: singleChoise");
                 ArrayList<String> answers = new ArrayList<>();
 
                 /* Adding the question string to the bundle */
@@ -191,6 +192,10 @@ public class QuizesActivity extends AppCompatActivity implements
                 break;
             case "number":
                 System.out.println("Case: number");
+                bundle.putString(BODY_QUESTION, question.getPhrase());
+                fragment = new NumberFragment();
+                fragment.setArguments(bundle);
+                replaceFragment(fragment);
                 break;
             case "images":
                 System.out.println("Case: images");
@@ -199,8 +204,7 @@ public class QuizesActivity extends AppCompatActivity implements
                 System.out.println("Case: multipleChoise");
                 break;
             default:
-                IOException error = new IOException("Error en la pregunta: El tipo de respuesta no es correcto");
-                error.printStackTrace();
+                new IOException("Error en la pregunta: El tipo de respuesta no es correcto").printStackTrace();
                 break;
         }
     }
