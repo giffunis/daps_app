@@ -164,7 +164,21 @@ public class QuizesActivity extends AppCompatActivity implements
 
     @Override
     public void singleChoiseResult(int qId, String userAnswer, int aId) {
-        System.out.println("Quiz ID: " + Integer.toString(qId) + " Respuesta usuario: " + userAnswer + " Answer id: " + aId);
-        if()
+        System.out.println("Question ID: " + Integer.toString(qId) + " Respuesta usuario: " + userAnswer + " Answer id: " + aId);
+        
+        // Almacenar el id de la pregunta, el id de la respuesta y la frase de la respuesta del usuario. Es necesario guardar el string de la respuesta debido a que en algunos tipos de pregunta, la respuesta se transcribe)
+        
+        
+        
+        ArrayList<Question> questions = quiz.getQuestions();
+            int numberQuestion = 0;
+            while (i < questions.size() && questions.get(numberQuestion).getQuestionId() != qId) do{
+                numberQuestion++;
+            }
+        if(lastQuestion(numberQuestion)){
+            // Aquí toca llamar la función para mostrar los resultados
+        } else {
+            // Llamar a la siguiente pregunta
+        }
     }
 }
