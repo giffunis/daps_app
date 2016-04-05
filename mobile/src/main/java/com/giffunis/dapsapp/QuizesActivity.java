@@ -146,9 +146,9 @@ public class QuizesActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void singleChoiseResult(int qId, String userAnswer, int aId) {
-        System.out.println("Question ID: " + Integer.toString(qId) + " Respuesta usuario: " + userAnswer + " Answer id: " + aId);
-        quizEngine(qId,aId,userAnswer);
+    public void singleChoiseResult(String bodyQuestion, String userAnswer) {
+        System.out.println("Question: " + bodyQuestion + "User answer: " + userAnswer);
+        quizEngine(bodyQuestion,userAnswer);
     }
     
     private void quizEngine(int qId, int aId, String answerPhrase){
