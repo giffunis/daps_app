@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import MemoryTest.Answer;
+import MemoryTest.CurrentUserAnswers;
 import MemoryTest.Question;
 import MemoryTest.Quiz;
 import MemoryTest.Quizes;
@@ -132,7 +133,7 @@ public class QuizesActivity extends AppCompatActivity implements
          */
         try {
             quiz = new  Quiz(getResources().openRawResource(R.raw.prueba));
-            currentUserAnswers = new currentUserAnswers(); // Init the list for each quiz, no for the questions
+            currentUserAnswers = new CurrentUserAnswers(); // Init the list for each quiz, no for the questions
             currentQuestion = 0;
             loadQuestion();
         } catch (IOException e) {
@@ -148,12 +149,12 @@ public class QuizesActivity extends AppCompatActivity implements
     }
     
     private void quizEngine(int qId, int aId, String answerPhrase){
-        currentUserAnswers.addLine(qId,aId,userAnswer);
+        currentUserAnswers.addLine(qId,aId,answerPhrase);
         
         
         ArrayList<Question> questions = quiz.getQuestions();
             int numberQuestion = 0;
-            while (i < questions.getnQuestions() && questions.get(numberQuestion).getQuestionId() != qId) do{
+            while (numberQuestion < questions.size() && questions.get(numberQuestion).getQuestionId() != qId){
                 numberQuestion++;
             }
         if(lastQuestion(numberQuestion)){

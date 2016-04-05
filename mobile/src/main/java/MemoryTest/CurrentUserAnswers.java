@@ -35,8 +35,8 @@ public class CurrentUserAnswers {
         return userAnswers_.get(n);
     }
     
-    public void createAnswersJsonFile{
-        System.out.println("Aquí se debe crear el fichero con las respuestas?, faltaría agregar el usuario, ojito")
+    public void createAnswersJsonFile(){
+        System.out.println("Aquí se debe crear el fichero con las respuestas?, faltaría agregar el usuario, ojito");
     }
    
 }
