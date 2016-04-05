@@ -23,7 +23,6 @@ public class SingleChoiseFragment extends Fragment {
 
     private static final String BODY_QUESTION = "question";
     private static final String ANSWERS_LIST = "answers";
-    private static final String USER_ANSWER = "userAnswer";
 
     ArrayList<String> answersList_;
     String bodyQuestion_;
