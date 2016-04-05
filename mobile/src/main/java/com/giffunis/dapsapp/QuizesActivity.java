@@ -29,7 +29,8 @@ public class QuizesActivity extends AppCompatActivity implements
     private static final String BODY_QUESTION = "question";
     private static final String ANSWERS_LIST = "answers";
     Toolbar toolbar;
-    Quiz quiz; // Is the current test, don't forget to update it whe the user select a new quiz from the list.
+    // -----------------------------------don't forget to update this when the user select a new quiz from the list.---------------------------------------------------------------------
+    Quiz quiz;
     CurrentUserAnswers currentUserAnswers;
     int currentQuestion;
 
@@ -162,26 +163,42 @@ public class QuizesActivity extends AppCompatActivity implements
     
     private void loadQuestion(){
         System.out.println(currentQuestion);
-         int nQuestions = quiz.getnQuestions();
-            ArrayList<Question> questions = quiz.getQuestions();
-            Question question;
-            Fragment fragment;
-            question = questions.get(currentQuestion);
-            switch (question.getAnswerType()){
-                case "singleChoise":
-                    Bundle bundle = new Bundle();
-                    ArrayList<String> answers = new ArrayList<>();
-                    ArrayList<Answer> answersList = question.getAnswers();
-                    for (int j = 0; j < answersList.size(); j++){
-                        answers.add(answersList.get(j).getBody());
-                    }
-                    bundle.putStringArrayList(ANSWERS_LIST,answers);
-                    bundle.putString(BODY_QUESTION, question.getPhrase());
-                    bundle.putInt(CURRENT_QUESTION_ID, question.getQuestionId());
-                    fragment = new SingleChoiseFragment();
-                    fragment.setArguments(bundle);
-                    replaceFragment(fragment);
-                    break;
-            }
+        int nQuestions = quiz.getnQuestions();
+        ArrayList<Question> questions = quiz.getQuestions();
+        Question question;
+        Fragment fragment;
+        Bundle bundle;
+        question = questions.get(currentQuestion);
+        ArrayList<String> answers = new ArrayList<>();
+        ArrayList<Answer> answersList = question.getAnswers();
+        switch (question.getAnswerType()){
+            case "singleChoise":
+                bundle = new Bundle();
+                answers = new ArrayList<>();
+                answersList = question.getAnswers();
+                for (int j = 0; j < answersList.size(); j++){
+                    answers.add(answersList.get(j).getBody());
+                }
+                bundle.putStringArrayList(ANSWERS_LIST,answers);
+                bundle.putString(BODY_QUESTION, question.getPhrase());
+                bundle.putInt(CURRENT_QUESTION_ID, question.getQuestionId());
+                fragment = new SingleChoiseFragment();
+                fragment.setArguments(bundle);
+                replaceFragment(fragment);
+                break;
+            case "number":
+                bundle = new Bundle();
+                break;
+            case "images":
+                bundle = new Bundle();
+                break;
+            case "multipleChoise":
+                bundle = new Bundle();
+                break;
+            default:
+                IOException error = new IOException("Error en la pregunta: El tipo de respuesta no es correcto");
+                error.printStackTrace();
+                break;
+        }
     }
 }
