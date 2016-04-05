@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import MemoryTest.Answer;
+import MemoryTest.CurrentUserAnswers;
 import MemoryTest.Question;
 import MemoryTest.Quiz;
 import MemoryTest.Quizes;
@@ -29,6 +30,8 @@ public class QuizesActivity extends AppCompatActivity implements
     private static final String ANSWERS_LIST = "answers";
     Toolbar toolbar;
     Quiz quiz; // Is the current test, don't forget to update it whe the user select a new quiz from the list.
+    CurrentUserAnswers currentUserAnswers;
+    int currentQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,31 +133,9 @@ public class QuizesActivity extends AppCompatActivity implements
          */
         try {
             quiz = new  Quiz(getResources().openRawResource(R.raw.prueba));
-            int nQuestions = quiz.getnQuestions();
-            ArrayList<Question> questions = quiz.getQuestions();
-            Question question;
-            Fragment fragment;
-            for (int i = 0; i < nQuestions; i++){
-                question = questions.get(i);
-                switch (question.getAnswerType()){
-                    case "singleChoise":
-                        Bundle bundle = new Bundle();
-                        ArrayList<String> answers = new ArrayList<>();
-                        ArrayList<Answer> answersList = question.getAnswers();
-                        for (int j = 0; j < answersList.size(); j++){
-                            answers.add(answersList.get(j).getBody());
-                        }
-                        bundle.putStringArrayList(ANSWERS_LIST,answers);
-                        bundle.putString(BODY_QUESTION, question.getPhrase());
-                        bundle.putInt(CURRENT_QUESTION_ID, question.getQuestionId());
-                        fragment = new SingleChoiseFragment();
-                        fragment.setArguments(bundle);
-                        replaceFragment(fragment);
-                        break;
-                }
-            }
-
-
+            currentUserAnswers = new CurrentUserAnswers(); // Init the list for each quiz, no for the questions
+            currentQuestion = 0;
+            loadQuestion();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -163,6 +144,44 @@ public class QuizesActivity extends AppCompatActivity implements
 
     @Override
     public void singleChoiseResult(int qId, String userAnswer, int aId) {
-        System.out.println("Quiz ID: " + Integer.toString(qId) + " Respuesta usuario: " + userAnswer + " Answer id: " + aId);
+        System.out.println("Question ID: " + Integer.toString(qId) + " Respuesta usuario: " + userAnswer + " Answer id: " + aId);
+        quizEngine(qId,aId,userAnswer);
+    }
+    
+    private void quizEngine(int qId, int aId, String answerPhrase){
+        currentUserAnswers.addLine(qId,aId,answerPhrase);
+
+        if(lastQuestion(currentQuestion)){
+            // Aquí toca llamar la función para mostrar los resultados
+            System.out.println("that was the las question");
+        } else {
+            this.currentQuestion++;
+            loadQuestion();
+        }
+    }
+    
+    private void loadQuestion(){
+        System.out.println(currentQuestion);
+         int nQuestions = quiz.getnQuestions();
+            ArrayList<Question> questions = quiz.getQuestions();
+            Question question;
+            Fragment fragment;
+            question = questions.get(currentQuestion);
+            switch (question.getAnswerType()){
+                case "singleChoise":
+                    Bundle bundle = new Bundle();
+                    ArrayList<String> answers = new ArrayList<>();
+                    ArrayList<Answer> answersList = question.getAnswers();
+                    for (int j = 0; j < answersList.size(); j++){
+                        answers.add(answersList.get(j).getBody());
+                    }
+                    bundle.putStringArrayList(ANSWERS_LIST,answers);
+                    bundle.putString(BODY_QUESTION, question.getPhrase());
+                    bundle.putInt(CURRENT_QUESTION_ID, question.getQuestionId());
+                    fragment = new SingleChoiseFragment();
+                    fragment.setArguments(bundle);
+                    replaceFragment(fragment);
+                    break;
+            }
     }
 }

@@ -32,6 +32,36 @@
   {
     "questionId": 2,
     "questionType": "Memoria",
+    "phrase": "¿De los siguientes nombres, quién es un Avenger?",
+    "answerType": "singleChoise",
+    "nAnswer": 4,
+    "correctAnswersId": [1],
+    "answers": [
+      {
+        "answerId": 1,
+        "type": "String",
+        "body": "Sancho Panza"
+      },
+      {
+        "answerId": 2,
+        "type": "String",
+        "body": "Pepito Grillo"
+      },
+      {
+        "answerId": 3,
+        "type": "String",
+        "body": "Conan el Bárbaro"
+      },
+      {
+        "answerId": 4,
+        "type": "String",
+        "body": "El Capitán Ameríca"
+      }
+    ]
+  },
+  {
+    "questionId": 3,
+    "questionType": "Memoria",
     "phrase": "¿Cuántas patas tiene una araña?",
     "answerType": "number",
     "nAnswer": 1,
