@@ -134,25 +134,24 @@ public class QuizesActivity extends AppCompatActivity implements
             ArrayList<Question> questions = quiz.getQuestions();
             Question question;
             Fragment fragment;
-            for (int i = 0; i < nQuestions; i++){
-                question = questions.get(i);
-                switch (question.getAnswerType()){
-                    case "singleChoise":
-                        Bundle bundle = new Bundle();
-                        ArrayList<String> answers = new ArrayList<>();
-                        ArrayList<Answer> answersList = question.getAnswers();
-                        for (int j = 0; j < answersList.size(); j++){
-                            answers.add(answersList.get(j).getBody());
-                        }
-                        bundle.putStringArrayList(ANSWERS_LIST,answers);
-                        bundle.putString(BODY_QUESTION, question.getPhrase());
-                        bundle.putInt(CURRENT_QUESTION_ID, question.getQuestionId());
-                        fragment = new SingleChoiseFragment();
-                        fragment.setArguments(bundle);
-                        replaceFragment(fragment);
-                        break;
-                }
+            question = questions.get(0);
+            switch (question.getAnswerType()){
+                case "singleChoise":
+                    Bundle bundle = new Bundle();
+                    ArrayList<String> answers = new ArrayList<>();
+                    ArrayList<Answer> answersList = question.getAnswers();
+                    for (int j = 0; j < answersList.size(); j++){
+                        answers.add(answersList.get(j).getBody());
+                    }
+                    bundle.putStringArrayList(ANSWERS_LIST,answers);
+                    bundle.putString(BODY_QUESTION, question.getPhrase());
+                    bundle.putInt(CURRENT_QUESTION_ID, question.getQuestionId());
+                    fragment = new SingleChoiseFragment();
+                    fragment.setArguments(bundle);
+                    replaceFragment(fragment);
+                    break;
             }
+            
 
 
         } catch (IOException e) {
