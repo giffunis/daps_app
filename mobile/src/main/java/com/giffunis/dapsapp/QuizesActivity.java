@@ -25,7 +25,6 @@ public class QuizesActivity extends AppCompatActivity implements
         QuizesListFragment.OnQuizesListSelectedListener,
         SingleChoiseFragment.OnSingleChoiseSelectListener{
 
-    private static final String CURRENT_QUESTION_ID = "qId";
     private static final String BODY_QUESTION = "question";
     private static final String ANSWERS_LIST = "answers";
     Toolbar toolbar;
@@ -169,33 +168,35 @@ public class QuizesActivity extends AppCompatActivity implements
         ArrayList<Question> questions = quiz_.getQuestions();
         Question question = questions.get(currentQuestion_);
         Fragment fragment;
-        Bundle bundle;
-        ArrayList<String> answers = new ArrayList<>();
-        ArrayList<Answer> answersList = question.getAnswers();
+        Bundle bundle = new Bundle();
 
         switch (question.getAnswerType()){
             case "singleChoise":
-                bundle = new Bundle();
-                answers = new ArrayList<>();
-                answersList = question.getAnswers();
-                for (int j = 0; j < answersList.size(); j++){
-                    answers.add(answersList.get(j).getBody());
+                ArrayList<String> answers = new ArrayList<>();
+
+                /* Adding the question string to the bundle */
+                bundle.putString(BODY_QUESTION, question.getPhrase());
+
+                /* Adding the answers to the bundle */
+                for (int j = 0; j < question.getAnswers().size(); j++){
+                    answers.add(question.getAnswers().get(j).getBody());
                 }
                 bundle.putStringArrayList(ANSWERS_LIST,answers);
-                bundle.putString(BODY_QUESTION, question.getPhrase());
-                bundle.putInt(CURRENT_QUESTION_ID, question.getQuestionId());
+
+                /* Load the fragment and set the arguments */
                 fragment = new SingleChoiseFragment();
                 fragment.setArguments(bundle);
                 replaceFragment(fragment);
+
                 break;
             case "number":
-                bundle = new Bundle();
+                System.out.println("Case: number");
                 break;
             case "images":
-                bundle = new Bundle();
+                System.out.println("Case: images");
                 break;
             case "multipleChoise":
-                bundle = new Bundle();
+                System.out.println("Case: multipleChoise");
                 break;
             default:
                 IOException error = new IOException("Error en la pregunta: El tipo de respuesta no es correcto");
