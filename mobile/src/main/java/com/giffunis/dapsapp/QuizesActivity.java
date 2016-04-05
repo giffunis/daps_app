@@ -29,6 +29,7 @@ public class QuizesActivity extends AppCompatActivity implements
     private static final String ANSWERS_LIST = "answers";
     Toolbar toolbar;
     Quiz quiz; // Is the current test, don't forget to update it whe the user select a new quiz from the list.
+    List<String> currentUserAnswers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +136,7 @@ public class QuizesActivity extends AppCompatActivity implements
             Question question;
             Fragment fragment;
             question = questions.get(0);
+            currentUserAnswers = new ArrayList<String>(); // Init the list for each quiz, no for the questions
             switch (question.getAnswerType()){
                 case "singleChoise":
                     Bundle bundle = new Bundle();
@@ -163,5 +165,6 @@ public class QuizesActivity extends AppCompatActivity implements
     @Override
     public void singleChoiseResult(int qId, String userAnswer, int aId) {
         System.out.println("Quiz ID: " + Integer.toString(qId) + " Respuesta usuario: " + userAnswer + " Answer id: " + aId);
+        if()
     }
 }
