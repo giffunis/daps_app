@@ -145,19 +145,13 @@ public class QuizesActivity extends AppCompatActivity implements
     @Override
     public void singleChoiseResult(int qId, String userAnswer, int aId) {
         System.out.println("Question ID: " + Integer.toString(qId) + " Respuesta usuario: " + userAnswer + " Answer id: " + aId);
-        
+        quizEngine(qId,aId,userAnswer);
     }
     
     private void quizEngine(int qId, int aId, String answerPhrase){
         currentUserAnswers.addLine(qId,aId,answerPhrase);
-        
-        
-        ArrayList<Question> questions = quiz.getQuestions();
-            int numberQuestion = 0;
-            while (numberQuestion < questions.size() && questions.get(numberQuestion).getQuestionId() != qId){
-                numberQuestion++;
-            }
-        if(lastQuestion(numberQuestion)){
+
+        if(lastQuestion(currentQuestion)){
             // Aquí toca llamar la función para mostrar los resultados
             System.out.println("that was the las question");
         } else {
@@ -167,11 +161,12 @@ public class QuizesActivity extends AppCompatActivity implements
     }
     
     private void loadQuestion(){
+        System.out.println(currentQuestion);
          int nQuestions = quiz.getnQuestions();
             ArrayList<Question> questions = quiz.getQuestions();
             Question question;
             Fragment fragment;
-            question = questions.get(0);
+            question = questions.get(currentQuestion);
             switch (question.getAnswerType()){
                 case "singleChoise":
                     Bundle bundle = new Bundle();
