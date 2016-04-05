@@ -151,8 +151,8 @@ public class QuizesActivity extends AppCompatActivity implements
         quizEngine(bodyQuestion,userAnswer);
     }
     
-    private void quizEngine(int qId, int aId, String answerPhrase){
-        currentUserAnswers_.addLine(qId,aId,answerPhrase);
+    private void quizEngine(String bodyQuestion, String answerPhrase){
+        currentUserAnswers_.addLine(bodyQuestion,answerPhrase);
 
         if(lastQuestion(currentQuestion_)){
             // Aquí toca llamar la función para mostrar los resultados
