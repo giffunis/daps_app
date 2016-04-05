@@ -7,30 +7,26 @@ package MemoryTest;
 import java.util.ArrayList;
  
 public class CurrentUserAnswers {
-    private ArrayList<Integer> questionsId_;
-    private ArrayList<Integer> answersId_;
+    private ArrayList<String> bodyQuestions_;
     private ArrayList<String> userAnswers_;
+    private int n_;
 
     public CurrentUserAnswers(){
-        questionsId_ = new ArrayList<Integer>();
-        answersId_ = new ArrayList<Integer>();
+        bodyQuestions_ = new ArrayList<String>();
         userAnswers_ = new ArrayList<String>();
+        n_ = 0;
     }
     
-    public void addLine(int qId, int aId, String userAnswer){
-        questionsId_.add(qId);
-        answersId_.add(aId);
+    public void addLine(String bodyQuestion, String userAnswer){
+        bodyQuestions_.add(bodyQuestion);
         userAnswers_.add(userAnswer);
+        n_++;
     }
     
-    public int getQuestionId(int n){
-        return questionsId_.get(n);
+    public String getBodyQuestion(int n) {
+        return bodyQuestions_.get(n);
     }
-    
-    public int getAnswerId(int n){
-        return answersId_.get(n);
-    }
-    
+
     public String getUserAnswer(int n){
         return userAnswers_.get(n);
     }
