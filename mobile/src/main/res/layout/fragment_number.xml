@@ -1,13 +1,48 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="MemoryTest.NumberFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/body_question"
+        android:textSize="@dimen/material_drawer_account_header_secondary"/>
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/btn_minus"
+            android:src="@drawable/ic_remove_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical" />
+
+        <ImageButton
+            android:id="@+id/btn_plus"
+            android:src="@drawable/ic_add_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical" />
+
+        <TextView
+            android:id="@+id/answer"
+            android:textSize="34dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <at.markushi.ui.CircleButton
+            android:layout_gravity="bottom|center_horizontal"
+            android:id="@+id/btn_accept"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_done_24dp"
+            app:cb_color="#99CC00"
+            app:cb_pressedRingWidth="8dip" />
+    </RelativeLayout>
+
+</LinearLayout>
