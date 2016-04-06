@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.giffunis.dapsapp.R;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class ImageFragment extends Fragment {
     private static final String BODY_QUESTION = "question";
     private static final String ANSWERS_LIST = "answers";
+    private TextView bodyText_;
     private RecyclerView recyclerView_;
     private String bodyQuestion_;
     private ArrayList<String> imagesUrl_;
@@ -36,6 +38,9 @@ public class ImageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_image, container, false);
+
+        bodyText_ = (TextView) view.findViewById(R.id.body_question);
+        bodyText_.setText(bodyQuestion_);
 
         //Inicialización RecyclerView
         recyclerView_ = (RecyclerView) view.findViewById(R.id.recycler_view);
