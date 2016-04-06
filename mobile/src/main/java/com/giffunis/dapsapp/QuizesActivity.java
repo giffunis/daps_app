@@ -178,11 +178,11 @@ public class QuizesActivity extends AppCompatActivity implements
         Question question = questions.get(currentQuestion_);
         Fragment fragment;
         Bundle bundle = new Bundle();
+        ArrayList<String> answers = new ArrayList<>();
 
         switch (question.getAnswerType()){
             case "singleChoise":
                 System.out.println("Case: singleChoise");
-                ArrayList<String> answers = new ArrayList<>();
 
                 /* Adding the question string to the bundle */
                 bundle.putString(BODY_QUESTION, question.getPhrase());
@@ -197,7 +197,6 @@ public class QuizesActivity extends AppCompatActivity implements
                 fragment = new SingleChoiseFragment();
                 fragment.setArguments(bundle);
                 replaceFragment(fragment);
-
                 break;
             case "number":
                 System.out.println("Case: number");
@@ -208,7 +207,13 @@ public class QuizesActivity extends AppCompatActivity implements
                 break;
             case "image":
                 System.out.println("Case: image");
+                bundle.putString(BODY_QUESTION, question.getPhrase());
+                for (int i = 0; i < question.getnAnswers(); i++){
+                    answers.add(question.getAnswers().get(i).getBody());
+                }
+                bundle.putStringArrayList(ANSWERS_LIST,answers);
                 fragment = new ImageFragment();
+                fragment.setArguments(bundle);
                 replaceFragment(fragment);
                 break;
             case "multipleChoise":
