@@ -53,9 +53,9 @@ public class ImageFragment extends Fragment {
             }
 
             Glide
-                    .with(this)
-                    .load(imagesUrl_.get(i))
-                    .into(image);
+                .with(this)
+                .load(imagesUrl_.get(i))
+                .into(image);
         }
 
         return view;
