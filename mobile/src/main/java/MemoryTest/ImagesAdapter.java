@@ -1,7 +1,13 @@
 package MemoryTest;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+
+import com.giffunis.dapsapp.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by drcaspa on 6/4/16.
@@ -9,9 +15,18 @@ import android.view.ViewGroup;
  */
 public class ImagesAdapter extends RecyclerView.Adapter<String> {
 
+    ArrayList<String> imagesUrls_;
+
+    public ImagesAdapter(ArrayList<String> imagesUrls){
+        imagesUrls_ = imagesUrls;
+    }
+
     @Override
     public String onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.quiz_images_item, parent, false);
+
     }
 
     @Override
@@ -21,6 +36,6 @@ public class ImagesAdapter extends RecyclerView.Adapter<String> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return imagesUrls_.size();
     }
 }
