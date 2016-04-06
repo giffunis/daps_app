@@ -205,7 +205,7 @@ public class QuizesActivity extends AppCompatActivity implements
                 fragment.setArguments(bundle);
                 replaceFragment(fragment);
                 break;
-            case "images":
+            case "image":
                 System.out.println("Case: images");
                 break;
             case "multipleChoise":

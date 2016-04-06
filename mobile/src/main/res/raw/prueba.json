@@ -73,5 +73,20 @@
         "body": "8"
       }
     ]
+  },
+  {
+    "questionId": 4,
+    "questionType": "Memoria",
+    "phrase": "¿Cuál de las siguientes imágenes es un perro?",
+    "answerType": "image",
+    "nAnswer": 4,
+    "correctAnswersId": [3],
+    "answers": [
+      {
+        "answerId": 1,
+        "type": "image",
+        "body": ""
+      }
+    ]
   }
 ]
