@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import MemoryTest.Answer;
 import MemoryTest.CurrentUserAnswers;
+import MemoryTest.ImageFragment;
 import MemoryTest.NumberFragment;
 import MemoryTest.Question;
 import MemoryTest.Quiz;
@@ -206,7 +207,9 @@ public class QuizesActivity extends AppCompatActivity implements
                 replaceFragment(fragment);
                 break;
             case "image":
-                System.out.println("Case: images");
+                System.out.println("Case: image");
+                fragment = new ImageFragment();
+                replaceFragment(fragment);
                 break;
             case "multipleChoise":
                 System.out.println("Case: multipleChoise");
