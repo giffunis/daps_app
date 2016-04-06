@@ -85,7 +85,22 @@
       {
         "answerId": 1,
         "type": "image",
-        "body": ""
+        "body": "http://i.imgur.com/tYve4JU.jpg"
+      },
+      {
+        "answerId": 2,
+        "type": "image",
+        "body": "http://i.imgur.com/3nBkoeb.jpg"
+      },
+      {
+        "answerId": 3,
+        "type": "image",
+        "body": "http://i.imgur.com/BqYRtb2.jpg"
+      },
+      {
+        "answerId": 4,
+        "type": "image",
+        "body": "http://i.imgur.com/etAhhpV.jpg"
       }
     ]
   }
