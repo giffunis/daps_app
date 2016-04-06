@@ -18,19 +18,31 @@ import java.util.ArrayList;
  */
 public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImagesViewHolder> {
 
+    private ArrayList<String> urls_;
+
+    public ImagesAdapter(ArrayList<String> urls) {
+        urls_ = urls;
+    }
+
     @Override
-    public ImagesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+    public ImagesViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View itemView = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.quiz_images_item, viewGroup, false);
+
+        ImagesViewHolder ivh = new ImagesViewHolder(itemView);
+
+        return ivh;
     }
 
     @Override
     public void onBindViewHolder(ImagesViewHolder holder, int position) {
-
+        String item = urls_.get(position);
+        holder.bindImage(item);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return urls_.size();
     }
 
     public class ImagesViewHolder extends RecyclerView.ViewHolder {
