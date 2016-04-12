@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.giffunis.dapsapp.R;
 
@@ -32,7 +35,14 @@ public class MultipleChoiseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_multiple_choise, container, false);
+        View view = inflater.inflate(R.layout.fragment_multiple_choise, container, false);
+        MultipleChoiseAdapter adapter = new MultipleChoiseAdapter(getContext(), answersList_);
+        TextView bodyQuestion = (TextView) view.findViewById(R.id.body_question);
+        bodyQuestion.setText(bodyQuestion_);
+        ListView listView = (ListView) view.findViewById(R.id.list_view);
+        listView.setAdapter(adapter);
+
+        return view;
     }
 
     @Override
