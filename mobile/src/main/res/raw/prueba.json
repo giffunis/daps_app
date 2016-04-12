@@ -103,5 +103,35 @@
         "body": "http://i.imgur.com/etAhhpV.jpg"
       }
     ]
+  },
+  {
+    "questionId": 4,
+    "questionType": "Memoria",
+    "phrase": "Selecciona las ciudades españolas que aparecen en la siguiente lista:",
+    "answerType": "multipleChoise",
+    "nAnswer": 4,
+    "correctAnswersId": [1,3],
+    "answers": [
+      {
+        "answerId": 1,
+        "type": "String",
+        "body": "Madrid"
+      },
+      {
+        "answerId": 2,
+        "type": "String",
+        "body": "Roma"
+      },
+      {
+        "answerId": 3,
+        "type": "String",
+        "body": "Barcelona"
+      },
+      {
+        "answerId": 4,
+        "type": "String",
+        "body": "Toronto"
+      }
+    ]
   }
 ]
