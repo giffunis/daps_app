@@ -16,9 +16,10 @@ import java.util.ArrayList;
  * Created by drcaspa on 6/4/16.
  * email: giffunis@gmail.com
  */
-public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImagesViewHolder> {
+public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImagesViewHolder> implements View.OnClickListener {
 
     private ArrayList<String> urls_;
+    private View.OnClickListener listener_;
 
     public ImagesAdapter(ArrayList<String> urls) {
         urls_ = urls;
@@ -29,9 +30,13 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImagesView
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.quiz_images_item, viewGroup, false);
 
+        itemView.setOnClickListener(this);
         ImagesViewHolder ivh = new ImagesViewHolder(itemView);
-
         return ivh;
+    }
+
+    public void setOnClickListener(View.OnClickListener listener){
+        listener_ = listener;
     }
 
     @Override
@@ -43,6 +48,12 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImagesView
     @Override
     public int getItemCount() {
         return urls_.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (listener_ != null)
+            listener_.onClick(v);
     }
 
     public class ImagesViewHolder extends RecyclerView.ViewHolder {
