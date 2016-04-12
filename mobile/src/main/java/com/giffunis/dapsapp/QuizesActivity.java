@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import MemoryTest.Answer;
 import MemoryTest.CurrentUserAnswers;
 import MemoryTest.ImageFragment;
+import MemoryTest.MultipleChoiseFragment;
 import MemoryTest.NumberFragment;
 import MemoryTest.Question;
 import MemoryTest.Quiz;
