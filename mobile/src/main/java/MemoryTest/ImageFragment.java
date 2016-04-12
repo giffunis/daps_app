@@ -51,7 +51,7 @@ public class ImageFragment extends Fragment {
         adapter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                System.out.println("pulsada la imagen: " + recyclerView_.getChildAdapterPosition(v));
+                mCallback_.imageResult(bodyQuestion_,imagesUrl_.get(recyclerView_.getChildAdapterPosition(v)));
             }
         });
         recyclerView_.setAdapter(adapter);
