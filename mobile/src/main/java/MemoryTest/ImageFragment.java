@@ -47,6 +47,12 @@ public class ImageFragment extends Fragment {
         recyclerView_.setHasFixedSize(true);
 
         final ImagesAdapter adapter = new ImagesAdapter(imagesUrl_);
+        adapter.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                System.out.println("pulsada la imagen: " + recyclerView_.getChildAdapterPosition(v));
+            }
+        });
         recyclerView_.setAdapter(adapter);
         recyclerView_.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 
