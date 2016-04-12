@@ -27,6 +27,7 @@ public class ImageFragment extends Fragment {
     private RecyclerView recyclerView_;
     private String bodyQuestion_;
     private ArrayList<String> imagesUrl_;
+    OnImageListener mCallback_;
 
     public ImageFragment() {
         // Required empty public constructor
@@ -64,5 +65,16 @@ public class ImageFragment extends Fragment {
         super.onAttach(context);
         bodyQuestion_ = getArguments().getString(BODY_QUESTION);
         imagesUrl_ = getArguments().getStringArrayList(ANSWERS_LIST);
+
+        try{
+            mCallback_ = (OnImageListener) context;
+        }catch (ClassCastException e){
+            throw new ClassCastException(context.toString()
+                    + " must implement OnImageListener");
+        }
+    }
+
+    public interface OnImageListener{
+        public void imageResult(String bodyQuestion, String userAnswer);
     }
 }
