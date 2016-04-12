@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,17 +35,17 @@ public class MultipleChoiseAdapter extends ArrayAdapter<String> {
         //Comprobando si el View no existe
         if (null == convertView) {
             //Si no existe, entonces inflarlo con image_list_view.xml
-            listItemView = inflater.inflate(R.layout.quiz_list_item, parent, false);
+            listItemView = inflater.inflate(R.layout.fragment_multiple_choise, parent, false);
         }
 
         //Obteniendo instancias de los elementos
-        TextView titulo = (TextView)listItemView.findViewById(R.id.text1);
+        CheckBox checkBox = (CheckBox) listItemView.findViewById(R.id.checkbox);
         ImageView categoria = (ImageView)listItemView.findViewById(R.id.category);
 
         //Obteniendo instancia de la Tarea en la posición actual
         String answer = getItem(position);
 
-        titulo.setText(answer);
+        checkBox.setText(answer);
         categoria.setImageResource(R.drawable.ic_tests);
 
         return listItemView;
