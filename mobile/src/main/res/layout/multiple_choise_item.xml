@@ -14,7 +14,7 @@
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/checkbox"
+        android:id="@+id/checkbox_multiple_choise"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/category"
         android:textAppearance="@android:style/TextAppearance.Holo.Large"

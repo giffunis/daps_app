@@ -34,11 +34,11 @@ public class MultipleChoiseAdapter extends ArrayAdapter<String> {
         //Comprobando si el View no existe
         if (null == convertView) {
             //Si no existe, entonces inflarlo con image_list_view.xml
-            listItemView = inflater.inflate(R.layout.fragment_multiple_choise, parent, false);
+            listItemView = inflater.inflate(R.layout.multiple_choise_item, parent, false);
         }
 
         //Obteniendo instancias de los elementos
-        CheckBox checkBox = (CheckBox) listItemView.findViewById(R.id.checkbox);
+        CheckBox checkBox = (CheckBox) listItemView.findViewById(R.id.checkbox_multiple_choise);
         ImageView categoria = (ImageView)listItemView.findViewById(R.id.category);
 
         //Obteniendo instancia de la Tarea en la posición actual
