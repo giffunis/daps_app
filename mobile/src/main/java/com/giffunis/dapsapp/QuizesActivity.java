@@ -225,6 +225,14 @@ public class QuizesActivity extends AppCompatActivity implements
                 break;
             case "multipleChoise":
                 System.out.println("Case: multipleChoise");
+                bundle.putString(BODY_QUESTION, question.getPhrase());
+                for (int i = 0; i < question.getnAnswers(); i++){
+                    answers.add(question.getAnswers().get(i).getBody());
+                }
+                bundle.putStringArrayList(ANSWERS_LIST,answers);
+                fragment = new MultipleChoiseFragment();
+                fragment.setArguments(bundle);
+                replaceFragment(fragment);
                 break;
             default:
                 new IOException("Error en la pregunta: El tipo de respuesta no es correcto").printStackTrace();
