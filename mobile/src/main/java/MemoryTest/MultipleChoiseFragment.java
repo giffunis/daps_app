@@ -27,9 +27,9 @@ public class MultipleChoiseFragment extends Fragment {
     private static final String BODY_QUESTION = "question";
     private static final String ANSWERS_LIST = "answers";
     private String bodyQuestion_;
+    private String userAnswer_;
     private ArrayList<String> answersList_;
     OnMultipleChoiseSelectListener mCallback_;
-    private ArrayList<Boolean> answersSelected_;
 
 
     CircleButton btn_accept_;
@@ -47,22 +47,11 @@ public class MultipleChoiseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_multiple_choise, container, false);
         MultipleChoiseAdapter adapter = new MultipleChoiseAdapter(getContext(), answersList_);
         TextView bodyQuestion = (TextView) view.findViewById(R.id.body_question);
-        answersSelected_ = new ArrayList<Boolean>();
-        for(int i = 0; i < answersList_.size(); i++){
-            answersSelected_.add(false);
-        }
         btn_accept_ = (CircleButton) view.findViewById(R.id.btn_accept);
         btn_accept_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userAnswer = "";
-                for (int i = 0; i < answersList_.size(); i++){
-                    if (answersSelected_.get(i) == true){
-                        userAnswer = userAnswer + "," + answersList_.get(i);
-                        System.out.println(i + " : " + userAnswer);
-                    }
-                }
-                mCallback_.multipleChoiseResult(bodyQuestion_,userAnswer);
+                mCallback_.multipleChoiseResult(bodyQuestion_, userAnswer_);
             }
         });
         bodyQuestion.setText(bodyQuestion_);
@@ -71,15 +60,9 @@ public class MultipleChoiseFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(answersSelected_.get(position) == false){
-                    answersSelected_.set(position,true);
-                }else{
-                    answersSelected_.set(position,false);
-                }
-                System.out.println("pregunta " + Integer.toString(position) + ": " + answersList_.get(position).toString());
+                System.out.println(position);
             }
         });
-
 
         return view;
     }
