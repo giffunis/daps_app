@@ -28,7 +28,8 @@ public class QuizesActivity extends AppCompatActivity implements
         QuizesListFragment.OnQuizesListSelectedListener,
         SingleChoiseFragment.OnSingleChoiseSelectListener,
         NumberFragment.OnNumberListener,
-        ImageFragment.OnImageListener{
+        ImageFragment.OnImageListener,
+        MultipleChoiseFragment.OnMultipleChoiseSelectListener{
 
     private static final String BODY_QUESTION = "question";
     private static final String ANSWERS_LIST = "answers";
@@ -164,6 +165,12 @@ public class QuizesActivity extends AppCompatActivity implements
 
     @Override
     public void imageResult(String bodyQuestion, String userAnswer) {
+        System.out.println("Question: " + bodyQuestion + "User answer: " + userAnswer);
+        quizEngine(bodyQuestion,userAnswer);
+    }
+
+    @Override
+    public void multipleChoiseResult(String bodyQuestion, String userAnswer) {
         System.out.println("Question: " + bodyQuestion + "User answer: " + userAnswer);
         quizEngine(bodyQuestion,userAnswer);
     }
