@@ -56,16 +56,10 @@ public class MultipleChoiseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String userAnswer = "";
-                int cont = 0;
                 for (int i = 0; i < answersList_.size(); i++){
-                    if(answersSelected_.get(i) == true && cont == 0){
-                        userAnswer = answersList_.get(i);
-                        cont++;
-                    } else if (answersSelected_.get(i) == true && cont != 0){
+                    if (answersSelected_.get(i) == true){
                         userAnswer = userAnswer + "," + answersList_.get(i);
-                        cont++;
-                    } else {
-                        cont++;
+                        System.out.println(i + " : " + userAnswer);
                     }
                 }
                 mCallback_.multipleChoiseResult(bodyQuestion_,userAnswer);
@@ -82,6 +76,7 @@ public class MultipleChoiseFragment extends Fragment {
                 }else{
                     answersSelected_.set(position,false);
                 }
+                System.out.println("pregunta " + Integer.toString(position) + ": " + answersList_.get(position).toString());
             }
         });
 
@@ -94,6 +89,13 @@ public class MultipleChoiseFragment extends Fragment {
         super.onAttach(context);
         bodyQuestion_ = getArguments().getString(BODY_QUESTION);
         answersList_ = getArguments().getStringArrayList(ANSWERS_LIST);
+
+        try{
+            mCallback_ = (OnMultipleChoiseSelectListener) context;
+        }catch (ClassCastException e){
+            throw new ClassCastException(context.toString()
+                    + " must implement OnQuizesListSelectedListener");
+        }
     }
 
     public interface OnMultipleChoiseSelectListener{
