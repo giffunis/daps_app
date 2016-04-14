@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,7 +28,8 @@ public class MultipleChoiseFragment extends Fragment {
     private static final String ANSWERS_LIST = "answers";
     private String bodyQuestion_;
     private ArrayList<String> answersList_;
-    OnMultipleChoiseSelectListener mCallback;
+    OnMultipleChoiseSelectListener mCallback_;
+    private ArrayList<Boolean> answersSelected_;
 
 
     CircleButton btn_accept_;
@@ -45,16 +47,43 @@ public class MultipleChoiseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_multiple_choise, container, false);
         MultipleChoiseAdapter adapter = new MultipleChoiseAdapter(getContext(), answersList_);
         TextView bodyQuestion = (TextView) view.findViewById(R.id.body_question);
+        answersSelected_ = new ArrayList<Boolean>();
+        for(int i = 0; i < answersList_.size(); i++){
+            answersSelected_.add(false);
+        }
         btn_accept_ = (CircleButton) view.findViewById(R.id.btn_accept);
         btn_accept_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String userAnswer = "";
+                int cont = 0;
+                for (int i = 0; i < answersList_.size(); i++){
+                    if(answersSelected_.get(i) == true && cont == 0){
+                        userAnswer = answersList_.get(i);
+                        cont++;
+                    } else if (answersSelected_.get(i) == true && cont != 0){
+                        userAnswer = userAnswer + "," + answersList_.get(i);
+                        cont++;
+                    } else {
+                        cont++;
+                    }
+                }
+                mCallback_.multipleChoiseResult(bodyQuestion_,userAnswer);
             }
         });
         bodyQuestion.setText(bodyQuestion_);
         ListView listView = (ListView) view.findViewById(R.id.list_view);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(answersSelected_.get(position) == false){
+                    answersSelected_.set(position,true);
+                }else{
+                    answersSelected_.set(position,false);
+                }
+            }
+        });
 
 
         return view;
