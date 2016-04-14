@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,7 +13,12 @@
         android:textSize="@dimen/material_drawer_account_header_secondary"
         />
 
-    <include layout="@layout/listview_layout"/>
+    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_view"
+        android:layout_below="@+id/body_question">
+    </ListView>
 
     <at.markushi.ui.CircleButton
         android:id="@+id/btn_accept"
@@ -23,5 +28,5 @@
         app:cb_color="#99CC00"
         app:cb_pressedRingWidth="8dip"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-</LinearLayout>
+        android:layout_alignParentRight="true" />
+</RelativeLayout>
