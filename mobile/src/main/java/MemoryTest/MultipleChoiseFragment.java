@@ -4,6 +4,7 @@ package MemoryTest;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class MultipleChoiseFragment extends Fragment {
 
 
     CircleButton btn_accept_;
+    ListView listView_;
 
 
     public MultipleChoiseFragment() {
@@ -47,23 +49,24 @@ public class MultipleChoiseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_multiple_choise, container, false);
         MultipleChoiseAdapter adapter = new MultipleChoiseAdapter(getContext(), answersList_);
         TextView bodyQuestion = (TextView) view.findViewById(R.id.body_question);
+
+        bodyQuestion.setText(bodyQuestion_);
+        listView_ = (ListView) view.findViewById(R.id.list_view);
+        listView_.setAdapter(adapter);
+
         btn_accept_ = (CircleButton) view.findViewById(R.id.btn_accept);
         btn_accept_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SparseBooleanArray checked = listView_.getCheckedItemPositions();
+                for (int i = 0; i < answersList_.size(); i++){
+
+                        System.out.println(listView_.getCheckedItemCount());
+
+                }
                 mCallback_.multipleChoiseResult(bodyQuestion_, userAnswer_);
             }
         });
-        bodyQuestion.setText(bodyQuestion_);
-        ListView listView = (ListView) view.findViewById(R.id.list_view);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(position);
-            }
-        });
-
         return view;
     }
 
