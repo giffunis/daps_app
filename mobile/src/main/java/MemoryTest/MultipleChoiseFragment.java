@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.giffunis.dapsapp.R;
 
@@ -41,6 +42,7 @@ public class MultipleChoiseFragment extends Fragment {
         bodyQuestion.setText(bodyQuestion_);
         ListView listView = (ListView) view.findViewById(R.id.list_view);
         listView.setAdapter(adapter);
+
 
         return view;
     }

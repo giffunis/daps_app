@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
@@ -13,10 +13,15 @@
         android:textSize="@dimen/material_drawer_account_header_secondary"
         />
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/list_view"
-        >
-    </ListView>
+    <include layout="@layout/listview_layout"/>
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/btn_accept"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_done_24dp"
+        app:cb_color="#99CC00"
+        app:cb_pressedRingWidth="8dip"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </LinearLayout>
