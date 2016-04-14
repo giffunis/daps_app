@@ -16,6 +16,8 @@ import com.giffunis.dapsapp.R;
 
 import java.util.ArrayList;
 
+import at.markushi.ui.CircleButton;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -25,6 +27,10 @@ public class MultipleChoiseFragment extends Fragment {
     private static final String ANSWERS_LIST = "answers";
     private String bodyQuestion_;
     private ArrayList<String> answersList_;
+    OnMultipleChoiseSelectListener mCallback;
+
+
+    CircleButton btn_accept_;
 
 
     public MultipleChoiseFragment() {
@@ -39,6 +45,13 @@ public class MultipleChoiseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_multiple_choise, container, false);
         MultipleChoiseAdapter adapter = new MultipleChoiseAdapter(getContext(), answersList_);
         TextView bodyQuestion = (TextView) view.findViewById(R.id.body_question);
+        btn_accept_ = (CircleButton) view.findViewById(R.id.btn_accept);
+        btn_accept_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         bodyQuestion.setText(bodyQuestion_);
         ListView listView = (ListView) view.findViewById(R.id.list_view);
         listView.setAdapter(adapter);
@@ -52,5 +65,9 @@ public class MultipleChoiseFragment extends Fragment {
         super.onAttach(context);
         bodyQuestion_ = getArguments().getString(BODY_QUESTION);
         answersList_ = getArguments().getStringArrayList(ANSWERS_LIST);
+    }
+
+    public interface OnMultipleChoiseSelectListener{
+        public void multipleChoiseResult(String bodyQuestion, String userAnswer);
     }
 }
