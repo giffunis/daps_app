@@ -31,6 +31,8 @@ public class MultipleChoiseFragment extends Fragment {
     private String userAnswer_;
     private ArrayList<String> answersList_;
     OnMultipleChoiseSelectListener mCallback_;
+    private ArrayList<Row> rows_;
+
 
 
     CircleButton btn_accept_;
@@ -47,6 +49,16 @@ public class MultipleChoiseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_multiple_choise, container, false);
+
+        rows_ = new ArrayList<Row>();
+
+        for(int i = 0 ; i < answersList_.size(); i++){
+            rows_.add(new Row(answersList_.get(i)));
+            System.out.println("Row " + i + "=> Phrase: " + rows_.get(i).getPhrase_() + ", Checked: " + rows_.get(i).isChecked_());
+        }
+
+
+
         MultipleChoiseAdapter adapter = new MultipleChoiseAdapter(getContext(), answersList_);
         TextView bodyQuestion = (TextView) view.findViewById(R.id.body_question);
 
@@ -55,18 +67,7 @@ public class MultipleChoiseFragment extends Fragment {
         listView_.setAdapter(adapter);
 
         btn_accept_ = (CircleButton) view.findViewById(R.id.btn_accept);
-        btn_accept_.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SparseBooleanArray checked = listView_.getCheckedItemPositions();
-                for (int i = 0; i < answersList_.size(); i++){
 
-                        System.out.println(listView_.getCheckedItemCount());
-
-                }
-                mCallback_.multipleChoiseResult(bodyQuestion_, userAnswer_);
-            }
-        });
         return view;
     }
 
