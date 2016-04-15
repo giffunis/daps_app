@@ -181,6 +181,7 @@ public class QuizesActivity extends AppCompatActivity implements
         if(lastQuestion(currentQuestion_)){
             // Aquí toca llamar la función para mostrar los resultados
             System.out.println("that was the las question");
+            System.out.println(currentUserAnswers_);
         } else {
             this.currentQuestion_++;
             loadQuestion();
