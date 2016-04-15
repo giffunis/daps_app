@@ -52,9 +52,10 @@ public class MultipleChoiseAdapter extends ArrayAdapter<Row> {
             public void onClick(View v) {
                 if (answer.isChecked_() == true) {
                     answer.setChecked_(false);
-                }else{
+                } else {
                     answer.setChecked_(true);
                 }
+                System.out.println(answer.getPhrase_() + ", Checked: " + answer.isChecked_());
             }
         });
 

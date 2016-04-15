@@ -59,7 +59,7 @@ public class MultipleChoiseFragment extends Fragment {
 
 
 
-        MultipleChoiseAdapter adapter = new MultipleChoiseAdapter(getContext(), answersList_);
+        MultipleChoiseAdapter adapter = new MultipleChoiseAdapter(getContext(), rows_);
         TextView bodyQuestion = (TextView) view.findViewById(R.id.body_question);
 
         bodyQuestion.setText(bodyQuestion_);
