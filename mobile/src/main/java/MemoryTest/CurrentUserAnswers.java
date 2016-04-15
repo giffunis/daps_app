@@ -34,5 +34,15 @@ public class CurrentUserAnswers {
     public void createAnswersJsonFile(){
         System.out.println("Aquí se debe crear el fichero con las respuestas?, faltaría agregar el usuario, ojito");
     }
-   
+
+    @Override
+    public String toString() {
+        String aux = "";
+
+        for (int i = 0; i < n_; i++){
+            aux = aux + Integer.toString(i) + ") Question: " + bodyQuestions_.get(i) + ", UserAnswer: " + userAnswers_.get(i) + "\n";
+        }
+
+        return aux;
+    }
 }
