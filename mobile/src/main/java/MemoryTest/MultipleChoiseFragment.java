@@ -67,6 +67,17 @@ public class MultipleChoiseFragment extends Fragment {
         listView_.setAdapter(adapter);
 
         btn_accept_ = (CircleButton) view.findViewById(R.id.btn_accept);
+        btn_accept_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i = 0 ; i < rows_.size(); i++){
+                    if(rows_.get(i).isChecked_()){
+                        userAnswer_ = userAnswer_ + "," + rows_.get(i).getPhrase_();
+                        mCallback_.multipleChoiseResult(bodyQuestion_,userAnswer_);
+                    }
+                }
+            }
+        });
 
         return view;
     }
@@ -76,6 +87,7 @@ public class MultipleChoiseFragment extends Fragment {
         super.onAttach(context);
         bodyQuestion_ = getArguments().getString(BODY_QUESTION);
         answersList_ = getArguments().getStringArrayList(ANSWERS_LIST);
+        userAnswer_ = "";
 
         try{
             mCallback_ = (OnMultipleChoiseSelectListener) context;
