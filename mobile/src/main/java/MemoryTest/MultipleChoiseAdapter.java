@@ -47,6 +47,7 @@ public class MultipleChoiseAdapter extends ArrayAdapter<String> {
         checkBox.setText(answer);
         categoria.setImageResource(R.drawable.ic_tests);
 
+
         return listItemView;
     }
 }
