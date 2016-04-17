@@ -15,7 +15,7 @@ public class CurrentUserAnswers {
     public CurrentUserAnswers(){
         bodyQuestions_ = new ArrayList<String>();
         userAnswers_ = new ArrayList<String>();
-        answersType_ = new ArrayList<String>():
+        answersType_ = new ArrayList<String>();
         n_ = 0;
     }
     
