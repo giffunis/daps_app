@@ -176,7 +176,9 @@ public class QuizesActivity extends AppCompatActivity implements
     }
 
     private void quizEngine(String bodyQuestion, String answerPhrase){
-        currentUserAnswers_.addLine(bodyQuestion, answerPhrase);
+        boolean isCorrect = false;
+
+        currentUserAnswers_.addLine(bodyQuestion, answerPhrase, quiz_.getQuestions().get(currentQuestion_).getAnswerType());
 
         if(lastQuestion(currentQuestion_)){
             // Aquí toca llamar la función para mostrar los resultados
