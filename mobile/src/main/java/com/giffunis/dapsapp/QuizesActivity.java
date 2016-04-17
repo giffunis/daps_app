@@ -192,18 +192,11 @@ public class QuizesActivity extends AppCompatActivity implements
                     }
                 }
                 System.out.println(join + " : " + answerPhrase);
-
-                if(join.equals(answerPhrase))
-                    isCorrect = true;
-                break;
-            case "number":
-                if(Integer.parseInt(quiz_.getQuestions().get(currentQuestion_).getAnswers().get(correctAnswers.get(0)).getBody()) == Integer.parseInt(answerPhrase))
-                    isCorrect = true;
+                isCorrect = join.equals(answerPhrase);
                 break;
             default:
                 System.out.println(quiz_.getQuestions().get(currentQuestion_).getAnswers().get(correctAnswers.get(0)).getBody() + " : " + answerPhrase);
-                if(quiz_.getQuestions().get(currentQuestion_).getAnswers().get(correctAnswers.get(0)).getBody() == answerPhrase)
-                    isCorrect = true;
+                isCorrect = answerPhrase.equals(quiz_.getQuestions().get(currentQuestion_).getAnswers().get(correctAnswers.get(0)).getBody());
                 break;
         }
 
