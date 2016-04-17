@@ -10,19 +10,22 @@ public class CurrentUserAnswers {
     private ArrayList<String> bodyQuestions_;
     private ArrayList<String> userAnswers_;
     private ArrayList<String> answersType_;
+    private ArrayList<Boolean> isCorrect_;
     private int n_;
 
     public CurrentUserAnswers(){
         bodyQuestions_ = new ArrayList<String>();
         userAnswers_ = new ArrayList<String>();
         answersType_ = new ArrayList<String>();
+        isCorrect_ = new ArrayList<Boolean>();
         n_ = 0;
     }
     
-    public void addLine(String bodyQuestion, String userAnswer, String answerType){
+    public void addLine(String bodyQuestion, String userAnswer, String answerType, boolean isCorrect){
         bodyQuestions_.add(bodyQuestion);
         userAnswers_.add(userAnswer);
         answersType_.add(answerType);
+        isCorrect_.add(isCorrect);
         n_++;
     }
     
@@ -37,7 +40,11 @@ public class CurrentUserAnswers {
     public String getAnswerType(int n) {
         return answersType_.get(n);
     }
-    
+
+    public boolean getIsCorrect(int n) {
+        return isCorrect_.get(n);
+    }
+
     public void createAnswersJsonFile(){
         System.out.println("Aquí se debe crear el fichero con las respuestas?, faltaría agregar el usuario, ojito");
     }
