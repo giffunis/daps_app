@@ -9,17 +9,20 @@ import java.util.ArrayList;
 public class CurrentUserAnswers {
     private ArrayList<String> bodyQuestions_;
     private ArrayList<String> userAnswers_;
+    private ArrayList<String> answersType_;
     private int n_;
 
     public CurrentUserAnswers(){
         bodyQuestions_ = new ArrayList<String>();
         userAnswers_ = new ArrayList<String>();
+        answersType_ = new ArrayList<String>():
         n_ = 0;
     }
     
-    public void addLine(String bodyQuestion, String userAnswer){
+    public void addLine(String bodyQuestion, String userAnswer, String answerType){
         bodyQuestions_.add(bodyQuestion);
         userAnswers_.add(userAnswer);
+        answersType_.add(answerType);
         n_++;
     }
     
@@ -29,6 +32,10 @@ public class CurrentUserAnswers {
 
     public String getUserAnswer(int n){
         return userAnswers_.get(n);
+    }
+
+    public String getAnswerType(int n) {
+        return answersType_.get(n);
     }
     
     public void createAnswersJsonFile(){
@@ -40,7 +47,7 @@ public class CurrentUserAnswers {
         String aux = "";
 
         for (int i = 0; i < n_; i++){
-            aux = aux + Integer.toString(i) + ") Question: " + bodyQuestions_.get(i) + ", UserAnswer: " + userAnswers_.get(i) + "\n";
+            aux = aux + Integer.toString(i) + ") Question: " + bodyQuestions_.get(i) + ", UserAnswer: " + userAnswers_.get(i) + ", AnswerType: " + answersType_.get(i) + "\n";
         }
 
         return aux;
