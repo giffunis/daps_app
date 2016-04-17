@@ -54,7 +54,7 @@ public class CurrentUserAnswers {
         String aux = "";
 
         for (int i = 0; i < n_; i++){
-            aux = aux + Integer.toString(i) + ") Question: " + bodyQuestions_.get(i) + ", UserAnswer: " + userAnswers_.get(i) + ", AnswerType: " + answersType_.get(i) + "\n";
+            aux = aux + Integer.toString(i) + ") Question: " + bodyQuestions_.get(i) + ", UserAnswer: " + userAnswers_.get(i) + ", AnswerType: " + answersType_.get(i) + ", isCorrect: "+ isCorrect_.get(i).toString() + "\n";
         }
 
         return aux;

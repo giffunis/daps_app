@@ -5,25 +5,25 @@
     "phrase": "¿Qué sonido hace el perro?",
     "answerType": "singleChoise",
     "nAnswer": 4,
-    "correctAnswersId": [1],
+    "correctAnswersId": [0],
     "answers": [
       {
-        "answerId": 1,
+        "answerId": 0,
         "type": "String",
         "body": "Ladrido"
       },
       {
-        "answerId": 2,
+        "answerId": 1,
         "type": "String",
         "body": "Zumbido"
       },
       {
-        "answerId": 3,
+        "answerId": 2,
         "type": "String",
         "body": "Roznido"
       },
       {
-        "answerId": 4,
+        "answerId": 3,
         "type": "String",
         "body": "Rugido"
       }
@@ -35,25 +35,25 @@
     "phrase": "¿De los siguientes nombres, quién es un Avenger?",
     "answerType": "singleChoise",
     "nAnswer": 4,
-    "correctAnswersId": [1],
+    "correctAnswersId": [3],
     "answers": [
       {
-        "answerId": 1,
+        "answerId": 0,
         "type": "String",
         "body": "Sancho Panza"
       },
       {
-        "answerId": 2,
+        "answerId": 1,
         "type": "String",
         "body": "Pepito Grillo"
       },
       {
-        "answerId": 3,
+        "answerId": 2,
         "type": "String",
         "body": "Conan el Bárbaro"
       },
       {
-        "answerId": 4,
+        "answerId": 3,
         "type": "String",
         "body": "El Capitán Ameríca"
       }
@@ -65,10 +65,10 @@
     "phrase": "¿Cuántas patas tiene una araña?",
     "answerType": "number",
     "nAnswer": 1,
-    "correctAnswersId": [1],
+    "correctAnswersId": [0],
     "answers": [
       {
-        "answerId": 1,
+        "answerId": 0,
         "type": "number",
         "body": "8"
       }
@@ -80,25 +80,25 @@
     "phrase": "¿Cuál de las siguientes imágenes es un perro?",
     "answerType": "image",
     "nAnswer": 4,
-    "correctAnswersId": [3],
+    "correctAnswersId": [2],
     "answers": [
       {
-        "answerId": 1,
+        "answerId": 0,
         "type": "image",
         "body": "http://i.imgur.com/tYve4JU.jpg"
       },
       {
-        "answerId": 2,
+        "answerId": 1,
         "type": "image",
         "body": "http://i.imgur.com/3nBkoeb.jpg"
       },
       {
-        "answerId": 3,
+        "answerId": 2,
         "type": "image",
         "body": "http://i.imgur.com/BqYRtb2.jpg"
       },
       {
-        "answerId": 4,
+        "answerId": 3,
         "type": "image",
         "body": "http://i.imgur.com/etAhhpV.jpg"
       }
@@ -110,25 +110,25 @@
     "phrase": "Selecciona las ciudades españolas que aparecen en la siguiente lista:",
     "answerType": "multipleChoise",
     "nAnswer": 4,
-    "correctAnswersId": [1,3],
+    "correctAnswersId": [0,2],
     "answers": [
       {
-        "answerId": 1,
+        "answerId": 0,
         "type": "String",
         "body": "Madrid"
       },
       {
-        "answerId": 2,
+        "answerId": 1,
         "type": "String",
         "body": "Roma"
       },
       {
-        "answerId": 3,
+        "answerId": 2,
         "type": "String",
         "body": "Barcelona"
       },
       {
-        "answerId": 4,
+        "answerId": 3,
         "type": "String",
         "body": "Toronto"
       }

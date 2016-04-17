@@ -142,6 +142,7 @@ public class QuizesActivity extends AppCompatActivity implements
             * Init the params
             */
             quiz_ = new  Quiz(getResources().openRawResource(R.raw.prueba));
+            System.out.println(quiz_);
             currentUserAnswers_ = new CurrentUserAnswers();
             currentQuestion_ = 0;
             loadQuestion();
@@ -179,6 +180,8 @@ public class QuizesActivity extends AppCompatActivity implements
         boolean isCorrect = false;
         ArrayList<Integer> correctAnswers = quiz_.getQuestions().get(currentQuestion_).getCorrectAnswersId();
         String answerType = quiz_.getQuestions().get(currentQuestion_).getAnswerType();
+
+        System.out.println(answerType);
 
         switch (answerType){
             case "multipleChoise":
