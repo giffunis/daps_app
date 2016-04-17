@@ -33,6 +33,8 @@ public class QuizesActivity extends AppCompatActivity implements
 
     private static final String BODY_QUESTION = "question";
     private static final String ANSWERS_LIST = "answers";
+    private static final String HITS = "hits";
+    private static final String N_QUESTIONS = "nQuestions";
     Toolbar toolbar;
     // -----------------------------------don't forget to update this when the user select a new quiz from the list.---------------------------------------------------------------------
     Quiz quiz_;
@@ -204,9 +206,16 @@ public class QuizesActivity extends AppCompatActivity implements
         currentUserAnswers_.addLine(bodyQuestion, answerPhrase, answerType, isCorrect);
 
         if(lastQuestion(currentQuestion_)){
-            // Aquí toca llamar la función para mostrar los resultados
             System.out.println("that was the las question");
             System.out.println(currentUserAnswers_);
+
+            Bundle bundle = new Bundle();
+            bundle.putInt(HITS,currentUserAnswers_.getnCorrectAnswers());
+            bundle.putInt(N_QUESTIONS,quiz_.getnQuestions());
+            Fragment fragment = new QuizResultFragment();
+            fragment.setArguments(bundle);
+            replaceFragment(fragment);
+
         } else {
             this.currentQuestion_++;
             loadQuestion();
