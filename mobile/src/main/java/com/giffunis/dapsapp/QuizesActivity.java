@@ -177,8 +177,20 @@ public class QuizesActivity extends AppCompatActivity implements
 
     private void quizEngine(String bodyQuestion, String answerPhrase){
         boolean isCorrect = false;
+        ArrayList<Integer> correctAnswers = quiz_.getQuestions().get(currentQuestion_).getCorrectAnswersId();
+        String answerType = quiz_.getQuestions().get(currentQuestion_).getAnswerType();
 
-        currentUserAnswers_.addLine(bodyQuestion, answerPhrase, quiz_.getQuestions().get(currentQuestion_).getAnswerType());
+        switch (answerType){
+            case "multipleChoise":
+                break;
+            default:
+                if(quiz_.getQuestions().get(currentQuestion_).getAnswers().get(correctAnswers.get(0)).getBody() == answerPhrase)
+                    isCorrect = true;
+                break;
+        }
+
+
+        currentUserAnswers_.addLine(bodyQuestion, answerPhrase, answerType, isCorrect);
 
         if(lastQuestion(currentQuestion_)){
             // Aquí toca llamar la función para mostrar los resultados
