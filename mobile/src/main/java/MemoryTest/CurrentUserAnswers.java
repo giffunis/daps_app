@@ -12,6 +12,8 @@ public class CurrentUserAnswers {
     private ArrayList<String> answersType_;
     private ArrayList<Boolean> isCorrect_;
     private int n_;
+    private int nCorrectAnswers_;
+    private int nIncorrectAnswers_;
 
     public CurrentUserAnswers(){
         bodyQuestions_ = new ArrayList<String>();
@@ -19,6 +21,8 @@ public class CurrentUserAnswers {
         answersType_ = new ArrayList<String>();
         isCorrect_ = new ArrayList<Boolean>();
         n_ = 0;
+        nCorrectAnswers_ = 0;
+        nIncorrectAnswers_ = 0;
     }
     
     public void addLine(String bodyQuestion, String userAnswer, String answerType, boolean isCorrect){
@@ -27,6 +31,11 @@ public class CurrentUserAnswers {
         answersType_.add(answerType);
         isCorrect_.add(isCorrect);
         n_++;
+        if(isCorrect){
+            nCorrectAnswers_++;
+        }else{
+            nIncorrectAnswers_++;
+        }
     }
     
     public String getBodyQuestion(int n) {
@@ -43,6 +52,14 @@ public class CurrentUserAnswers {
 
     public boolean getIsCorrect(int n) {
         return isCorrect_.get(n);
+    }
+
+    public int getnCorrectAnswers(){
+        return nCorrectAnswers_;
+    }
+
+    public int getnIncorrectAnswers(){
+        return nIncorrectAnswers_;
     }
 
     public void createAnswersJsonFile(){
