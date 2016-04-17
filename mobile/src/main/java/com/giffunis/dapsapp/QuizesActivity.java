@@ -181,12 +181,15 @@ public class QuizesActivity extends AppCompatActivity implements
         ArrayList<Integer> correctAnswers = quiz_.getQuestions().get(currentQuestion_).getCorrectAnswersId();
         String answerType = quiz_.getQuestions().get(currentQuestion_).getAnswerType();
 
-        System.out.println(answerType);
-
         switch (answerType){
             case "multipleChoise":
                 break;
+            case "number":
+                if(Integer.parseInt(quiz_.getQuestions().get(currentQuestion_).getAnswers().get(correctAnswers.get(0)).getBody()) == Integer.parseInt(answerPhrase))
+                    isCorrect = true;
+                break;
             default:
+                System.out.println(quiz_.getQuestions().get(currentQuestion_).getAnswers().get(correctAnswers.get(0)).getBody() + " : " + answerPhrase);
                 if(quiz_.getQuestions().get(currentQuestion_).getAnswers().get(correctAnswers.get(0)).getBody() == answerPhrase)
                     isCorrect = true;
                 break;
