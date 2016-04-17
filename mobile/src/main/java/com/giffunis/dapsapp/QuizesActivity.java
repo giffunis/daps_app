@@ -20,6 +20,7 @@ import MemoryTest.MultipleChoiseFragment;
 import MemoryTest.NumberFragment;
 import MemoryTest.Question;
 import MemoryTest.Quiz;
+import MemoryTest.QuizResultFragment;
 import MemoryTest.Quizes;
 import MemoryTest.QuizesListFragment;
 import MemoryTest.SingleChoiseFragment;
