@@ -183,6 +183,18 @@ public class QuizesActivity extends AppCompatActivity implements
 
         switch (answerType){
             case "multipleChoise":
+                String join = null;
+                for(int i = 0; i < correctAnswers.size(); i++){
+                    if (join == null){
+                        join = quiz_.getQuestions().get(currentQuestion_).getAnswers().get(correctAnswers.get(i)).getBody();
+                    }else {
+                        join = join + "," + quiz_.getQuestions().get(currentQuestion_).getAnswers().get(correctAnswers.get(i)).getBody();
+                    }
+                }
+                System.out.println(join + " : " + answerPhrase);
+
+                if(join.equals(answerPhrase))
+                    isCorrect = true;
                 break;
             case "number":
                 if(Integer.parseInt(quiz_.getQuestions().get(currentQuestion_).getAnswers().get(correctAnswers.get(0)).getBody()) == Integer.parseInt(answerPhrase))
