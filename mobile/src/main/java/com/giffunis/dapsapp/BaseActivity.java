@@ -9,15 +9,21 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import org.json.JSONObject;
+
 
 public class BaseActivity extends AppCompatActivity {
-
+    TextView mTxtDisplay;
     Toolbar toolbar;
     Drawer drawer;
 
@@ -27,12 +33,13 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         initToolbar();
         initNavDrawer();
+        jsonDownload();
     }
 
     public void jsonDownload(){
-        TextView mTxtDisplay;
+
         mTxtDisplay = (TextView) findViewById(R.id.txtDisplay);
-        String url = "http://my-json-feed";
+        String url = "http://192.168.1.67:3000/quizes/download/1";
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -49,6 +56,9 @@ public class BaseActivity extends AppCompatActivity {
 
                     }
                 });
+
+        // Access the RequestQueue through your singleton class.
+        MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
 
     }
 
