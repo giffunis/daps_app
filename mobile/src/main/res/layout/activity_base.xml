@@ -8,6 +8,13 @@
 
     <include layout="@layout/toolbar_layout"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DESCARGAR JSON"
+        android:textSize="30dp"
+        android:id="@+id/btn_download"/>
+
 
 </LinearLayout>
 
