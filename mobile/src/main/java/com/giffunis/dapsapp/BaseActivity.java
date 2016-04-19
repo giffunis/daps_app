@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.Drawer;
@@ -30,7 +31,6 @@ public class BaseActivity extends AppCompatActivity {
 
     public void jsonDownload(){
         TextView mTxtDisplay;
-        ImageView mImageView;
         mTxtDisplay = (TextView) findViewById(R.id.txtDisplay);
         String url = "http://my-json-feed";
 
@@ -50,8 +50,6 @@ public class BaseActivity extends AppCompatActivity {
                     }
                 });
 
-// Access the RequestQueue through your singleton class.
-        MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
     }
 
     private void initNavDrawer(){
