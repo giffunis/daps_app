@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class BaseActivity extends AppCompatActivity {
     TextView mTxtDisplay;
     Toolbar toolbar;
     Drawer drawer;
+    Button btnDownload_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,26 +41,34 @@ public class BaseActivity extends AppCompatActivity {
     public void jsonDownload(){
 
         mTxtDisplay = (TextView) findViewById(R.id.txtDisplay);
-        String url = "http://192.168.1.67:3000/quizes/download/1";
+        final String url = "http://192.168.1.67:3000/quizes/download/2";
+        btnDownload_ = (Button) findViewById(R.id.btn_download);
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        btnDownload_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        mTxtDisplay.setText("Response: " + response.toString());
-                    }
-                }, new Response.ErrorListener() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                mTxtDisplay.setText("Response: " + response.toString());
+                            }
+                        }, new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // TODO Auto-generated method stub
 
-                    }
-                });
+                            }
+                        });
 
-        // Access the RequestQueue through your singleton class.
-        MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
+                // Access the RequestQueue through your singleton class.
+                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsObjRequest);
+            }
+        });
+
+
 
     }
 
