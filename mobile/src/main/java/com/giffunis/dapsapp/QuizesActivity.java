@@ -20,9 +20,11 @@ import com.orm.SugarRecord;
 
 import org.json.JSONArray;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import MemoryTest.Answer;
 import MemoryTest.CurrentUserAnswers;
@@ -75,9 +77,8 @@ public class QuizesActivity extends AppCompatActivity implements
 
     private void updateBD2(){
         jsonDownload();
-
-        /*String filename = "myfile.json";
-        String string = response.toString();
+        String filename = "myfile.json";
+        String string = output;
         FileOutputStream outputStream;
 
         try {
@@ -85,9 +86,12 @@ public class QuizesActivity extends AppCompatActivity implements
             outputStream.write(string.getBytes());
             outputStream.close();
             System.out.println("Archivo escrito");
+            File filesDir = getFilesDir();
+            Scanner input = new Scanner(new File(filesDir, filename));
+            System.out.println(input);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     private void jsonDownload(){
