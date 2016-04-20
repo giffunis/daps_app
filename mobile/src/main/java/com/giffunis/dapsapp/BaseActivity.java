@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -20,6 +21,7 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 
@@ -41,13 +43,26 @@ public class BaseActivity extends AppCompatActivity {
     public void jsonDownload(){
 
         mTxtDisplay = (TextView) findViewById(R.id.txtDisplay);
-        final String url = "http://192.168.1.67:3000/quizes/download/2";
+        final String url = "http://192.168.1.67:3000/quizes/download/1";
         btnDownload_ = (Button) findViewById(R.id.btn_download);
 
         btnDownload_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JsonObjectRequest jsObjRequest = new JsonObjectRequest
+
+                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        mTxtDisplay.setText("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+
+               /* JsonObjectRequest jsObjRequest = new JsonObjectRequest
                         (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                             @Override
@@ -61,10 +76,10 @@ public class BaseActivity extends AppCompatActivity {
                                 // TODO Auto-generated method stub
 
                             }
-                        });
+                        });*/
 
                 // Access the RequestQueue through your singleton class.
-                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsObjRequest);
+                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest);
             }
         });
 
