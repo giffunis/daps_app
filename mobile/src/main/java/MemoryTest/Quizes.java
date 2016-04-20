@@ -1,9 +1,6 @@
 package MemoryTest;
 
 import com.orm.SugarRecord;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 /**

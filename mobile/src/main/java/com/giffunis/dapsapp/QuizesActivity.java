@@ -9,24 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.orm.SugarRecord;
-
 import org.json.JSONArray;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import MemoryTest.Answer;
 import MemoryTest.CurrentUserAnswers;
 import MemoryTest.ImageFragment;
 import MemoryTest.MultipleChoiseFragment;
@@ -88,8 +79,8 @@ public class QuizesActivity extends AppCompatActivity implements
             outputStream.close();
             System.out.println("Archivo escrito");
             File filesDir = getFilesDir();
-            Scanner input = new Scanner(new File(filesDir, filename));
-            System.out.println(input);
+            File encontrado = new File(filesDir, filename);
+            System.out.println(encontrado.getName());
         } catch (Exception e) {
             e.printStackTrace();
         }
