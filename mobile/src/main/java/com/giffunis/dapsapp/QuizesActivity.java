@@ -62,7 +62,8 @@ public class QuizesActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizes);
         initToolbar();
-        updateBD();
+        //updateBD();
+        updateBD2();
         loadQuizesListFragment();
 
     }
@@ -78,7 +79,7 @@ public class QuizesActivity extends AppCompatActivity implements
     private void updateBD2(){
         jsonDownload();
         String filename = "myfile.json";
-        String string = output;
+        String string = "Prueba";
         FileOutputStream outputStream;
 
         try {
@@ -102,6 +103,7 @@ public class QuizesActivity extends AppCompatActivity implements
             @Override
             public void onResponse(JSONArray response) {
                 output = response.toString();
+                System.out.println(output);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -111,7 +113,7 @@ public class QuizesActivity extends AppCompatActivity implements
         });
 
         // Access the RequestQueue through your singleton class.
-        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest);
+        MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
     }
 
 
