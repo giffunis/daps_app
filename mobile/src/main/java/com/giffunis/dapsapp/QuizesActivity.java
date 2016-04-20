@@ -53,6 +53,8 @@ public class QuizesActivity extends AppCompatActivity implements
     CurrentUserAnswers currentUserAnswers_;
     int currentQuestion_;
 
+    String output;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,28 +74,30 @@ public class QuizesActivity extends AppCompatActivity implements
     }
 
     private void updateBD2(){
+        jsonDownload();
 
+        /*String filename = "myfile.json";
+        String string = response.toString();
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+            System.out.println("Archivo escrito");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
     }
 
-    public void jsonDownload(){
+    private void jsonDownload(){
 
         String url = "http://192.168.1.67:3000/quizes/download/1";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                String filename = "myfile.json";
-                String string = response.toString();
-                FileOutputStream outputStream;
-
-                try {
-                    outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-                    outputStream.write(string.getBytes());
-                    outputStream.close();
-                    System.out.println("Archivo escrito");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                output = response.toString();
             }
         }, new Response.ErrorListener() {
             @Override
