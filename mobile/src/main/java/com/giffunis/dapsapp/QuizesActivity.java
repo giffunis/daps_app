@@ -71,6 +71,10 @@ public class QuizesActivity extends AppCompatActivity implements
         quiz2.save();
     }
 
+    private void updateBD2(){
+
+    }
+
     public void jsonDownload(){
 
         String url = "http://192.168.1.67:3000/quizes/download/1";
