@@ -1,5 +1,6 @@
 package com.giffunis.dapsapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.FileOutputStream;
+
 
 public class BaseActivity extends AppCompatActivity {
     TextView mTxtDisplay;
@@ -37,54 +40,6 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         initToolbar();
         initNavDrawer();
-        jsonDownload();
-    }
-
-    public void jsonDownload(){
-
-        mTxtDisplay = (TextView) findViewById(R.id.txtDisplay);
-        final String url = "http://192.168.1.67:3000/quizes/download/1";
-        btnDownload_ = (Button) findViewById(R.id.btn_download);
-
-        btnDownload_.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        mTxtDisplay.setText("Response: " + response.toString());
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
-
-               /* JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                mTxtDisplay.setText("Response: " + response.toString());
-                            }
-                        }, new Response.ErrorListener() {
-
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // TODO Auto-generated method stub
-
-                            }
-                        });*/
-
-                // Access the RequestQueue through your singleton class.
-                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest);
-            }
-        });
-
-
-
     }
 
     private void initNavDrawer(){

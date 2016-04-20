@@ -1,6 +1,7 @@
 package com.giffunis.dapsapp;
 
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -8,8 +9,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.orm.SugarRecord;
 
+import org.json.JSONArray;
+
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -59,6 +70,38 @@ public class QuizesActivity extends AppCompatActivity implements
         Quizes quiz2 = new Quizes("Ruta2", "Test 2");
         quiz2.save();
     }
+
+    public void jsonDownload(){
+
+        String url = "http://192.168.1.67:3000/quizes/download/1";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                String filename = "myfile.json";
+                String string = response.toString();
+                FileOutputStream outputStream;
+
+                try {
+                    outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                    outputStream.write(string.getBytes());
+                    outputStream.close();
+                    System.out.println("Archivo escrito");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        // Access the RequestQueue through your singleton class.
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest);
+    }
+
 
     private void loadInitialFragment(Fragment fragment){
         //Paso 1: Obtener la instancia del administrador de fragmentos
