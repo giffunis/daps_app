@@ -59,6 +59,10 @@ public class QuizesActivity extends AppCompatActivity implements
 
     }
 
+    private void updateDataBase(){
+
+    }
+
     private void updateBD(){
         SugarRecord.deleteAll(Quizes.class);
         Quizes quiz = new Quizes("Ruta", "Test 1");
@@ -86,9 +90,9 @@ public class QuizesActivity extends AppCompatActivity implements
         }
     }
 
-    private void jsonDownload(){
+    private void jsonDownload(String url){
 
-        String url = "http://192.168.1.67:3000/quizes/download/1";
+        /*String url = "http://192.168.1.67:3000/quizes/download/1";*/
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
