@@ -61,6 +61,8 @@ public class QuizesActivity extends AppCompatActivity implements
 
     private void updateDataBase(){
 
+        jsonDownload("http://192.168.1.67:3000/quizes/quizesList");
+
     }
 
     private void updateBD(){
@@ -72,7 +74,7 @@ public class QuizesActivity extends AppCompatActivity implements
     }
 
     private void updateBD2(){
-        jsonDownload();
+        jsonDownload("http://192.168.1.67:3000/quizes/download/1");
         String filename = "myfile.json";
         String string = "Prueba";
         FileOutputStream outputStream;
@@ -91,8 +93,6 @@ public class QuizesActivity extends AppCompatActivity implements
     }
 
     private void jsonDownload(String url){
-
-        /*String url = "http://192.168.1.67:3000/quizes/download/1";*/
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
