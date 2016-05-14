@@ -43,7 +43,7 @@ public class BaseActivity extends AppCompatActivity {
     public void jsonDownload(){
 
         mTxtDisplay = (TextView) findViewById(R.id.txtDisplay);
-        final String url = "http://192.168.1.67:3000/quizes/download/1";
+        final String url = "http://192.168.1.67:4000/quizes/download/1";
         btnDownload_ = (Button) findViewById(R.id.btn_download);
 
         btnDownload_.setOnClickListener(new View.OnClickListener() {
