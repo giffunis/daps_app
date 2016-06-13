@@ -1,0 +1,145 @@
+[
+  {
+    "quizName": "Primer test",
+    "doctor": "doctor",
+    "nQuestions": 5,
+    "questions":
+    [
+      {
+        "questionId": 1,
+        "questionType": "Memoria",
+        "phrase": "¿Qué sonido hace el perro?",
+        "answerType": "singleChoise",
+        "nAnswer": 4,
+        "correctAnswersId": [0],
+        "answers": [
+          {
+            "answerId": 0,
+            "type": "String",
+            "body": "Ladrido"
+          },
+          {
+            "answerId": 1,
+            "type": "String",
+            "body": "Zumbido"
+          },
+          {
+            "answerId": 2,
+            "type": "String",
+            "body": "Roznido"
+          },
+          {
+            "answerId": 3,
+            "type": "String",
+            "body": "Rugido"
+          }
+        ]
+      },
+      {
+        "questionId": 2,
+        "questionType": "Memoria",
+        "phrase": "¿De los siguientes nombres, quién es un Avenger?",
+        "answerType": "singleChoise",
+        "nAnswer": 4,
+        "correctAnswersId": [3],
+        "answers": [
+          {
+            "answerId": 0,
+            "type": "String",
+            "body": "Sancho Panza"
+          },
+          {
+            "answerId": 1,
+            "type": "String",
+            "body": "Pepito Grillo"
+          },
+          {
+            "answerId": 2,
+            "type": "String",
+            "body": "Conan el Bárbaro"
+          },
+          {
+            "answerId": 3,
+            "type": "String",
+            "body": "El Capitán Ameríca"
+          }
+        ]
+      },
+      {
+        "questionId": 3,
+        "questionType": "Memoria",
+        "phrase": "¿Cuántas patas tiene una araña?",
+        "answerType": "number",
+        "nAnswer": 1,
+        "correctAnswersId": [0],
+        "answers": [
+          {
+            "answerId": 0,
+            "type": "number",
+            "body": "8"
+          }
+        ]
+      },
+      {
+        "questionId": 4,
+        "questionType": "Memoria",
+        "phrase": "¿Cuál de las siguientes imágenes es un perro?",
+        "answerType": "image",
+        "nAnswer": 4,
+        "correctAnswersId": [2],
+        "answers": [
+          {
+            "answerId": 0,
+            "type": "image",
+            "body": "http://i.imgur.com/tYve4JU.jpg"
+          },
+          {
+            "answerId": 1,
+            "type": "image",
+            "body": "http://i.imgur.com/3nBkoeb.jpg"
+          },
+          {
+            "answerId": 2,
+            "type": "image",
+            "body": "http://i.imgur.com/BqYRtb2.jpg"
+          },
+          {
+            "answerId": 3,
+            "type": "image",
+            "body": "http://i.imgur.com/etAhhpV.jpg"
+          }
+        ]
+      },
+      {
+        "questionId": 5,
+        "questionType": "Memoria",
+        "phrase": "Selecciona las ciudades españolas que aparecen en la siguiente lista:",
+        "answerType": "multipleChoise",
+        "nAnswer": 4,
+        "correctAnswersId": [0,2],
+        "answers": [
+          {
+            "answerId": 0,
+            "type": "String",
+            "body": "Madrid"
+          },
+          {
+            "answerId": 1,
+            "type": "String",
+            "body": "Roma"
+          },
+          {
+            "answerId": 2,
+            "type": "String",
+            "body": "Barcelona"
+          },
+          {
+            "answerId": 3,
+            "type": "String",
+            "body": "Toronto"
+          }
+        ]
+      }
+    ]
+  }
+]

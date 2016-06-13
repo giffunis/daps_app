@@ -2,12 +2,17 @@ package com.giffunis.dapsapp;
 
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.JsonReader;
 import android.view.MenuItem;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -15,9 +20,18 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import MemoryTest.CurrentUserAnswers;
 import MemoryTest.ImageFragment;
@@ -164,27 +178,100 @@ public class QuizesActivity extends AppCompatActivity implements
         super.onBackPressed();
     }
 
-    @Override
-    public void startQuizSelected(int position) {
-        System.out.println(unsolvedQuizList_.getQuizName(position));
+    private class DownloadFilesTask extends AsyncTask<String, Integer, InputStream> {
+        @Override
+        protected InputStream doInBackground(String... params) {
+            String result = "";
+            InputStream inputStream = new InputStream() {
+                @Override
+                public int read() throws IOException {
+                    return 0;
+                }
+            };
+            HttpURLConnection connection = null;
+            int statusCode = 0;
 
+            try {
+                URL url = new URL(params[0]);
+
+                connection = (HttpURLConnection) url.openConnection();
+
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestMethod("GET");
+
+                statusCode = connection.getResponseCode();
+                System.out.println("Async call code: " + connection.getResponseCode());
+
+                if (statusCode ==  200) {
+                    System.out.println("Server responded with code: " + statusCode);
+
+                    inputStream = new BufferedInputStream(connection.getInputStream());
+
+                    JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
+
+                    quiz_ = new Quiz(reader);
+
+            /* Close Stream */
+                    if(null!=inputStream){
+                        inputStream.close();
+                    }
+
+
+
+                }
+                else{
+                    System.out.println("error");
+                }
+
+
+
+            } catch (Exception e){
+                System.out.println(e);
+            }
+            finally {
+                connection.disconnect();
+                System.out.println("disconnected");
+            }
+
+            return inputStream;
+        }
+
+        protected void onPostExecute(InputStream inputStream) {
+            System.out.println("dsadsad");
+            currentQuestion_ = 0;
+            loadQuestion();
+        }
+
+
+    }
+
+
+    @Override
+    public void startQuizSelected(int position) throws IOException {
+        System.out.println(unsolvedQuizList_.getQuizName(position));
         String url = "http://192.168.1.39:3000/patient/5759e87fb78c9ddd2917b35c/quiz/unsolvedQuizes/" + unsolvedQuizList_.getQuizId(position);
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+        new DownloadFilesTask().execute(url);
+
+
+
+        /*JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 System.out.println("Se han descargado el test seleccionado");
                 String cadena = response.toString();
-                InputStream inputStream = new ByteArrayInputStream(cadena.getBytes());
-                try {
-                    quiz_ = new  Quiz(inputStream);
+                System.out.println(cadena);
+
+               *//*try {
+                   quiz_ = new  Quiz(getResources().openRawResource(R.raw.prueba2));
+                    quiz_ = new Quiz(inputStream);
                     System.out.println(quiz_);
                     currentUserAnswers_ = new CurrentUserAnswers();
                     currentQuestion_ = 0;
                     loadQuestion();
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }*//*
             }
         }, new Response.ErrorListener() {
             @Override
@@ -196,6 +283,7 @@ public class QuizesActivity extends AppCompatActivity implements
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
 
+*/
 
     }
 

@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import com.giffunis.dapsapp.R;
 import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -39,7 +41,11 @@ public class QuizesListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mCallback.startQuizSelected(position);
+                try {
+                    mCallback.startQuizSelected(position);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return view;
@@ -47,7 +53,7 @@ public class QuizesListFragment extends Fragment {
 
 
     public interface OnQuizesListSelectedListener{
-        public void startQuizSelected(int position);
+        public void startQuizSelected(int position) throws IOException;
     }
 
 

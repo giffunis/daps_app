@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 
 public class Quiz {
+    private String id_;
     private String quizName;
     private String author;
     private int nQuestions, nQuestions_;
@@ -26,6 +27,17 @@ public class Quiz {
     public Quiz(InputStream newQuiz) throws IOException {
         System.out.println("Entrando al constructor de la clase Quiz");
         readJsonStream(newQuiz);
+    }
+
+    public Quiz(JsonReader reader) throws IOException {
+        try {
+            /*readQuiz(reader);*/
+            readQuizDetails(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            reader.close();
+        }
     }
 
     public ArrayList<Question> getQuestions() {
@@ -50,17 +62,31 @@ public class Quiz {
         try {
             // Leer Array
             readQuizDetails(reader);
+            /*readArrayQuestions(reader);*/
         } finally {
             reader.close();
         }
     }
 
-    public void readQuizDetails(JsonReader reader) throws IOException {
+    public void readQuiz(JsonReader reader) throws IOException {
         reader.beginArray();
+        while (reader.hasNext()) {
+            // Leer objeto
+            readQuizDetails(reader);
+
+        }
+        reader.endArray();
+    }
+
+    public void readQuizDetails(JsonReader reader) throws IOException {
         reader.beginObject();
         while(reader.hasNext()){
             String name = reader.nextName();
+            System.out.println(name);
             switch (name){
+                case "_id":
+                    id_ = reader.nextString();
+                    break;
                 case "quizName":
                     quizName = reader.nextString();
                     break;
@@ -75,7 +101,6 @@ public class Quiz {
             }
         }
         reader.endObject();
-        reader.endArray();
 
     }
 
