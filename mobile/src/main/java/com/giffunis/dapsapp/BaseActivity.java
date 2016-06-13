@@ -1,5 +1,6 @@
 package com.giffunis.dapsapp;
 
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,13 +9,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -22,7 +19,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
+
 
 
 public class BaseActivity extends AppCompatActivity {
@@ -37,7 +34,7 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         initToolbar();
         initNavDrawer();
-        jsonDownload();
+        //jsonDownload();
     }
 
     public void jsonDownload(){
@@ -82,8 +79,6 @@ public class BaseActivity extends AppCompatActivity {
                 MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest);
             }
         });
-
-
 
     }
 
