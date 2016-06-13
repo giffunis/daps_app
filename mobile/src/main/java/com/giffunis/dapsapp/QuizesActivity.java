@@ -54,14 +54,14 @@ public class QuizesActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_quizes);
         initToolbar();
         //updateBD();
-        updateBD2();
+        updateDataBase();
         loadQuizesListFragment();
 
     }
 
     private void updateDataBase(){
 
-        jsonDownload("http://192.168.1.67:3000/quizes/quizesList");
+        jsonDownload("http://192.168.1.39:3000/patient/5759e87fb78c9ddd2917b35c/quiz/unsolvedQuizes");
 
     }
 
