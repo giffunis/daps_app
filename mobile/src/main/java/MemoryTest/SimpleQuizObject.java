@@ -5,10 +5,6 @@ import android.util.JsonReader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -19,10 +15,18 @@ import java.util.ArrayList;
 public class SimpleQuizObject {
     private ArrayList<String> quizName_;
     private ArrayList<String> quizId_;
+    private int size_;
+
+    public SimpleQuizObject() throws JSONException {
+        quizName_ = new ArrayList();
+        quizId_ = new ArrayList();
+        size_ = 0;
+    }
 
     public SimpleQuizObject(JSONArray datos) throws JSONException {
         quizName_ = new ArrayList();
         quizId_ = new ArrayList();
+        size_ = 0;
         jsonParse(datos);
     }
 
@@ -32,6 +36,8 @@ public class SimpleQuizObject {
             quizName_.add(jsonobject.getString("quizName"));
             quizId_.add(jsonobject.getString("_id"));
         }
+
+        size_ = jsonarray.length();
     }
 
     /* Getters and Setters*/

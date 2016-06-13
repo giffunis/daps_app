@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.orm.SugarRecord;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -29,6 +30,7 @@ import MemoryTest.Quiz;
 import MemoryTest.QuizResultFragment;
 import MemoryTest.Quizes;
 import MemoryTest.QuizesListFragment;
+import MemoryTest.SimpleQuizObject;
 import MemoryTest.SingleChoiseFragment;
 
 public class QuizesActivity extends AppCompatActivity implements
@@ -48,6 +50,9 @@ public class QuizesActivity extends AppCompatActivity implements
     CurrentUserAnswers currentUserAnswers_;
     int currentQuestion_;
 
+    /* Variables para actualizar la BD*/
+
+    SimpleQuizObject unsolvedQuizList_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +71,13 @@ public class QuizesActivity extends AppCompatActivity implements
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                System.out.println("Se han descargado los tests, Son los siguientes: \n" + response.toString());
-
+                System.out.println("Se han descargado los tests");
+                try {
+                    unsolvedQuizList_ = new SimpleQuizObject(response);
+                    System.out.println(unsolvedQuizList_.getQuizName(0));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
