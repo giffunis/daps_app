@@ -14,6 +14,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.orm.SugarRecord;
 import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,14 +48,12 @@ public class QuizesActivity extends AppCompatActivity implements
     CurrentUserAnswers currentUserAnswers_;
     int currentQuestion_;
 
-    String output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizes);
         initToolbar();
-        //updateBD();
         updateDataBase();
         loadQuizesListFragment();
 
@@ -61,7 +61,22 @@ public class QuizesActivity extends AppCompatActivity implements
 
     private void updateDataBase(){
 
-        jsonDownload("http://192.168.1.39:3000/patient/5759e87fb78c9ddd2917b35c/quiz/unsolvedQuizes");
+        String url = "http://192.168.1.39:3000/patient/5759e87fb78c9ddd2917b35c/quiz/unsolvedQuizes";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                System.out.println("Se han descargado los tests, Son los siguientes: \n" + response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        // Access the RequestQueue through your singleton class.
+        MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
 
     }
 
@@ -69,12 +84,10 @@ public class QuizesActivity extends AppCompatActivity implements
         SugarRecord.deleteAll(Quizes.class);
         Quizes quiz = new Quizes("Ruta", "Test 1");
         quiz.save();
-        Quizes quiz2 = new Quizes("Ruta2", "Test 2");
-        quiz2.save();
     }
 
     private void updateBD2(){
-        jsonDownload("http://192.168.1.67:3000/quizes/download/1");
+
         String filename = "myfile.json";
         String string = "Prueba";
         FileOutputStream outputStream;
@@ -92,24 +105,7 @@ public class QuizesActivity extends AppCompatActivity implements
         }
     }
 
-    private void jsonDownload(String url){
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                output = response.toString();
-                System.out.println(output);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        // Access the RequestQueue through your singleton class.
-        MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
-    }
 
 
     private void loadInitialFragment(Fragment fragment){
