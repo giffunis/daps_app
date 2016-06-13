@@ -22,6 +22,11 @@ public class SimpleQuizObject {
         quizId_ = new ArrayList();
         size_ = 0;
     }
+    public SimpleQuizObject(ArrayList<String> quizName, ArrayList<String> quizId) throws JSONException {
+        quizName_ = quizName;
+        quizId_ = quizId;
+        size_ = quizName.size();
+    }
 
     public SimpleQuizObject(JSONArray datos) throws JSONException {
         quizName_ = new ArrayList();

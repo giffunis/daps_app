@@ -1,7 +1,6 @@
 package MemoryTest;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,20 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.giffunis.dapsapp.R;
-import com.orm.SugarRecord;
-
+import org.json.JSONException;
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class QuizesListFragment extends Fragment {
-
+    private static final String UNSOLVEDQUIZNAMES = "unsolvedQuizNames";
+    private static final String UNSOLVEDQUIZIDS = "unsolvedQuizIds";
     private ListView listView;
     private QuizArrayAdapter adapter;
-    List<Quizes> quizesList;
+    SimpleQuizObject quizesList_;
     OnQuizesListSelectedListener mCallback;
+
 
     public QuizesListFragment() {
         // Required empty public constructor
@@ -34,17 +33,13 @@ public class QuizesListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.listview_layout, container, false);
 
-        //Obtener los quizes
-        quizesList = SugarRecord.listAll(Quizes.class);
-
-
-        adapter = new QuizArrayAdapter(getContext(), quizesList);
+        adapter = new QuizArrayAdapter(getContext(), quizesList_.getQuizName_());
         listView = (ListView) view.findViewById(R.id.list_view);
         listView.setAdapter(this.adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mCallback.startQuizSelected(quizesList.get(position).getTestName());
+                mCallback.startQuizSelected(position);
             }
         });
         return view;
@@ -59,6 +54,13 @@ public class QuizesListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        ArrayList<String> quizNames = getArguments().getStringArrayList(UNSOLVEDQUIZNAMES);
+        ArrayList<String> quizIds = getArguments().getStringArrayList(UNSOLVEDQUIZIDS);
+        try {
+            quizesList_ = new SimpleQuizObject(quizNames,quizIds);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         try{
             mCallback = (OnQuizesListSelectedListener) context;
