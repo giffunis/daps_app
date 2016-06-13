@@ -95,7 +95,7 @@ public class QuizesActivity extends AppCompatActivity implements
         //Paso 4: Confirmar el cambio
         transaction.commit();
     }
-    
+
     private void replaceFragment(Fragment fragment){
         //Paso 1: Obtener la instancia del administrador de fragmentos
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -106,7 +106,7 @@ public class QuizesActivity extends AppCompatActivity implements
         //Paso 4: Confirmar el cambio
         transaction.commit();
     }
-    
+
     private void deleteFragment(){
         //Paso 1: Obtener la instancia del administrador de fragmentos
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -164,16 +164,32 @@ public class QuizesActivity extends AppCompatActivity implements
     @Override
     public void startQuizSelected(int position) {
         System.out.println(unsolvedQuizList_.getQuizName(position));
-        
+
+        String url = "http://192.168.1.39:3000/patient/5759e87fb78c9ddd2917b35c/quiz/unsolvedQuizes/" + unsolvedQuizList_.getQuizId(position);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                System.out.println("Se han descargado el test seleccionado");
+                System.out.println(response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        // Access the RequestQueue through your singleton class.
+        MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+
+
         /*
          * Cuando esté listo el servidor y podamos descargar los test y almacenarlos
          * Se creará el objeto del siguiente modo:
          * Quiz quiz = new  Quiz(openFileInput(testName));
          */
-        try {
-            /*
-            * Init the params
-            */
+       /* try {
             quiz_ = new  Quiz(getResources().openRawResource(R.raw.prueba));
             System.out.println(quiz_);
             currentUserAnswers_ = new CurrentUserAnswers();
@@ -181,7 +197,7 @@ public class QuizesActivity extends AppCompatActivity implements
             loadQuestion();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 
@@ -252,7 +268,7 @@ public class QuizesActivity extends AppCompatActivity implements
             loadQuestion();
         }
     }
-    
+
     private void loadQuestion(){
         System.out.println("Current Question(number of the Array, no Id): " + currentQuestion_);
         ArrayList<Question> questions = quiz_.getQuestions();
