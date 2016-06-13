@@ -12,8 +12,11 @@ import java.util.ArrayList;
  */
 
 public class Quiz {
+    private String quizName;
+    private String author;
+    private int nQuestions, nQuestions_;
     private ArrayList<Question> questions;
-    private int nQuestions;
+
 
     public Quiz(){
         this.questions = null;
@@ -46,10 +49,34 @@ public class Quiz {
         JsonReader reader = new JsonReader(new InputStreamReader(newQuiz, "UTF-8"));
         try {
             // Leer Array
-            readArrayQuestions(reader);
+            readQuizDetails(reader);
         } finally {
             reader.close();
         }
+    }
+
+    public void readQuizDetails(JsonReader reader) throws IOException {
+        reader.beginArray();
+        reader.beginObject();
+        while(reader.hasNext()){
+            String name = reader.nextName();
+            switch (name){
+                case "quizName":
+                    quizName = reader.nextString();
+                    break;
+                case "doctor":
+                    author = reader.nextString();
+                    break;
+                case "nQuestions":
+                    nQuestions_ = reader.nextInt();
+                    break;
+                case "questions":
+                   readArrayQuestions(reader);
+            }
+        }
+        reader.endObject();
+        reader.endArray();
+
     }
 
     public void readArrayQuestions(JsonReader reader) throws IOException {

@@ -14,7 +14,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import MemoryTest.CurrentUserAnswers;
 import MemoryTest.ImageFragment;
@@ -171,7 +174,17 @@ public class QuizesActivity extends AppCompatActivity implements
             @Override
             public void onResponse(JSONArray response) {
                 System.out.println("Se han descargado el test seleccionado");
-                System.out.println(response.toString());
+                String cadena = response.toString();
+                InputStream inputStream = new ByteArrayInputStream(cadena.getBytes());
+                try {
+                    quiz_ = new  Quiz(inputStream);
+                    System.out.println(quiz_);
+                    currentUserAnswers_ = new CurrentUserAnswers();
+                    currentQuestion_ = 0;
+                    loadQuestion();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -183,21 +196,6 @@ public class QuizesActivity extends AppCompatActivity implements
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
 
-
-        /*
-         * Cuando esté listo el servidor y podamos descargar los test y almacenarlos
-         * Se creará el objeto del siguiente modo:
-         * Quiz quiz = new  Quiz(openFileInput(testName));
-         */
-       /* try {
-            quiz_ = new  Quiz(getResources().openRawResource(R.raw.prueba));
-            System.out.println(quiz_);
-            currentUserAnswers_ = new CurrentUserAnswers();
-            currentQuestion_ = 0;
-            loadQuestion();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
 
     }
 
