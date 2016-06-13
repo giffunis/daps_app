@@ -47,7 +47,7 @@ public class QuizesListFragment extends Fragment {
 
 
     public interface OnQuizesListSelectedListener{
-        public void startQuizSelected(String testName);
+        public void startQuizSelected(int position);
     }
 
 

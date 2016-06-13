@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.orm.SugarRecord;
 import org.json.JSONArray;
 import org.json.JSONException;
 import java.io.IOException;
@@ -24,7 +23,6 @@ import MemoryTest.NumberFragment;
 import MemoryTest.Question;
 import MemoryTest.Quiz;
 import MemoryTest.QuizResultFragment;
-import MemoryTest.Quizes;
 import MemoryTest.QuizesListFragment;
 import MemoryTest.SimpleQuizObject;
 import MemoryTest.SingleChoiseFragment;
@@ -87,13 +85,6 @@ public class QuizesActivity extends AppCompatActivity implements
         MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
 
     }
-
-    private void updateBD(){
-        SugarRecord.deleteAll(Quizes.class);
-        Quizes quiz = new Quizes("Ruta", "Test 1");
-        quiz.save();
-    }
-
 
     private void loadInitialFragment(Fragment fragment){
         //Paso 1: Obtener la instancia del administrador de fragmentos
@@ -171,8 +162,8 @@ public class QuizesActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void startQuizSelected(String testName) {
-        System.out.println(testName);
+    public void startQuizSelected(int position) {
+        System.out.println(unsolvedQuizList_.getQuizName(position));
         
         /*
          * Cuando esté listo el servidor y podamos descargar los test y almacenarlos
