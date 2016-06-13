@@ -1,7 +1,7 @@
 package com.giffunis.dapsapp;
 
 
-import android.content.Context;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,10 +15,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.orm.SugarRecord;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import MemoryTest.CurrentUserAnswers;
@@ -53,6 +49,8 @@ public class QuizesActivity extends AppCompatActivity implements
     /* Variables para actualizar la BD*/
 
     SimpleQuizObject unsolvedQuizList_;
+    private static final String UNSOLVEDQUIZNAMES = "unsolvedQuizNames";
+    private static final String UNSOLVEDQUIZIDS = "unsolvedQuizIds";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +58,6 @@ public class QuizesActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_quizes);
         initToolbar();
         updateDataBase();
-        loadQuizesListFragment();
 
     }
 
@@ -74,7 +71,7 @@ public class QuizesActivity extends AppCompatActivity implements
                 System.out.println("Se han descargado los tests");
                 try {
                     unsolvedQuizList_ = new SimpleQuizObject(response);
-                    System.out.println(unsolvedQuizList_.getQuizName(0));
+                    loadQuizesListFragment();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -96,27 +93,6 @@ public class QuizesActivity extends AppCompatActivity implements
         Quizes quiz = new Quizes("Ruta", "Test 1");
         quiz.save();
     }
-
-    private void updateBD2(){
-
-        String filename = "myfile.json";
-        String string = "Prueba";
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(string.getBytes());
-            outputStream.close();
-            System.out.println("Archivo escrito");
-            File filesDir = getFilesDir();
-            File encontrado = new File(filesDir, filename);
-            System.out.println(encontrado.getName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
 
 
     private void loadInitialFragment(Fragment fragment){
@@ -152,7 +128,11 @@ public class QuizesActivity extends AppCompatActivity implements
     }
 
     private void loadQuizesListFragment(){
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList(UNSOLVEDQUIZNAMES,unsolvedQuizList_.getQuizName_());
+        bundle.putStringArrayList(UNSOLVEDQUIZIDS,unsolvedQuizList_.getQuizId_());
         QuizesListFragment fragment = new QuizesListFragment();
+        fragment.setArguments(bundle);
         loadInitialFragment(fragment);
     }
 
