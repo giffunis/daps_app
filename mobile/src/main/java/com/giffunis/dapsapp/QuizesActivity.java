@@ -238,6 +238,7 @@ public class QuizesActivity extends AppCompatActivity implements
 
         protected void onPostExecute(InputStream inputStream) {
             System.out.println("dsadsad");
+            currentUserAnswers_ = new CurrentUserAnswers();
             currentQuestion_ = 0;
             loadQuestion();
         }

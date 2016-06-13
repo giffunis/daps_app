@@ -98,6 +98,7 @@ public class Quiz {
                     break;
                 case "questions":
                    readArrayQuestions(reader);
+                    break;
             }
         }
         reader.endObject();
