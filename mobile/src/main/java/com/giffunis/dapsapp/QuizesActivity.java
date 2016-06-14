@@ -51,7 +51,7 @@ public class QuizesActivity extends AppCompatActivity implements
     CurrentUserAnswers currentUserAnswers_;
     int currentQuestion_;
 
-    /* Variables para actualizar la BD*/
+    /* Variables para actualizar la lista de los quizes sin resolver*/
 
     SimpleQuizObject unsolvedQuizList_;
     private static final String UNSOLVEDQUIZNAMES = "unsolvedQuizNames";

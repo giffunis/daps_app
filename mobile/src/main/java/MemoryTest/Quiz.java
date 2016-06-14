@@ -24,14 +24,8 @@ public class Quiz {
         this.nQuestions = 0;
     }
 
-    public Quiz(InputStream newQuiz) throws IOException {
-        System.out.println("Entrando al constructor de la clase Quiz");
-        readJsonStream(newQuiz);
-    }
-
     public Quiz(JsonReader reader) throws IOException {
         try {
-            /*readQuiz(reader);*/
             readQuizDetails(reader);
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,28 +48,6 @@ public class Quiz {
 
     public void setnQuestions(int nQuestions) {
         this.nQuestions = nQuestions;
-    }
-
-    public void readJsonStream(InputStream newQuiz) throws IOException {
-        // Nueva instancia JsonReader
-        JsonReader reader = new JsonReader(new InputStreamReader(newQuiz, "UTF-8"));
-        try {
-            // Leer Array
-            readQuizDetails(reader);
-            /*readArrayQuestions(reader);*/
-        } finally {
-            reader.close();
-        }
-    }
-
-    public void readQuiz(JsonReader reader) throws IOException {
-        reader.beginArray();
-        while (reader.hasNext()) {
-            // Leer objeto
-            readQuizDetails(reader);
-
-        }
-        reader.endArray();
     }
 
     public void readQuizDetails(JsonReader reader) throws IOException {
