@@ -10,17 +10,17 @@ import android.support.v7.widget.Toolbar;
 import android.util.JsonReader;
 import android.view.MenuItem;
 import android.widget.Toast;
-
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +30,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import MemoryTest.CurrentUserAnswers;
 import MemoryTest.ImageFragment;
 import MemoryTest.MultipleChoiseFragment;
@@ -238,42 +237,36 @@ public class QuizesActivity extends AppCompatActivity implements
 
     }
 
-    private void uploadQuiz(){
-        final String username = "Jose".trim();
-        final String password = "Salmo23".trim();
-        final String email = "correo".trim();
-
+    private void uploadQuiz() throws JSONException {
         String url = "http://192.168.1.39:3000/patient/5759e87fb78c9ddd2917b35c" + "/quiz/solvedQuizes/add";
-        System.out.println(url);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
-                new Response.Listener<String>() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("username","hola");
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url,jsonObject,
+                new Response.Listener<JSONObject>(){
                     @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-                    }
-                }){
+                }, new Response.ErrorListener(){
             @Override
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("username",username);
-                params.put("password",password);
-                params.put("email", email);
-                return params;
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
             }
-
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("User-agent", System.getProperty("http.agent"));
+                return headers;
+            }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(jsonObjectRequest);
     }
-
 
 
     @Override
@@ -282,7 +275,6 @@ public class QuizesActivity extends AppCompatActivity implements
         String url = URL_BASE + ID_USER + UNSOLVED_QUIZES_URL + unsolvedQuizList_.getQuizId(position);
         System.out.println(url);
         new DownloadQuiz().execute(url);
-
     }
 
     @Override
