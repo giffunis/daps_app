@@ -271,6 +271,21 @@ public class QuizesActivity extends AppCompatActivity implements
         solvedQuiz.put("nQuestions",currentUserAnswers_.getN_());
         solvedQuiz.put("correctAnswers", currentUserAnswers_.getnCorrectAnswers());
         solvedQuiz.put("failedAnswers", currentUserAnswers_.getnIncorrectAnswers());
+
+        JSONObject questionAnswer;
+        JSONArray questions = new JSONArray();
+
+        for (int i = 0; i < currentUserAnswers_.getN_(); i++){
+            questionAnswer = new JSONObject();
+            questionAnswer.put("bodyQuestion", currentUserAnswers_.getBodyQuestion(i));
+            questionAnswer.put("answer", currentUserAnswers_.getUserAnswer(i));
+            questionAnswer.put("answerType", currentUserAnswers_.getAnswerType(i));
+            questionAnswer.put("isCorrect", currentUserAnswers_.getIsCorrect(i));
+            questions.put(questionAnswer);
+        }
+
+        solvedQuiz.put("questions",questions);
+
         return solvedQuiz;
     }
 
