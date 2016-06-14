@@ -9,9 +9,15 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -20,6 +26,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import org.json.JSONArray;
 
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class BaseActivity extends AppCompatActivity {
@@ -34,7 +42,43 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         initToolbar();
         initNavDrawer();
-        //jsonDownload();
+        jsonDownload();
+    }
+
+    private void uploadQuiz(){
+        final String username = "Jose".trim();
+        final String password = "Salmo23".trim();
+        final String email = "correo".trim();
+
+        String url = "http://192.168.1.39:3000/patient/5759e87fb78c9ddd2917b35c" + "/quiz/solvedQuizes/add";
+        System.out.println(url);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("username",username);
+                params.put("password",password);
+                params.put("email", email);
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
     public void jsonDownload(){
@@ -47,7 +91,9 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+                uploadQuiz();
+
+                /*JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         mTxtDisplay.setText("Response: " + response.toString());
@@ -57,7 +103,7 @@ public class BaseActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                });
+                });*/
 
                /* JsonObjectRequest jsObjRequest = new JsonObjectRequest
                         (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -76,7 +122,7 @@ public class BaseActivity extends AppCompatActivity {
                         });*/
 
                 // Access the RequestQueue through your singleton class.
-                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest);
+                /*MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest);*/
             }
         });
 
