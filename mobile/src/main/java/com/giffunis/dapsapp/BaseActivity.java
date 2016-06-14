@@ -11,12 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -24,7 +24,7 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,19 +45,22 @@ public class BaseActivity extends AppCompatActivity {
         jsonDownload();
     }
 
-    private void uploadQuiz(){
-        final String username = "Jose".trim();
-        final String password = "Salmo23".trim();
-        final String email = "correo".trim();
-
+    private void uploadQuiz2() {
         String url = "http://192.168.1.39:3000/patient/5759e87fb78c9ddd2917b35c" + "/quiz/solvedQuizes/add";
-        System.out.println(url);
+          /*Post data*/
+        Map<String, String> jsonParams = new HashMap<String, String>();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
-                new Response.Listener<String>() {
+        jsonParams.put("email", "user@gmail.com");
+        jsonParams.put("username", "user");
+        jsonParams.put("password", "pass");
+
+        JsonObjectRequest postRequest = new JsonObjectRequest( Request.Method.PUT, url,
+
+                new JSONObject(jsonParams),
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -65,20 +68,17 @@ public class BaseActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
                     }
-                }){
+                }) {
             @Override
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("username",username);
-                params.put("password",password);
-                params.put("email", email);
-                return params;
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("User-agent", System.getProperty("http.agent"));
+                return headers;
             }
-
         };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(postRequest);
     }
 
     public void jsonDownload(){
@@ -91,7 +91,7 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                uploadQuiz();
+                uploadQuiz2();
 
                 /*JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
                     @Override
