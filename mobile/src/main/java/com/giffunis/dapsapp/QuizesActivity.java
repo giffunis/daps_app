@@ -178,18 +178,13 @@ public class QuizesActivity extends AppCompatActivity implements
         super.onBackPressed();
     }
 
-    private class DownloadFilesTask extends AsyncTask<String, Integer, InputStream> {
+    private class DownloadFilesTask extends AsyncTask<String, Integer, Boolean> {
         @Override
-        protected InputStream doInBackground(String... params) {
-            String result = "";
-            InputStream inputStream = new InputStream() {
-                @Override
-                public int read() throws IOException {
-                    return 0;
-                }
-            };
+        protected Boolean doInBackground(String... params) {
+
             HttpURLConnection connection = null;
             int statusCode = 0;
+            Boolean result = false;
 
             try {
                 URL url = new URL(params[0]);
@@ -205,25 +200,18 @@ public class QuizesActivity extends AppCompatActivity implements
                 if (statusCode ==  200) {
                     System.out.println("Server responded with code: " + statusCode);
 
-                    inputStream = new BufferedInputStream(connection.getInputStream());
-
+                    InputStream inputStream = new BufferedInputStream(connection.getInputStream());
                     JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
-
                     quiz_ = new Quiz(reader);
-
+                    result = true;
             /* Close Stream */
                     if(null!=inputStream){
                         inputStream.close();
                     }
-
-
-
                 }
                 else{
-                    System.out.println("error");
+                    System.out.println("Error, no se pudo conectar con el servidor");
                 }
-
-
 
             } catch (Exception e){
                 System.out.println(e);
@@ -232,15 +220,18 @@ public class QuizesActivity extends AppCompatActivity implements
                 connection.disconnect();
                 System.out.println("disconnected");
             }
-
-            return inputStream;
+            return result;
         }
 
-        protected void onPostExecute(InputStream inputStream) {
-            System.out.println("dsadsad");
-            currentUserAnswers_ = new CurrentUserAnswers();
-            currentQuestion_ = 0;
-            loadQuestion();
+        protected void onPostExecute(Boolean result) {
+            if(result){
+                System.out.println("Funciona");
+                currentUserAnswers_ = new CurrentUserAnswers();
+                currentQuestion_ = 0;
+                loadQuestion();
+            } else{
+                System.out.println("No Funciona");
+            }
         }
 
 
