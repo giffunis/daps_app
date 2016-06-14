@@ -237,11 +237,8 @@ public class QuizesActivity extends AppCompatActivity implements
 
     }
 
-    private void uploadQuiz() throws JSONException {
+    private void uploadQuiz(JSONObject jsonObject) throws JSONException {
         String url = "http://192.168.1.39:3000/patient/5759e87fb78c9ddd2917b35c" + "/quiz/solvedQuizes/add";
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("username","hola");
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url,jsonObject,
                 new Response.Listener<JSONObject>(){
@@ -268,6 +265,22 @@ public class QuizesActivity extends AppCompatActivity implements
         queue.add(jsonObjectRequest);
     }
 
+    private JSONObject createJsonQuiz() throws JSONException {
+        JSONObject solvedQuiz = new JSONObject();
+        solvedQuiz.put("quizId",quiz_.getId_());
+        solvedQuiz.put("nQuestions",currentUserAnswers_.getN_());
+        solvedQuiz.put("correctAnswers", currentUserAnswers_.getnCorrectAnswers());
+        solvedQuiz.put("failedAnswers", currentUserAnswers_.getnIncorrectAnswers());
+        return solvedQuiz;
+    }
+
+    private void uploadSolvedQuiz(){
+        try {
+            uploadQuiz(createJsonQuiz());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void startQuizSelected(int position) throws IOException {
@@ -338,6 +351,9 @@ public class QuizesActivity extends AppCompatActivity implements
             Fragment fragment = new QuizResultFragment();
             fragment.setArguments(bundle);
             replaceFragment(fragment);
+
+
+            uploadSolvedQuiz();
 
         } else {
             this.currentQuestion_++;

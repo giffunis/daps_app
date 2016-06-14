@@ -62,6 +62,10 @@ public class CurrentUserAnswers {
         return nIncorrectAnswers_;
     }
 
+    public int getN_() {
+        return n_;
+    }
+
     public void createAnswersJsonFile(){
         System.out.println("Aquí se debe crear el fichero con las respuestas?, faltaría agregar el usuario, ojito");
     }

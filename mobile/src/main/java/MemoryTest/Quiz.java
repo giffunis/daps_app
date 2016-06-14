@@ -183,6 +183,14 @@ public class Quiz {
         return new Answer(answerId,type,body);
     }
 
+    public String getId_() {
+        return id_;
+    }
+
+    public void setId_(String id_) {
+        this.id_ = id_;
+    }
+
     @Override
     public String toString() {
         String part1 = "nQuestions: " + nQuestions;
