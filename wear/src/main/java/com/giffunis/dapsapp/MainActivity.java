@@ -16,7 +16,7 @@ package com.giffunis.dapsapp;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "Daps";
     private TextView mTextViewStepCount;
     private TextView mTextViewStepDetect;
     private TextView mTextViewHeart;
