@@ -2,6 +2,7 @@
     package="com.giffunis.dapsapp">
 
     <uses-feature android:name="android.hardware.type.watch" />
+    <uses-permission android:name="android.permission.BODY_SENSORS"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
