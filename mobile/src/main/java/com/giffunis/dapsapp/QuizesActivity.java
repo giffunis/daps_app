@@ -69,6 +69,7 @@ public class QuizesActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new NukeSSLCerts().nuke();
         setContentView(R.layout.activity_quizes);
         initToolbar();
         quizesList();
