@@ -239,7 +239,8 @@ public class QuizesActivity extends AppCompatActivity implements
     }
 
     private void uploadQuiz(JSONObject jsonObject) throws JSONException {
-        String url = "http://192.168.1.39:3000/patient/5759e87fb78c9ddd2917b35c" + "/quiz/solvedQuizes/add";
+        /*String url = "http://192.168.1.39:3000/patient/5759e87fb78c9ddd2917b35c" + "/quiz/solvedQuizes/add";*/
+        String url = URL_BASE + ID_USER + "/quiz/solvedQuizes/add";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url,jsonObject,
                 new Response.Listener<JSONObject>(){
