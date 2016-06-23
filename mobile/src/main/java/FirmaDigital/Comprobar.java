@@ -34,12 +34,4 @@ public class Comprobar {
         return verifies;
     }
 
-    public static void main(String[] args) throws InvalidKeyException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeySpecException, SignatureException {
-        String clavePublicaServidor = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEBH8Z/WHOHm/ZbDDoFJGy2xobkc5vqssP/iIngDj2gcC751zvKkffEVCMCVvyNzcwfeQOOblwQrKTI5eM3ucuuQ==";
-        String mensaje = "Hola Mundo";
-        String MensajeFirmado = "MEQCIEW90F/BUqgf8DKAnkZVvepbBT8Wv/A8ACfjiU+nhR3iAiAJQ2O2N3ae/jyloLZ3E9y0qH90gsr1FPKcbF/gtDE92g==";
-
-        System.out.println(comprobarFirma(clavePublicaServidor,mensaje,MensajeFirmado));
-    }
-
 }
