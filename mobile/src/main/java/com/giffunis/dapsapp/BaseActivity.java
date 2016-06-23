@@ -12,6 +12,15 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SignatureException;
+import java.security.spec.InvalidKeySpecException;
+
+import FirmaDigital.Comprobar;
+
 public class BaseActivity extends AppCompatActivity {
     Toolbar toolbar;
     Drawer drawer;
@@ -22,6 +31,25 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         initToolbar();
         initNavDrawer();
+        String clavePublicaServidor = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEBH8Z/WHOHm/ZbDDoFJGy2xobkc5vqssP/iIngDj2gcC751zvKkffEVCMCVvyNzcwfeQOOblwQrKTI5eM3ucuuQ==";
+        String mensaje = "Hola Mundo";
+        String MensajeFirmado = "MEQCIEW90F/BUqgf8DKAnkZVvepbBT8Wv/A8ACfjiU+nhR3iAiAJQ2O2N3ae/jyloLZ3E9y0qH90gsr1FPKcbF/gtDE92g==";
+
+        try {
+            System.out.println(Comprobar.comprobarFirma(clavePublicaServidor,mensaje,MensajeFirmado));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (SignatureException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initNavDrawer(){
