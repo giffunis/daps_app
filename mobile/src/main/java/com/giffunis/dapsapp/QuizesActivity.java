@@ -25,11 +25,19 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SignatureException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import FirmaDigital.Comprobar;
 import MemoryTest.CurrentUserAnswers;
 import MemoryTest.ImageFragment;
 import MemoryTest.MultipleChoiseFragment;
@@ -47,6 +55,7 @@ public class QuizesActivity extends AppCompatActivity implements
         NumberFragment.OnNumberListener,
         ImageFragment.OnImageListener,
         MultipleChoiseFragment.OnMultipleChoiseSelectListener{
+    //--------------------------------------------------------------------------------------------
     private static final String URL_BASE = "https://192.168.1.39:4000/patient/";
     private static final String ID_USER = "5759e87fb78c9ddd2917b35c";
     private static final String UNSOLVED_QUIZES_URL = "/quiz/unsolvedQuizes/";
@@ -87,8 +96,26 @@ public class QuizesActivity extends AppCompatActivity implements
                 System.out.println("Se han descargado los tests");
                 try {
                     unsolvedQuizList_ = new SimpleQuizObject(response);
-                    loadQuizesListFragment();
+
+                    if (Comprobar.comprobarFirma2(unsolvedQuizList_.getMensaje_(),unsolvedQuizList_.getSignature_()) == false){
+                        Toast.makeText(getApplicationContext(),"La firma es falsa",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(),"La firma es verdadera",Toast.LENGTH_SHORT).show();
+                        loadQuizesListFragment();
+                    }
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (SignatureException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (NoSuchProviderException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeySpecException e) {
                     e.printStackTrace();
                 }
             }

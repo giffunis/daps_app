@@ -17,11 +17,13 @@ public class SimpleQuizObject {
     private ArrayList<String> quizId_;
     private int size_;
     private String signature_;
+    private String mensaje_;
 
     public SimpleQuizObject() throws JSONException {
         quizName_ = new ArrayList();
         quizId_ = new ArrayList();
         size_ = 0;
+        signature_ = "";
         signature_ = "";
     }
     public SimpleQuizObject(ArrayList<String> quizName, ArrayList<String> quizId, String signature) throws JSONException {
@@ -29,6 +31,7 @@ public class SimpleQuizObject {
         quizId_ = quizId;
         size_ = quizName.size();
         signature_ = signature;
+        mensaje_ = "";
     }
 
     public SimpleQuizObject(JSONArray datos) throws JSONException {
@@ -36,14 +39,17 @@ public class SimpleQuizObject {
         quizId_ = new ArrayList();
         size_ = 0;
         signature_ = "";
+        mensaje_ = "";
         jsonParse(datos);
     }
 
     private void jsonParse(JSONArray jsonarray) throws JSONException {
+
         for (int i = 0; i < jsonarray.length(); i++) {
             JSONObject jsonobject = jsonarray.getJSONObject(i);
             signature_ = jsonobject.getString("signature");
             JSONArray jsonArray = jsonobject.getJSONArray("respuesta");
+            mensaje_ = jsonArray.toString();
             for (int j = 0; j < jsonArray.length(); j++) {
                 quizName_.add(jsonobject.getString("quizName"));
                 quizId_.add(jsonobject.getString("_id"));
@@ -53,6 +59,22 @@ public class SimpleQuizObject {
     }
 
     /* Getters and Setters*/
+
+    public String getMensaje_() {
+        return mensaje_;
+    }
+
+    public void setMensaje_(String mensaje_) {
+        this.mensaje_ = mensaje_;
+    }
+
+    public String getSignature_() {
+        return signature_;
+    }
+
+    public void setSignature_(String signature_) {
+        this.signature_ = signature_;
+    }
 
     public ArrayList<String> getQuizName_() {
         return quizName_;
