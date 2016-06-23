@@ -16,33 +16,40 @@ public class SimpleQuizObject {
     private ArrayList<String> quizName_;
     private ArrayList<String> quizId_;
     private int size_;
+    private String signature_;
 
     public SimpleQuizObject() throws JSONException {
         quizName_ = new ArrayList();
         quizId_ = new ArrayList();
         size_ = 0;
+        signature_ = "";
     }
-    public SimpleQuizObject(ArrayList<String> quizName, ArrayList<String> quizId) throws JSONException {
+    public SimpleQuizObject(ArrayList<String> quizName, ArrayList<String> quizId, String signature) throws JSONException {
         quizName_ = quizName;
         quizId_ = quizId;
         size_ = quizName.size();
+        signature_ = signature;
     }
 
     public SimpleQuizObject(JSONArray datos) throws JSONException {
         quizName_ = new ArrayList();
         quizId_ = new ArrayList();
         size_ = 0;
+        signature_ = "";
         jsonParse(datos);
     }
 
     private void jsonParse(JSONArray jsonarray) throws JSONException {
         for (int i = 0; i < jsonarray.length(); i++) {
             JSONObject jsonobject = jsonarray.getJSONObject(i);
-            quizName_.add(jsonobject.getString("quizName"));
-            quizId_.add(jsonobject.getString("_id"));
+            signature_ = jsonobject.getString("signature");
+            JSONArray jsonArray = jsonobject.getJSONArray("respuesta");
+            for (int j = 0; j < jsonArray.length(); j++) {
+                quizName_.add(jsonobject.getString("quizName"));
+                quizId_.add(jsonobject.getString("_id"));
+                size_++;
+            }
         }
-
-        size_ = jsonarray.length();
     }
 
     /* Getters and Setters*/
