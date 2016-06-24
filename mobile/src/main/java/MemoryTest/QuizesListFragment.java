@@ -19,6 +19,8 @@ import java.util.ArrayList;
 public class QuizesListFragment extends Fragment {
     private static final String UNSOLVEDQUIZNAMES = "unsolvedQuizNames";
     private static final String UNSOLVEDQUIZIDS = "unsolvedQuizIds";
+    private static final String SIGNATURE = "signature";
+    private static final String MENSAJE = "mensaje";
     private ListView listView;
     private QuizArrayAdapter adapter;
     SimpleQuizObject quizesList_;
@@ -62,8 +64,10 @@ public class QuizesListFragment extends Fragment {
         super.onAttach(context);
         ArrayList<String> quizNames = getArguments().getStringArrayList(UNSOLVEDQUIZNAMES);
         ArrayList<String> quizIds = getArguments().getStringArrayList(UNSOLVEDQUIZIDS);
+        String signature = getArguments().getString(SIGNATURE);
+        String mensaje = getArguments().getString(MENSAJE);
         try {
-            quizesList_ = new SimpleQuizObject(quizNames,quizIds);
+            quizesList_ = new SimpleQuizObject(quizNames,quizIds,signature,mensaje);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -56,7 +56,7 @@ public class QuizesActivity extends AppCompatActivity implements
         ImageFragment.OnImageListener,
         MultipleChoiseFragment.OnMultipleChoiseSelectListener{
     //--------------------------------------------------------------------------------------------
-    private static final String URL_BASE = "https://192.168.1.39:4000/patient/";
+    private static final String URL_BASE = "https://192.168.1.67:4000/patient/";
     private static final String ID_USER = "5759e87fb78c9ddd2917b35c";
     private static final String UNSOLVED_QUIZES_URL = "/quiz/unsolvedQuizes/";
     private static final String BODY_QUESTION = "question";
@@ -74,6 +74,8 @@ public class QuizesActivity extends AppCompatActivity implements
     SimpleQuizObject unsolvedQuizList_;
     private static final String UNSOLVEDQUIZNAMES = "unsolvedQuizNames";
     private static final String UNSOLVEDQUIZIDS = "unsolvedQuizIds";
+    private static final String SIGNATURE = "signature";
+    private static final String MENSAJE = "mensaje";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +169,8 @@ public class QuizesActivity extends AppCompatActivity implements
         Bundle bundle = new Bundle();
         bundle.putStringArrayList(UNSOLVEDQUIZNAMES,unsolvedQuizList_.getQuizName_());
         bundle.putStringArrayList(UNSOLVEDQUIZIDS,unsolvedQuizList_.getQuizId_());
+        bundle.putString(SIGNATURE,unsolvedQuizList_.getSignature_());
+        bundle.putString(MENSAJE,unsolvedQuizList_.getMensaje_());
         QuizesListFragment fragment = new QuizesListFragment();
         fragment.setArguments(bundle);
         loadInitialFragment(fragment);

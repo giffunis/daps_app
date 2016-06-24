@@ -26,12 +26,12 @@ public class SimpleQuizObject {
         signature_ = "";
         signature_ = "";
     }
-    public SimpleQuizObject(ArrayList<String> quizName, ArrayList<String> quizId, String signature) throws JSONException {
+    public SimpleQuizObject(ArrayList<String> quizName, ArrayList<String> quizId, String signature, String mensaje) throws JSONException {
         quizName_ = quizName;
         quizId_ = quizId;
         size_ = quizName.size();
         signature_ = signature;
-        mensaje_ = "";
+        mensaje_ = mensaje;
     }
 
     public SimpleQuizObject(JSONArray datos) throws JSONException {
@@ -51,8 +51,9 @@ public class SimpleQuizObject {
             JSONArray jsonArray = jsonobject.getJSONArray("respuesta");
             mensaje_ = jsonArray.toString();
             for (int j = 0; j < jsonArray.length(); j++) {
-                quizName_.add(jsonobject.getString("quizName"));
-                quizId_.add(jsonobject.getString("_id"));
+                JSONObject jsonObject = jsonArray.getJSONObject(j);
+                quizName_.add(jsonObject.getString("quizName"));
+                quizId_.add(jsonObject.getString("_id"));
                 size_++;
             }
         }
