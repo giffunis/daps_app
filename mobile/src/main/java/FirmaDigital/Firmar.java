@@ -4,6 +4,8 @@ package FirmaDigital;
  * Created by drcaspa on 25/6/16.
  * email: giffunis@gmail.com
  */
+import android.util.Base64;
+
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -15,7 +17,6 @@ import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
 
 public class Firmar {
 
@@ -31,7 +32,7 @@ public class Firmar {
     }
 
     private static PrivateKey obtenerPrivateKey() throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException{
-        byte[] clear = Base64.getDecoder().decode(clavePrivada_.getBytes("UTF-8"));
+        byte[] clear = Base64.decode(clavePrivada_.getBytes("UTF-8"),Base64.DEFAULT);
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(clear);
         KeyFactory fact = KeyFactory.getInstance("EC");
         PrivateKey privateKey = fact.generatePrivate(keySpec);
@@ -39,7 +40,7 @@ public class Firmar {
     }
 
     private static PublicKey obtenerPublicKey() throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException {
-        byte[] encKey = Base64.getDecoder().decode(clavePublica_.getBytes("UTF-8"));
+        byte[] encKey = Base64.decode(clavePublica_.getBytes("UTF-8"),Base64.DEFAULT);
         X509EncodedKeySpec pubKeySpec = new X509EncodedKeySpec(encKey);
         KeyFactory keyFactory = KeyFactory.getInstance("EC");
         PublicKey pubKey = keyFactory.generatePublic(pubKeySpec);
@@ -56,13 +57,8 @@ public class Firmar {
         byte[] strByte = mensaje.getBytes("UTF-8");
         firma.update(strByte);
         byte[] realSig = firma.sign();
-
-        String sign = Base64.getEncoder().encodeToString(realSig);
+        String sign = Base64.encodeToString(realSig,Base64.DEFAULT);
         return sign;
-    }
-
-    public static void main(String[] args) throws InvalidKeyException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException, SignatureException {
-        System.out.println(firmar("Hola Mundo"));
     }
 
 }
