@@ -312,6 +312,7 @@ public class QuizesActivity extends AppCompatActivity implements
         for (int i = 0; i < currentUserAnswers_.getN_(); i++){
             questionAnswer = new JSONObject();
             //questionAnswer.put("bodyQuestion", currentUserAnswers_.getBodyQuestion(i));
+            //questionAnswer.put("bodyQuestion", "Holá");
             questionAnswer.put("answer", currentUserAnswers_.getUserAnswer(i));
             questionAnswer.put("answerType", currentUserAnswers_.getAnswerType(i));
             questionAnswer.put("isCorrect", currentUserAnswers_.getIsCorrect(i));
@@ -328,6 +329,7 @@ public class QuizesActivity extends AppCompatActivity implements
         Toast firmaProblems = Toast.makeText(getApplicationContext(),"Mensaje No Firmado",Toast.LENGTH_SHORT);
         try {
             mensaje = mensaje.replace("\\","");
+            //mensaje = mensaje.replace('á','a');
             signature = Firmar.firmar(mensaje);
             respuestaCompleta.put(SIGNATURE,signature);
             respuestaCompleta.put(MENSAJE,solvedQuiz);
