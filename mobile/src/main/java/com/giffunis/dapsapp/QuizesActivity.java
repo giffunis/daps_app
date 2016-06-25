@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import FirmaDigital.Comprobar;
+import FirmaDigital.Firmar;
 import MemoryTest.CurrentUserAnswers;
 import MemoryTest.ImageFragment;
 import MemoryTest.MultipleChoiseFragment;
@@ -319,7 +320,43 @@ public class QuizesActivity extends AppCompatActivity implements
 
         solvedQuiz.put("questions",questions);
 
-        return solvedQuiz;
+        //firma del mensaje
+        JSONObject respuestaCompleta = new JSONObject();
+        String mensaje = solvedQuiz.toString();
+        String signature = "";
+        Toast firmaOk = Toast.makeText(getApplicationContext(),"Mensaje Firmado",Toast.LENGTH_SHORT);
+        Toast firmaProblems = Toast.makeText(getApplicationContext(),"Mensaje No Firmado",Toast.LENGTH_SHORT);
+
+        try {
+            signature = Firmar.firmar(mensaje);
+            respuestaCompleta.put(SIGNATURE,signature);
+            respuestaCompleta.put(MENSAJE,solvedQuiz);
+            firmaOk.show();
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            firmaProblems.show();
+            return solvedQuiz;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            firmaProblems.show();
+            return solvedQuiz;
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+            firmaProblems.show();
+            return solvedQuiz;
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+            firmaProblems.show();
+            return solvedQuiz;
+        } catch (SignatureException e) {
+            e.printStackTrace();
+            firmaProblems.show();
+            return solvedQuiz;
+        }
+
+        return respuestaCompleta;
+
     }
 
     private void uploadSolvedQuiz(){
