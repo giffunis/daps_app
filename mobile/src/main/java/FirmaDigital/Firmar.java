@@ -28,6 +28,8 @@ public class Firmar {
         PrivateKey privateKey = obtenerPrivateKey();
         Signature firma = crearFirma(privateKey);
         String msgFirmado = mensajeFirmado(mensaje, firma);
+        System.out.println("El mensaje es: \n" + mensaje);
+        System.out.println("Mensaje firmado: \n" + msgFirmado);
         return msgFirmado;
     }
 
