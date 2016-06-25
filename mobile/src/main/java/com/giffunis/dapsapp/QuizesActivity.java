@@ -311,7 +311,7 @@ public class QuizesActivity extends AppCompatActivity implements
 
         for (int i = 0; i < currentUserAnswers_.getN_(); i++){
             questionAnswer = new JSONObject();
-            questionAnswer.put("bodyQuestion", currentUserAnswers_.getBodyQuestion(i));
+            //questionAnswer.put("bodyQuestion", currentUserAnswers_.getBodyQuestion(i));
             questionAnswer.put("answer", currentUserAnswers_.getUserAnswer(i));
             questionAnswer.put("answerType", currentUserAnswers_.getAnswerType(i));
             questionAnswer.put("isCorrect", currentUserAnswers_.getIsCorrect(i));
@@ -326,9 +326,8 @@ public class QuizesActivity extends AppCompatActivity implements
         String signature = "";
         Toast firmaOk = Toast.makeText(getApplicationContext(),"Mensaje Firmado",Toast.LENGTH_SHORT);
         Toast firmaProblems = Toast.makeText(getApplicationContext(),"Mensaje No Firmado",Toast.LENGTH_SHORT);
-
         try {
-
+            mensaje = mensaje.replace("\\","");
             signature = Firmar.firmar(mensaje);
             respuestaCompleta.put(SIGNATURE,signature);
             respuestaCompleta.put(MENSAJE,solvedQuiz);
