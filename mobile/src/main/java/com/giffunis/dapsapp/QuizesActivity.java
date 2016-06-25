@@ -328,6 +328,7 @@ public class QuizesActivity extends AppCompatActivity implements
         Toast firmaProblems = Toast.makeText(getApplicationContext(),"Mensaje No Firmado",Toast.LENGTH_SHORT);
 
         try {
+
             signature = Firmar.firmar(mensaje);
             respuestaCompleta.put(SIGNATURE,signature);
             respuestaCompleta.put(MENSAJE,solvedQuiz);
@@ -353,6 +354,22 @@ public class QuizesActivity extends AppCompatActivity implements
             e.printStackTrace();
             firmaProblems.show();
             return solvedQuiz;
+        }
+
+        try {
+            System.out.println(Comprobar.comprobarFirma("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEbANPZ/m6DDJKt3QFYMIzHOeGzoJ0avpVCdDv2JY3VOMoavbqxVk0aS/jOI5lUmt5k9sasYtFgQ9bqHYVTilmRQ==",mensaje,signature));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (SignatureException e) {
+            e.printStackTrace();
         }
 
         return respuestaCompleta;
