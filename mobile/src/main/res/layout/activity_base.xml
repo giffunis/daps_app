@@ -7,20 +7,10 @@
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_layout"/>
-
-    <Button
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="DESCARGAR JSON"
-        android:textSize="30dp"
-        android:id="@+id/btn_download"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtDisplay"
-        android:text="Nada que mostrar"/>
-
+        android:layout_height="match_parent"
+        android:src="@drawable/logo"/>
 
 </LinearLayout>
 
