@@ -22,12 +22,10 @@
         </activity>
         <activity android:name=".QuizesActivity" />
 
-        <meta-data
-            android:name="DATABASE"
-            android:value="quizes.db" />
-        <meta-data
-            android:name="VERSION"
-            android:value="1" />
+        <receiver
+            android:name="Servicios.HeartBeatAlarm"
+            android:process=":remote" >
+        </receiver>
 
         <service
             android:name="Servicios.HeartBeatIntentService"
