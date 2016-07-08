@@ -4,11 +4,15 @@ import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
-import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.giffunis.dapsapp.R;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class HeartBeatIntentService extends IntentService {
@@ -18,6 +22,7 @@ public class HeartBeatIntentService extends IntentService {
 
     // Notificaciones
     private static final int NOTIF_ALERTA_ID_1 = 1;
+    private static final int TIEMPO_ACTIVO_SEGUNDOS = 120;
 
 
     public HeartBeatIntentService() {
@@ -27,7 +32,7 @@ public class HeartBeatIntentService extends IntentService {
 
     public void notificacion(String titulo, String texto, int id) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                                                    .setSmallIcon(R.drawable.logo)
+                                                    .setSmallIcon(R.mipmap.ic_launcher)
                                                     .setContentTitle(titulo)
                                                     .setContentText(texto);
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -38,7 +43,19 @@ public class HeartBeatIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Log.i(LOG_TAG,"Servicio arrancado");
         notificacion("Daps App", "Servicio HearBeat arrancado", NOTIF_ALERTA_ID_1);
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                notificacion("Daps App", "Servicio HearBeat apagado", NOTIF_ALERTA_ID_1);
+                onDestroy();
+            }
+        }, TIEMPO_ACTIVO_SEGUNDOS * 1000);
+
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }
