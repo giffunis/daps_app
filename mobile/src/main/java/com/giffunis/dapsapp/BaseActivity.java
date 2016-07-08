@@ -15,7 +15,7 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import Servicios.HeartBeatAlarm;
+import servicios.HeartBeatAlarm;
 
 public class BaseActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -27,6 +27,7 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         initToolbar();
         initNavDrawer();
+        initServices();
     }
 
     public void initServices(){

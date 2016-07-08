@@ -1,4 +1,4 @@
-package Servicios;
+package servicios;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
