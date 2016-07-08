@@ -20,11 +20,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".QuizesActivity"></activity>
+        <activity android:name=".QuizesActivity" />
 
-        <meta-data android:name="DATABASE" android:value="quizes.db" />
-        <meta-data android:name="VERSION" android:value="1" />
+        <meta-data
+            android:name="DATABASE"
+            android:value="quizes.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
 
+        <service
+            android:name="Servicios.HeartBeatIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
