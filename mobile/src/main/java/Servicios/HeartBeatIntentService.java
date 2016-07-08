@@ -1,8 +1,13 @@
 package Servicios;
 
 import android.app.IntentService;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.app.NotificationCompat;
+
+import com.giffunis.dapsapp.R;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -21,8 +26,22 @@ public class HeartBeatIntentService extends IntentService {
     private static final String EXTRA_PARAM1 = "Servicios.extra.PARAM1";
     private static final String EXTRA_PARAM2 = "Servicios.extra.PARAM2";
 
+    // Notificaciones
+    private static final int NOTIF_ALERTA_ID_1 = 1;
+
+
     public HeartBeatIntentService() {
         super("HeartBeatIntentService");
+        notificacion("Daps App", "Servicio HearBeat arrancado", NOTIF_ALERTA_ID_1);
+    }
+
+    public void notificacion(String titulo, String texto, int id) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                                                    .setSmallIcon(R.drawable.logo)
+                                                    .setContentTitle(titulo)
+                                                    .setContentText(texto);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(id, mBuilder.build());
     }
 
     /**
