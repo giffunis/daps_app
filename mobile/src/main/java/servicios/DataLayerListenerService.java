@@ -1,6 +1,8 @@
 package servicios;
 
+import android.app.NotificationManager;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.giffunis.dapsapp.R;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.WearableListenerService;
@@ -33,6 +36,8 @@ public class DataLayerListenerService extends WearableListenerService {
     private static final String URL_BASE = "http://192.168.1.67:3000/patient/";
     private static final String ID_USER = "5759e87fb78c9ddd2917b35c";
     private static final String PULSO = "pulso";
+    private static final int NOTIF_ALERTA_ID_2 = 2;
+
 
     private static Handler handler;
     private static int currentValue=0;
@@ -77,6 +82,15 @@ public class DataLayerListenerService extends WearableListenerService {
         }
     }
 
+    public void notificacion(String titulo, String texto, int id) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(titulo)
+                .setContentText(texto);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotificationManager.notify(id, mBuilder.build());
+    }
+
     public void enviarDatosCorazon(int pulso) throws JSONException {
         String url = URL_BASE + ID_USER + "/heartbeat/new";
         JSONObject jsonObject = new JSONObject();
@@ -86,12 +100,12 @@ public class DataLayerListenerService extends WearableListenerService {
                 new Response.Listener<JSONObject>(){
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                        notificacion("Daps App", "Latido enviado", NOTIF_ALERTA_ID_2);
                     }
                 }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                notificacion("Daps App", error.toString(), NOTIF_ALERTA_ID_2);
             }
         }){
             @Override
