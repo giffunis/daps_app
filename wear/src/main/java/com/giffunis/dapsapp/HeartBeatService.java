@@ -17,6 +17,7 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +33,7 @@ public class HeartBeatService extends Service implements SensorEventListener {
     private IBinder binder = new HeartbeatServiceBinder();
     private OnChangeListener onChangeListener;
     private GoogleApiClient mGoogleApiClient;
+    private ArrayList<Integer> pila_;
 
     // interface to pass a heartbeat value to the implementing class
     public interface OnChangeListener {
@@ -59,6 +61,9 @@ public class HeartBeatService extends Service implements SensorEventListener {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        //inicializar a cero el contador
+        pila_ = new ArrayList<>();
         // register us as a sensor listener
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
@@ -84,14 +89,15 @@ public class HeartBeatService extends Service implements SensorEventListener {
             int newValue = Math.round(sensorEvent.values[0]);
             //Log.d(LOG_TAG,sensorEvent.sensor.getName() + " changed to: " + newValue);
             // only do something if the value differs from the value before and the value is not 0.
-            if(currentValue != newValue && newValue!=0) {
+            if(newValue!=0) {
                 // save the new value
                 currentValue = newValue;
                 // send the value to the listener
                 if(onChangeListener!=null) {
                     Log.d(LOG_TAG,"sending new value to listener: " + newValue);
                     onChangeListener.onValueChanged(newValue);
-                    sendMessageToHandheld(Integer.toString(newValue));
+                    pila_.add(newValue);
+                    //sendMessageToHandheld(Integer.toString(newValue));
                 }
             }
         }
