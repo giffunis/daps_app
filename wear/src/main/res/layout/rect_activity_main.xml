@@ -3,33 +3,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.giffunis.dapsapp.MainActivity"
     tools:deviceIds="wear_square">
-
-    <TextView
-        android:id="@+id/step_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Step Count" />
-
-    <TextView
-        android:id="@+id/step_detect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Step Detected"
-        android:layout_below="@+id/step_count"
-        android:layout_alignStart="@+id/step_count"
-        android:layout_marginTop="38dp" />
 
     <TextView
         android:id="@+id/heart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Heart"
+        android:layout_marginTop="31dp"
+        android:textSize="22dp"
+        android:textStyle="italic"
+        android:textColor="@color/black"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/step_count"
-        android:layout_marginTop="40dp" />
+        android:layout_centerHorizontal="true" />
+
+    <android.support.wearable.view.DelayedConfirmationView
+        android:id="@+id/delayed_confirmation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_heart"
+        app:circle_color="@color/blue"
+        app:circle_radius="@dimen/circle_radius"
+        app:circle_radius_pressed="@dimen/circle_radius_pressed"
+        app:circle_padding="@dimen/circle_padding"
+        app:circle_border_width="@dimen/circle_border_normal_width"
+        app:circle_border_color="@color/white"
+        android:layout_below="@+id/heart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp" />
 </LinearLayout>
