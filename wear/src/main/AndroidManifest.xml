@@ -24,4 +24,6 @@
         </activity>
     </application>
 
+    <service android:name=".HeartbeatService"/>
+
 </manifest>
