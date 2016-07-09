@@ -77,6 +77,11 @@ public class HeartBeatService extends Service implements SensorEventListener {
 
     @Override
     public void onDestroy() {
+
+        //calcular la media
+        int media = mediaCardiaca();
+        sendMessageToHandheld(Integer.toString(media));
+
         super.onDestroy();
         mSensorManager.unregisterListener(this);
         Log.d(LOG_TAG," sensor unregistered");
@@ -137,5 +142,17 @@ public class HeartBeatService extends Service implements SensorEventListener {
             }
         });
 
+    }
+
+    private int mediaCardiaca() {
+        int suma = 0;
+        double media = 0;
+        for (int i = 0; i < pila_.size(); i++){
+            suma = suma + pila_.get(i);
+        }
+
+        media = (suma * 1.0) / pila_.size();
+
+        return (int) Math.round(media);
     }
 }
