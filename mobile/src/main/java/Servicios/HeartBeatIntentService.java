@@ -19,7 +19,7 @@ public class HeartBeatIntentService extends IntentService {
 
     // Notificaciones
     private static final int NOTIF_ALERTA_ID_1 = 1;
-    private static final int TIEMPO_ACTIVO_SEGUNDOS = 120;
+    private static final int TIEMPO_ACTIVO_SEGUNDOS = 70;
 
 
     public HeartBeatIntentService() {
