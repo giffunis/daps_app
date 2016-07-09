@@ -1,86 +1,83 @@
 package com.giffunis.dapsapp;
 
         import android.app.Activity;
-        import android.hardware.Sensor;
-        import android.hardware.SensorEvent;
-        import android.hardware.SensorEventListener;
-        import android.hardware.SensorManager;
+        import android.app.Service;
+        import android.content.ComponentName;
+        import android.content.Intent;
+        import android.content.ServiceConnection;
         import android.os.Bundle;
+        import android.os.IBinder;
+        import android.support.wearable.view.DelayedConfirmationView;
         import android.support.wearable.view.WatchViewStub;
         import android.util.Log;
-        import android.view.WindowManager;
         import android.widget.TextView;
 
-        import java.text.SimpleDateFormat;
-        import java.util.Calendar;
 
-public class MainActivity extends Activity implements SensorEventListener {
+public class MainActivity extends Activity implements
+        HeartBeatService.OnChangeListener {
 
-    private static final String TAG = "Daps";
-    private TextView mTextViewStepCount;
-    private TextView mTextViewStepDetect;
-    private TextView mTextViewHeart;
+    private static final String LOG_TAG = "MyHeart";
+    private static final int NUM_SECONDS = 20;
+
+    private TextView mTextView;
+    private DelayedConfirmationView delayedConfirmationView_;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        // Keep the Wear screen always on (for testing only!)
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
+        // inflate layout depending on watch type (round or square)
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                mTextViewStepCount = (TextView) stub.findViewById(R.id.step_count);
-                mTextViewStepDetect = (TextView) stub.findViewById(R.id.step_detect);
-                mTextViewHeart = (TextView) stub.findViewById(R.id.heart);
-                getStepCount();
+                // as soon as layout is there...
+                mTextView = (TextView) stub.findViewById(R.id.heart);
+                delayedConfirmationView_ = (DelayedConfirmationView) stub.findViewById(R.id.delayed_confirmation);
+
+                // Asignando el tiempo elegido
+                delayedConfirmationView_.setTotalTimeMs(NUM_SECONDS * 1000);
+
+                onStartTime();
+
             }
         });
     }
 
-    private void getStepCount() {
-        SensorManager mSensorManager = ((SensorManager)getSystemService(SENSOR_SERVICE));
-        Sensor mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
-        Sensor mStepCountSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        Sensor mStepDetectSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-
-        mSensorManager.registerListener(this, mHeartRateSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        mSensorManager.registerListener(this, mStepCountSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        mSensorManager.registerListener(this, mStepDetectSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
-    private String currentTimeStr() {
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-        return df.format(c.getTime());
+    @Override
+    public void onValueChanged(int newValue) {
+        // will be called by the service whenever the heartbeat value changes.
+        mTextView.setText(Integer.toString(newValue));
     }
 
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        Log.d(TAG, "onAccuracyChanged - accuracy: " + accuracy);
+    private void conectarServicio() {
+        // bind to our service.
+        bindService(new Intent(MainActivity.this, HeartBeatService.class), new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName componentName, IBinder binder) {
+                Log.d(LOG_TAG, "connected to service.");
+                // set our change listener to get change events
+                ((HeartBeatService.HeartbeatServiceBinder)binder).setChangeListener(MainActivity.this);
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName componentName) {
+
+            }
+        }, Service.BIND_AUTO_CREATE);
     }
 
-    public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_HEART_RATE) {
-            String msg = "" + (int)event.values[0];
-            mTextViewHeart.setText(msg);
-            Log.d(TAG, msg);
-        }
-        else if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
-            String msg = "Count: " + (int)event.values[0];
-            mTextViewStepCount.setText(msg);
-            Log.d(TAG, msg);
-        }
-        else if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
-            String msg = "Detected at " + currentTimeStr();
-            mTextViewStepDetect.setText(msg);
-            Log.d(TAG, msg);
-        }
-        else
-            Log.d(TAG, "Unknown sensor type");
+    public void onStartTime () {
+        conectarServicio();
+        delayedConfirmationView_.start();
+
     }
 
 }
