@@ -1,20 +1,19 @@
 package com.giffunis.dapsapp;
 
-        import android.app.Activity;
-        import android.app.Service;
-        import android.content.ComponentName;
-        import android.content.Intent;
-        import android.content.ServiceConnection;
-        import android.os.Bundle;
-        import android.os.IBinder;
-        import android.support.wearable.view.DelayedConfirmationView;
-        import android.support.wearable.view.WatchViewStub;
-        import android.util.Log;
-        import android.widget.TextView;
-
+import android.app.Activity;
+import android.app.Service;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.support.wearable.view.DelayedConfirmationView;
+import android.support.wearable.view.WatchViewStub;
+import android.util.Log;
+import android.widget.TextView;
 
 public class MainActivity extends Activity implements
-        HeartBeatService.OnChangeListener {
+        HeartbeatService.OnChangeListener {
 
     private static final String LOG_TAG = "MyHeart";
     private static final int NUM_SECONDS = 20;
@@ -40,7 +39,22 @@ public class MainActivity extends Activity implements
                 // Asignando el tiempo elegido
                 delayedConfirmationView_.setTotalTimeMs(NUM_SECONDS * 1000);
 
-                onStartTime();
+                bindService(new Intent(MainActivity.this, HeartbeatService.class), new ServiceConnection() {
+                    @Override
+                    public void onServiceConnected(ComponentName componentName, IBinder binder) {
+                        Log.d(LOG_TAG, "connected to service.");
+                        // set our change listener to get change events
+                        ((HeartbeatService.HeartbeatServiceBinder)binder).setChangeListener(MainActivity.this);
+                    }
+
+                    @Override
+                    public void onServiceDisconnected(ComponentName componentName) {
+
+                    }
+                }, Service.BIND_AUTO_CREATE);
+
+
+                //onStartTime();
 
             }
         });
@@ -59,12 +73,12 @@ public class MainActivity extends Activity implements
 
     private void conectarServicio() {
         // bind to our service.
-        bindService(new Intent(MainActivity.this, HeartBeatService.class), new ServiceConnection() {
+        bindService(new Intent(MainActivity.this, HeartbeatService.class), new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder binder) {
                 Log.d(LOG_TAG, "connected to service.");
                 // set our change listener to get change events
-                ((HeartBeatService.HeartbeatServiceBinder)binder).setChangeListener(MainActivity.this);
+                ((HeartbeatService.HeartbeatServiceBinder)binder).setChangeListener(MainActivity.this);
             }
 
             @Override
@@ -75,7 +89,7 @@ public class MainActivity extends Activity implements
     }
 
     public void onStartTime () {
-        conectarServicio();
+       // conectarServicio();
         delayedConfirmationView_.start();
 
     }

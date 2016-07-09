@@ -25,7 +25,7 @@ import java.util.List;
  * email: giffunis@gmail.com
  */
 
-public class HeartBeatService extends Service implements SensorEventListener {
+public class HeartbeatService extends Service implements SensorEventListener {
 
     private SensorManager mSensorManager;
     private int currentValue=0;
@@ -102,7 +102,7 @@ public class HeartBeatService extends Service implements SensorEventListener {
                     Log.d(LOG_TAG,"sending new value to listener: " + newValue);
                     onChangeListener.onValueChanged(newValue);
                     pila_.add(newValue);
-                    //sendMessageToHandheld(Integer.toString(newValue));
+                    sendMessageToHandheld(Integer.toString(newValue));
                 }
             }
         }
