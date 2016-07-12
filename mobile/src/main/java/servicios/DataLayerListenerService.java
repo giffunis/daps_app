@@ -21,8 +21,15 @@ import com.google.android.gms.wearable.WearableListenerService;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
+
+import FirmaDigital.Firmar;
 
 /**
  * Created by drcaspa on 9/7/16.
@@ -33,10 +40,14 @@ public class DataLayerListenerService extends WearableListenerService {
 
     private static final String LOG_TAG = "WearableListener";
     public static final String HEARTBEAT = "HEARTBEAT";
-    private static final String URL_BASE = "http://192.168.1.67:3000/patient/";
+    private static final String URL_BASE = "http://192.168.1.67:3000/";
+    private static final String URL_HEARTBEAT = "heartbeat/new";
     private static final String ID_USER = "5759e87fb78c9ddd2917b35c";
     private static final String PULSO = "pulso";
+    private static final String ID = "id";
     private static final int NOTIF_ALERTA_ID_2 = 1;
+    private static final String SIGNATURE = "signature";
+    private static final String MENSAJE = "mensaje";
 
 
     private static Handler handler;
@@ -92,11 +103,33 @@ public class DataLayerListenerService extends WearableListenerService {
     }
 
     public void enviarDatosCorazon(int pulso) throws JSONException {
-        String url = URL_BASE + ID_USER + "/heartbeat/new";
+        String url = URL_BASE + URL_HEARTBEAT;
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(PULSO,pulso);
+        jsonObject.put(ID,ID_USER);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url,jsonObject,
+        JSONObject respuestaCompleta = new JSONObject();
+        String mensaje = jsonObject.toString();
+        String signature = "";
+
+        try {
+            signature = Firmar.firmar(mensaje);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (SignatureException e) {
+            e.printStackTrace();
+        }
+        respuestaCompleta.put(SIGNATURE,signature);
+        respuestaCompleta.put(MENSAJE,jsonObject);
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url,respuestaCompleta,
                 new Response.Listener<JSONObject>(){
                     @Override
                     public void onResponse(JSONObject response) {
