@@ -124,7 +124,6 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
     private static final String LOG_TAG = "MyHeart";
 
     private TextView mTextView;
-    private Button btn_;
 
 
 
@@ -140,14 +139,7 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
             public void onLayoutInflated(WatchViewStub stub) {
                 // as soon as layout is there...
                 mTextView = (TextView) stub.findViewById(R.id.heart);
-                btn_ = (Button) stub.findViewById(R.id.btn);
-
-                btn_.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        verLatido();
-                    }
-                });
+                verLatido();
             }
         });
     }
