@@ -109,6 +109,7 @@ package com.giffunis.dapsapp;
         import android.hardware.SensorManager;
         import android.os.Bundle;
         import android.os.IBinder;
+        import android.support.wearable.view.DelayedConfirmationView;
         import android.support.wearable.view.WatchViewStub;
         import android.util.Log;
         import android.view.View;
@@ -119,11 +120,14 @@ package com.giffunis.dapsapp;
         import java.text.SimpleDateFormat;
         import java.util.Calendar;
 
-public class MainActivity extends Activity implements HeartbeatService.OnChangeListener {
+public class MainActivity extends Activity implements HeartbeatService.OnChangeListener,
+        DelayedConfirmationView.DelayedConfirmationListener{
 
     private static final String LOG_TAG = "MyHeart";
+    private static final int NUM_SECONDS = 15;
 
     private TextView mTextView;
+    private DelayedConfirmationView delayedConfirmationView;
 
 
 
@@ -140,6 +144,10 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
                 // as soon as layout is there...
                 mTextView = (TextView) stub.findViewById(R.id.heart);
                 verLatido();
+
+                delayedConfirmationView = (DelayedConfirmationView) findViewById(R.id.delayed_confirmation);
+                delayedConfirmationView.setTotalTimeMs(NUM_SECONDS * 1000);
+                onStartTimer();
             }
         });
     }
@@ -176,5 +184,26 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
 
             }
         }, Service.BIND_AUTO_CREATE);
+    }
+
+    /**
+     * Starts the DelayedConfirmationView when user presses "Start Timer" button.
+     */
+    public void onStartTimer() {
+        delayedConfirmationView.start();
+        delayedConfirmationView.setListener(this);
+    }
+
+    @Override
+    public void onTimerSelected(View v) {
+        v.setPressed(true);
+        // Prevent onTimerFinished from being heard.
+        ((DelayedConfirmationView) v).setListener(null);
+        finish();
+    }
+
+    @Override
+    public void onTimerFinished(View v) {
+        finish();
     }
 }
