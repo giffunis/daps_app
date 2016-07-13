@@ -111,7 +111,9 @@ package com.giffunis.dapsapp;
         import android.os.IBinder;
         import android.support.wearable.view.WatchViewStub;
         import android.util.Log;
+        import android.view.View;
         import android.view.WindowManager;
+        import android.widget.Button;
         import android.widget.TextView;
 
         import java.text.SimpleDateFormat;
@@ -122,6 +124,7 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
     private static final String LOG_TAG = "MyHeart";
 
     private TextView mTextView;
+    private Button btn_;
 
 
 
@@ -137,20 +140,14 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
             public void onLayoutInflated(WatchViewStub stub) {
                 // as soon as layout is there...
                 mTextView = (TextView) stub.findViewById(R.id.heart);
-                // bind to our service.
-                bindService(new Intent(MainActivity.this, HeartbeatService.class), new ServiceConnection() {
-                    @Override
-                    public void onServiceConnected(ComponentName componentName, IBinder binder) {
-                        Log.d(LOG_TAG, "connected to service.");
-                        // set our change listener to get change events
-                        ((HeartbeatService.HeartbeatServiceBinder)binder).setChangeListener(MainActivity.this);
-                    }
+                btn_ = (Button) stub.findViewById(R.id.btn);
 
+                btn_.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onServiceDisconnected(ComponentName componentName) {
-
+                    public void onClick(View v) {
+                        verLatido();
                     }
-                }, Service.BIND_AUTO_CREATE);
+                });
             }
         });
     }
@@ -161,8 +158,31 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     public void onValueChanged(int newValue) {
         // will be called by the service whenever the heartbeat value changes.
+        Log.d(LOG_TAG, "Actualizando el texto");
         mTextView.setText(Integer.toString(newValue));
+    }
+
+    public void verLatido(){
+        // bind to our service.
+        bindService(new Intent(MainActivity.this, HeartbeatService.class), new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName componentName, IBinder binder) {
+                Log.d(LOG_TAG, "connected to service.");
+                // set our change listener to get change events
+                ((HeartbeatService.HeartbeatServiceBinder)binder).setChangeListener(MainActivity.this);
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName componentName) {
+
+            }
+        }, Service.BIND_AUTO_CREATE);
     }
 }

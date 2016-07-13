@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.giffunis.dapsapp.MainActivity"
-    tools:deviceIds="wear_round">
+    tools:deviceIds="wear_round"
+    android:background="#35750d">
 
     <TextView
         android:id="@+id/heart"
@@ -17,7 +18,8 @@
         android:textStyle="italic"
         android:textColor="@color/black"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        />
 
     <android.support.wearable.view.DelayedConfirmationView
         android:id="@+id/delayed_confirmation"
@@ -32,6 +34,14 @@
         app:circle_border_width="@dimen/circle_border_normal_width"
         app:circle_border_color="@color/white"
         android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PULSAR"
+        android:id="@+id/btn"
+        android:layout_below="@+id/delayed_confirmation"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

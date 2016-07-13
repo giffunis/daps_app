@@ -96,7 +96,7 @@ public class HeartbeatService extends Service implements SensorEventListener {
                     Log.d(LOG_TAG,"sending new value to listener: " + newValue);
                     onChangeListener.onValueChanged(newValue);
                     pila_.add(newValue);
-                    //sendMessageToHandheld(Integer.toString(newValue));
+                    sendMessageToHandheld(Integer.toString(newValue));
                 }
             }
         }

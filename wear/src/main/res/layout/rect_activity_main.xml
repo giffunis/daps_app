@@ -35,4 +35,14 @@
         android:layout_below="@+id/heart"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PULSAR"
+        android:onClick="verLatido"
+        android:id="@+id/btn"
+        android:layout_below="@+id/delayed_confirmation"
+        android:layout_centerHorizontal="true" />
+
 </LinearLayout>
