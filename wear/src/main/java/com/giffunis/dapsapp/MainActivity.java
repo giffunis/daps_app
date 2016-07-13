@@ -128,6 +128,7 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
 
     private TextView mTextView;
     private DelayedConfirmationView delayedConfirmationView;
+    private Button btn_;
 
 
 
@@ -143,11 +144,21 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
             public void onLayoutInflated(WatchViewStub stub) {
                 // as soon as layout is there...
                 mTextView = (TextView) stub.findViewById(R.id.heart);
-                verLatido();
+                //verLatido();
 
                 delayedConfirmationView = (DelayedConfirmationView) findViewById(R.id.delayed_confirmation);
-                delayedConfirmationView.setTotalTimeMs(NUM_SECONDS * 1000);
-                onStartTimer();
+                //delayedConfirmationView.setTotalTimeMs(NUM_SECONDS * 1000);
+                //onStartTimer();
+
+                btn_ = (Button) stub.findViewById(R.id.btn);
+                btn_.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getApplicationContext(), PulsoIntentService.class);
+                        getApplicationContext().startService(i);
+                    }
+                });
+
             }
         });
     }
@@ -186,9 +197,6 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
         }, Service.BIND_AUTO_CREATE);
     }
 
-    /**
-     * Starts the DelayedConfirmationView when user presses "Start Timer" button.
-     */
     public void onStartTimer() {
         delayedConfirmationView.start();
         delayedConfirmationView.setListener(this);

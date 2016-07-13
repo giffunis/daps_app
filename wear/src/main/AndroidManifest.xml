@@ -25,6 +25,11 @@
 
         <service android:name=".HeartbeatService"/>
 
+        <service
+            android:name=".PulsoIntentService"
+            android:exported="false">
+        </service>
+
     </application>
 
 </manifest>
