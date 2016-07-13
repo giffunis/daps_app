@@ -42,18 +42,18 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
             public void onLayoutInflated(WatchViewStub stub) {
                 // as soon as layout is there...
                 mTextView = (TextView) stub.findViewById(R.id.heart);
-                //verLatido();
+
 
                 delayedConfirmationView = (DelayedConfirmationView) findViewById(R.id.delayed_confirmation);
-                //delayedConfirmationView.setTotalTimeMs(NUM_SECONDS * 1000);
-                //onStartTimer();
+                delayedConfirmationView.setTotalTimeMs(NUM_SECONDS * 1000);
+
 
                 btn_ = (Button) stub.findViewById(R.id.btn);
                 btn_.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(getApplicationContext(), PulsoIntentService.class);
-                        getApplicationContext().startService(i);
+                        verLatido();
+                        onStartTimer();
                     }
                 });
 
