@@ -1,8 +1,11 @@
 package com.giffunis.dapsapp;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -30,6 +33,7 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setHeartBeatAlarm();
 
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         // inflate layout depending on watch type (round or square)
@@ -107,5 +111,15 @@ public class MainActivity extends Activity implements HeartbeatService.OnChangeL
     @Override
     public void onTimerFinished(View v) {
         finish();
+    }
+
+    public void setHeartBeatAlarm() {
+        Log.d(LOG_TAG, "set alarm");
+        Intent intent = new Intent(getApplicationContext(), PulsoIntentService.class);
+        PendingIntent pIntent = PendingIntent.getService(this, 0, intent, 0);
+        long firstMillis = System.currentTimeMillis();
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis, AlarmManager.INTERVAL_FIFTEEN_MINUTES, pIntent);
+
     }
 }
