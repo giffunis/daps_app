@@ -15,10 +15,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/checkbox_multiple_choise"
-        android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/category"
         android:textAppearance="@android:style/TextAppearance.Holo.Large"
         android:textStyle="bold"
-        android:textColor="@color/secondaryText"/>
+        android:textColor="@color/secondaryText"
+        android:layout_alignBottom="@+id/category"
+        android:layout_toEndOf="@+id/category" />
+
+    <View android:id="@+id/firstDivider"
+        android:layout_height="2dp"
+        android:layout_width="fill_parent"
+        android:background="@color/colorDivider"
+        android:layout_alignParentBottom="true"
+        />
+    <View android:id="@+id/secondDivider"
+        android:layout_height="2dp"
+        android:layout_width="fill_parent"
+        android:background="@color/colorDivider"
+        android:layout_alignParentTop="true"
+        />
 
 </RelativeLayout>

@@ -12,6 +12,7 @@
 
     <color name="colorFondo">#F5F5F5</color>
     <color name="colorBotonesNumber">#03a9f4</color>
+    <color name="colorDivider">#B6B6B6</color>
 
 
 </resources>

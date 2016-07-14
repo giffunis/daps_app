@@ -24,5 +24,18 @@
         android:layout_alignBottom="@+id/category"
         android:layout_toEndOf="@+id/category" />
 
+    <View android:id="@+id/firstDivider"
+        android:layout_height="2dp"
+        android:layout_width="fill_parent"
+        android:background="@color/colorDivider"
+        android:layout_alignParentBottom="true"
+        />
+    <View android:id="@+id/secondDivider"
+        android:layout_height="2dp"
+        android:layout_width="fill_parent"
+        android:background="@color/colorDivider"
+        android:layout_alignParentTop="true"
+        />
+
 
 </RelativeLayout>
