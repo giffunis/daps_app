@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/body_question"
-        android:textSize="@dimen/material_drawer_account_header_secondary"/>
+        android:textSize="@dimen/material_drawer_account_header_secondary"
+        android:textColor="@color/primaryText"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

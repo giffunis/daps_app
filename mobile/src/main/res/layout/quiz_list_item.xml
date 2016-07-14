@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:layout_width="match_parent" android:layout_height="@dimen/gruesoListItem"
+    android:padding="5dp"
+    >
 
     <ImageView
         android:layout_width="wrap_content"
@@ -16,10 +17,12 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/text1"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/category"
         android:textAppearance="@android:style/TextAppearance.Holo.Large"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/primaryText"
+        android:layout_marginStart="37dp"
+        android:layout_alignBottom="@+id/category"
+        android:layout_toEndOf="@+id/category" />
 
 
 </RelativeLayout>

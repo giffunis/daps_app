@@ -3,4 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="width_navdrawer">240dp</dimen>
+
+    <dimen name="gruesoListItem">70dp</dimen>
 </resources>

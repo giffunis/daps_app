@@ -18,6 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/category"
         android:textAppearance="@android:style/TextAppearance.Holo.Large"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/primaryText"/>
 
 </RelativeLayout>
