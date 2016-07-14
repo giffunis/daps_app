@@ -19,7 +19,7 @@
         android:id="@+id/text1"
         android:textAppearance="@android:style/TextAppearance.Holo.Large"
         android:textStyle="bold"
-        android:textColor="@color/primaryText"
+        android:textColor="@color/secondaryText"
         android:layout_marginStart="37dp"
         android:layout_alignBottom="@+id/category"
         android:layout_toEndOf="@+id/category" />

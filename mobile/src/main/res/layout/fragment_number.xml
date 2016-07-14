@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/body_question"
-        android:textSize="@dimen/material_drawer_account_header_secondary"
+        android:textSize="@dimen/tamanoTitulo"
         android:textColor="@color/primaryText"/>
 
     <RelativeLayout
@@ -22,7 +22,8 @@
             android:layout_height="75dp"
             android:layout_centerVertical="true"
             android:layout_alignTop="@+id/btn_plus"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:background="@color/colorBotonesNumber" />
 
         <ImageButton
             android:id="@+id/btn_plus"
@@ -30,7 +31,8 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorBotonesNumber" />
 
         <TextView
             android:id="@+id/answer"
@@ -41,7 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/btn_plus"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:textColor="@color/secondaryText"/>
 
         <at.markushi.ui.CircleButton
             android:id="@+id/btn_accept"

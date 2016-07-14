@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class ImageFragment extends Fragment {
     private static final String BODY_QUESTION = "question";
     private static final String ANSWERS_LIST = "answers";
+    private static final int COLUMNAS = 1;
     private TextView bodyText_;
     private RecyclerView recyclerView_;
     private String bodyQuestion_;
@@ -55,7 +56,7 @@ public class ImageFragment extends Fragment {
             }
         });
         recyclerView_.setAdapter(adapter);
-        recyclerView_.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        recyclerView_.setLayoutManager(new GridLayoutManager(view.getContext(), COLUMNAS));
 
         return view;
     }
