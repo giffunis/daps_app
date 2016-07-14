@@ -58,7 +58,7 @@ public class QuizesActivity extends AppCompatActivity implements
         MultipleChoiseFragment.OnMultipleChoiseSelectListener{
     //--------------------------------------------------------------------------------------------
     private static final String URL_BASE = "https://192.168.1.67:4000/patient/";
-    private static final String ID_USER = "5759e87fb78c9ddd2917b35c";
+    private static final String ID_USER = "578785f4c2e80e440d61710f";
     private static final String UNSOLVED_QUIZES_URL = "/quiz/unsolvedQuizes/";
     private static final String BODY_QUESTION = "question";
     private static final String ANSWERS_LIST = "answers";

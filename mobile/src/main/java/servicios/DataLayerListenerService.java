@@ -42,7 +42,7 @@ public class DataLayerListenerService extends WearableListenerService {
     public static final String HEARTBEAT = "HEARTBEAT";
     private static final String URL_BASE = "http://192.168.1.67:3000/";
     private static final String URL_HEARTBEAT = "heartbeat/new";
-    private static final String ID_USER = "5759e87fb78c9ddd2917b35c";
+    private static final String ID_USER = "578785f4c2e80e440d61710f";
     private static final String PULSO = "pulso";
     private static final String ID = "id";
     private static final int NOTIF_ALERTA_ID_2 = 1;
