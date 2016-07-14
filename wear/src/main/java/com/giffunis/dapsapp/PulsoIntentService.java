@@ -67,9 +67,9 @@ public class PulsoIntentService extends IntentService implements SensorEventList
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mSensorManager.unregisterListener(this);
         Log.d(LOG_TAG," Apagado el servicio");
+        super.onDestroy();
     }
 
     private int mediaCardiaca() {
