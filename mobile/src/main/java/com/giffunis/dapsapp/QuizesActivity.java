@@ -57,7 +57,7 @@ public class QuizesActivity extends AppCompatActivity implements
         ImageFragment.OnImageListener,
         MultipleChoiseFragment.OnMultipleChoiseSelectListener{
     //--------------------------------------------------------------------------------------------
-    private static final String URL_BASE = "https://192.168.1.67:4000/patient/";
+    private static final String URL_BASE = "https://10.6.128.228:8082/patient/";
     private static final String ID_USER = "578785f4c2e80e440d61710f";
     private static final String UNSOLVED_QUIZES_URL = "/quiz/unsolvedQuizes/";
     private static final String BODY_QUESTION = "question";
